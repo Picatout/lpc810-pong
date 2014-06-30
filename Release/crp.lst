@@ -1,0 +1,36 @@
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccU3N46V.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"crp.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	CRP_WORD
+  18              		.section	.crp,"a",%progbits
+  19              		.align	2
+  22              	CRP_WORD:
+  23 0000 FFFFFFFF 		.word	-1
+  24              		.text
+  25              	.Letext0:
+  26              		.file 1 "../src/crp.c"
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccU3N46V.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 crp.c
+C:\Users\Jacques\AppData\Local\Temp\ccU3N46V.s:22     .crp:00000000 CRP_WORD
+C:\Users\Jacques\AppData\Local\Temp\ccU3N46V.s:19     .crp:00000000 $d
+
+NO UNDEFINED SYMBOLS

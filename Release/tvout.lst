@@ -1,0 +1,455 @@
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"tvout.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.SCT_IRQHandler,"ax",%progbits
+  18              		.align	2
+  19              		.global	SCT_IRQHandler
+  20              		.code	16
+  21              		.thumb_func
+  23              	SCT_IRQHandler:
+  24              	.LFB33:
+  25              		.file 1 "../src/tvout.c"
+   1:../src/tvout.c **** /*
+   2:../src/tvout.c **** * Copyright 2014, Jacques Deschênes
+   3:../src/tvout.c **** * This file is part of LPC810-pong.
+   4:../src/tvout.c **** *
+   5:../src/tvout.c **** *     LPC810-pong is free software: you can redistribute it and/or modify
+   6:../src/tvout.c **** *     it under the terms of the GNU General Public License as published by
+   7:../src/tvout.c **** *     the Free Software Foundation, either version 3 of the License, or
+   8:../src/tvout.c **** *     (at your option) any later version.
+   9:../src/tvout.c **** *
+  10:../src/tvout.c **** *     VPC-32 is distributed in the hope that it will be useful,
+  11:../src/tvout.c **** *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  12:../src/tvout.c **** *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  13:../src/tvout.c **** *     GNU General Public License for more details.
+  14:../src/tvout.c **** *
+  15:../src/tvout.c **** *     You should have received a copy of the GNU General Public License
+  16:../src/tvout.c **** *     along with LPC810-pong.  If not, see <http://www.gnu.org/licenses/>.
+  17:../src/tvout.c **** */
+  18:../src/tvout.c **** 
+  19:../src/tvout.c **** /*
+  20:../src/tvout.c ****  * ntsc.c
+  21:../src/tvout.c ****  *
+  22:../src/tvout.c ****  *  Created on: 2014-06-18
+  23:../src/tvout.c ****  *      Author: Jacques
+  24:../src/tvout.c ****  */
+  25:../src/tvout.c **** 
+  26:../src/tvout.c **** #include <LPC8xx.h>
+  27:../src/tvout.c **** #include "tvout.h"
+  28:../src/tvout.c **** 
+  29:../src/tvout.c **** 
+  30:../src/tvout.c **** volatile unsigned char video_buffer[BUFFER_SIZE];
+  31:../src/tvout.c **** volatile uint16_t ln_cntr=0;
+  32:../src/tvout.c **** volatile unsigned frame_cntr=0;
+  33:../src/tvout.c **** 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 2
+
+
+  34:../src/tvout.c **** // céduleur de tâches et génération signal vidéo
+  35:../src/tvout.c **** void SCT_IRQHandler (void){
+  26              		.loc 1 35 0
+  27              		.cfi_startproc
+  36:../src/tvout.c **** 	uint16_t first,i;
+  37:../src/tvout.c **** 	if (LPC_SCT->EVFLAG & 2){ // event 1
+  28              		.loc 1 37 0
+  29 0000 374B     		ldr	r3, .L20
+  30 0002 F422     		mov	r2, #244
+  31 0004 9A58     		ldr	r2, [r3, r2]
+  32 0006 0221     		mov	r1, #2
+  35:../src/tvout.c **** void SCT_IRQHandler (void){
+  33              		.loc 1 35 0
+  34 0008 70B5     		push	{r4, r5, r6, lr}
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 4, -16
+  37              		.cfi_offset 5, -12
+  38              		.cfi_offset 6, -8
+  39              		.cfi_offset 14, -4
+  40              		.loc 1 37 0
+  41 000a 0A40     		and	r2, r1
+  42 000c 20D0     		beq	.L2
+  38:../src/tvout.c **** 		ln_cntr++;
+  43              		.loc 1 38 0
+  44 000e 354A     		ldr	r2, .L20+4
+  45 0010 1188     		ldrh	r1, [r2]
+  46 0012 0131     		add	r1, r1, #1
+  47 0014 89B2     		uxth	r1, r1
+  48 0016 1180     		strh	r1, [r2]
+  39:../src/tvout.c **** 		switch (ln_cntr){
+  49              		.loc 1 39 0
+  50 0018 1188     		ldrh	r1, [r2]
+  51 001a 89B2     		uxth	r1, r1
+  52 001c 1E29     		cmp	r1, #30
+  53 001e 52D0     		beq	.L4
+  54 0020 57D9     		bls	.L19
+  55 0022 FE29     		cmp	r1, #254
+  56 0024 49D0     		beq	.L7
+  57 0026 0620     		mov	r0, #6
+  58 0028 FF30     		add	r0, r0, #255
+  59 002a 8142     		cmp	r1, r0
+  60 002c 09D1     		bne	.L3
+  40:../src/tvout.c **** 		case 3:
+  41:../src/tvout.c **** 			PULSE_WIDTH_REG=H_PULSE;
+  42:../src/tvout.c **** 			break;
+  43:../src/tvout.c **** 		case FIRST_VISIBLE:
+  44:../src/tvout.c **** 			LPC_SCT->EVEN |= 4u; // active interruption sur événement 2
+  45:../src/tvout.c **** 			break;
+  46:../src/tvout.c **** 		case LAST_VISIBLE+1:
+  47:../src/tvout.c **** 			LPC_SCT->EVEN &= ~4u; // désactive interruption sur événement 2
+  48:../src/tvout.c **** 		    break;
+  49:../src/tvout.c **** 		case LINES_PER_FRAME-1:
+  50:../src/tvout.c **** 			ln_cntr=0;
+  61              		.loc 1 50 0
+  62 002e 0021     		mov	r1, #0
+  63 0030 1180     		strh	r1, [r2]
+  51:../src/tvout.c **** 			PULSE_WIDTH_REG=V_PULSE;
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 3
+
+
+  64              		.loc 1 51 0
+  65 0032 2D49     		ldr	r1, .L20+8
+  66 0034 8122     		mov	r2, #129
+  67 0036 9200     		lsl	r2, r2, #2
+  68 0038 9952     		strh	r1, [r3, r2]
+  52:../src/tvout.c **** 			frame_cntr++;
+  69              		.loc 1 52 0
+  70 003a 2C4B     		ldr	r3, .L20+12
+  71 003c 1A68     		ldr	r2, [r3]
+  72 003e 0132     		add	r2, r2, #1
+  73 0040 1A60     		str	r2, [r3]
+  74              	.L3:
+  53:../src/tvout.c **** 			break;
+  54:../src/tvout.c **** 		default:
+  55:../src/tvout.c **** 			break;
+  56:../src/tvout.c **** 		}//switch
+  57:../src/tvout.c **** 		LPC_SCT->EVFLAG |= 2u; // remet à zéro l'indicateur énévenement 1
+  75              		.loc 1 57 0
+  76 0042 274A     		ldr	r2, .L20
+  77 0044 F423     		mov	r3, #244
+  78 0046 D058     		ldr	r0, [r2, r3]
+  79 0048 0221     		mov	r1, #2
+  80 004a 0143     		orr	r1, r0
+  81 004c D150     		str	r1, [r2, r3]
+  82 004e 33E0     		b	.L1
+  83              	.L2:
+  58:../src/tvout.c **** 	}else {//événement 2
+  59:../src/tvout.c **** 		first=((ln_cntr-FIRST_VISIBLE)>>2)*ROW_SIZE;
+  84              		.loc 1 59 0
+  85 0050 244B     		ldr	r3, .L20+4
+  60:../src/tvout.c **** 		LPC_SPI0->CFG|=SPI_ENABLE;
+  86              		.loc 1 60 0
+  87 0052 2748     		ldr	r0, .L20+16
+  59:../src/tvout.c **** 		first=((ln_cntr-FIRST_VISIBLE)>>2)*ROW_SIZE;
+  88              		.loc 1 59 0
+  89 0054 1B88     		ldrh	r3, [r3]
+  90              		.loc 1 60 0
+  91 0056 0468     		ldr	r4, [r0]
+  59:../src/tvout.c **** 		first=((ln_cntr-FIRST_VISIBLE)>>2)*ROW_SIZE;
+  92              		.loc 1 59 0
+  93 0058 1E3B     		sub	r3, r3, #30
+  94 005a 9B10     		asr	r3, r3, #2
+  95              		.loc 1 60 0
+  96 005c 0121     		mov	r1, #1
+  97 005e 2143     		orr	r1, r4
+  59:../src/tvout.c **** 		first=((ln_cntr-FIRST_VISIBLE)>>2)*ROW_SIZE;
+  98              		.loc 1 59 0
+  99 0060 DB00     		lsl	r3, r3, #3
+ 100              		.loc 1 60 0
+ 101 0062 0160     		str	r1, [r0]
+  59:../src/tvout.c **** 		first=((ln_cntr-FIRST_VISIBLE)>>2)*ROW_SIZE;
+ 102              		.loc 1 59 0
+ 103 0064 9BB2     		uxth	r3, r3
+ 104              	.LVL0:
+  61:../src/tvout.c **** 		LPC_SPI0->TXDAT=0;
+ 105              		.loc 1 61 0
+ 106 0066 C261     		str	r2, [r0, #28]
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 4
+
+
+  62:../src/tvout.c **** 		while (!(LPC_SPI0->STAT&SPI_TXRDY));
+ 107              		.loc 1 62 0
+ 108 0068 0221     		mov	r1, #2
+ 109              	.L11:
+ 110              		.loc 1 62 0 is_stmt 0 discriminator 1
+ 111 006a 8268     		ldr	r2, [r0, #8]
+ 112 006c 1142     		tst	r1, r2
+ 113 006e FCD0     		beq	.L11
+ 114 0070 1E1C     		mov	r6, r3
+ 115 0072 0836     		add	r6, r6, #8
+ 116 0074 1F4D     		ldr	r5, .L20+20
+  63:../src/tvout.c **** 		for (i=ROW_SIZE;i;i--){
+  64:../src/tvout.c **** 			LPC_SPI0->TXDAT=video_buffer[first++];
+ 117              		.loc 1 64 0 is_stmt 1
+ 118 0076 1E4A     		ldr	r2, .L20+16
+ 119 0078 B6B2     		uxth	r6, r6
+  65:../src/tvout.c **** 			while (!(LPC_SPI0->STAT&SPI_TXRDY));
+ 120              		.loc 1 65 0
+ 121 007a 0220     		mov	r0, #2
+ 122              	.L15:
+ 123              	.LVL1:
+  64:../src/tvout.c **** 			LPC_SPI0->TXDAT=video_buffer[first++];
+ 124              		.loc 1 64 0
+ 125 007c 5C1C     		add	r4, r3, #1
+ 126 007e EB5C     		ldrb	r3, [r5, r3]
+ 127 0080 A4B2     		uxth	r4, r4
+ 128              	.LVL2:
+ 129 0082 DBB2     		uxtb	r3, r3
+ 130 0084 D361     		str	r3, [r2, #28]
+ 131              	.L13:
+ 132              		.loc 1 65 0 discriminator 1
+ 133 0086 9368     		ldr	r3, [r2, #8]
+ 134 0088 1949     		ldr	r1, .L20+16
+ 135 008a 1842     		tst	r0, r3
+ 136 008c FBD0     		beq	.L13
+ 137              	.LVL3:
+  63:../src/tvout.c **** 		for (i=ROW_SIZE;i;i--){
+ 138              		.loc 1 63 0
+ 139 008e B442     		cmp	r4, r6
+ 140 0090 01D0     		beq	.L14
+ 141              	.LVL4:
+  64:../src/tvout.c **** 			LPC_SPI0->TXDAT=video_buffer[first++];
+ 142              		.loc 1 64 0
+ 143 0092 231C     		mov	r3, r4
+ 144 0094 F2E7     		b	.L15
+ 145              	.LVL5:
+ 146              	.L14:
+  66:../src/tvout.c **** 		}
+  67:../src/tvout.c **** 		LPC_SPI0->TXDAT=0;
+ 147              		.loc 1 67 0
+ 148 0096 0023     		mov	r3, #0
+ 149 0098 CB61     		str	r3, [r1, #28]
+  68:../src/tvout.c **** 		while (!(LPC_SPI0->STAT&SPI_TXRDY));
+ 150              		.loc 1 68 0
+ 151 009a 0220     		mov	r0, #2
+ 152              	.L17:
+ 153              		.loc 1 68 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 5
+
+
+ 154 009c 8B68     		ldr	r3, [r1, #8]
+ 155 009e 144A     		ldr	r2, .L20+16
+ 156 00a0 1842     		tst	r0, r3
+ 157 00a2 FBD0     		beq	.L17
+  69:../src/tvout.c **** 		LPC_SPI0->CFG&=~SPI_ENABLE;
+ 158              		.loc 1 69 0 is_stmt 1
+ 159 00a4 1368     		ldr	r3, [r2]
+ 160 00a6 0121     		mov	r1, #1
+ 161 00a8 8B43     		bic	r3, r1
+ 162 00aa 1360     		str	r3, [r2]
+  70:../src/tvout.c **** 		LPC_SCT->EVFLAG |= 4u; // remet à zéro l'indicateur événement 2
+ 163              		.loc 1 70 0
+ 164 00ac 0C4A     		ldr	r2, .L20
+ 165 00ae F423     		mov	r3, #244
+ 166 00b0 D058     		ldr	r0, [r2, r3]
+ 167 00b2 0421     		mov	r1, #4
+ 168 00b4 0143     		orr	r1, r0
+ 169 00b6 D150     		str	r1, [r2, r3]
+ 170              	.LVL6:
+ 171              	.L1:
+  71:../src/tvout.c **** 	}//if
+  72:../src/tvout.c **** }//SCT_IRQHandler()
+ 172              		.loc 1 72 0
+ 173              		@ sp needed
+ 174 00b8 70BD     		pop	{r4, r5, r6, pc}
+ 175              	.L7:
+  47:../src/tvout.c **** 			LPC_SCT->EVEN &= ~4u; // désactive interruption sur événement 2
+ 176              		.loc 1 47 0
+ 177 00ba F022     		mov	r2, #240
+ 178 00bc 9958     		ldr	r1, [r3, r2]
+ 179 00be 0420     		mov	r0, #4
+ 180 00c0 8143     		bic	r1, r0
+ 181 00c2 9950     		str	r1, [r3, r2]
+  48:../src/tvout.c **** 		    break;
+ 182              		.loc 1 48 0
+ 183 00c4 BDE7     		b	.L3
+ 184              	.L4:
+  44:../src/tvout.c **** 			LPC_SCT->EVEN |= 4u; // active interruption sur événement 2
+ 185              		.loc 1 44 0
+ 186 00c6 F022     		mov	r2, #240
+ 187 00c8 9858     		ldr	r0, [r3, r2]
+ 188 00ca 0421     		mov	r1, #4
+ 189 00cc 0143     		orr	r1, r0
+ 190 00ce 9950     		str	r1, [r3, r2]
+  45:../src/tvout.c **** 			break;
+ 191              		.loc 1 45 0
+ 192 00d0 B7E7     		b	.L3
+ 193              	.L19:
+  39:../src/tvout.c **** 		switch (ln_cntr){
+ 194              		.loc 1 39 0
+ 195 00d2 0329     		cmp	r1, #3
+ 196 00d4 B5D1     		bne	.L3
+  41:../src/tvout.c **** 			PULSE_WIDTH_REG=H_PULSE;
+ 197              		.loc 1 41 0
+ 198 00d6 8122     		mov	r2, #129
+ 199 00d8 8B21     		mov	r1, #139
+ 200 00da 9200     		lsl	r2, r2, #2
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 6
+
+
+ 201 00dc 9952     		strh	r1, [r3, r2]
+  42:../src/tvout.c **** 			break;
+ 202              		.loc 1 42 0
+ 203 00de B0E7     		b	.L3
+ 204              	.L21:
+ 205              		.align	2
+ 206              	.L20:
+ 207 00e0 00400050 		.word	1342193664
+ 208 00e4 00000000 		.word	.LANCHOR0
+ 209 00e8 DA060000 		.word	1754
+ 210 00ec 00000000 		.word	.LANCHOR1
+ 211 00f0 00800540 		.word	1074102272
+ 212 00f4 00000000 		.word	video_buffer
+ 213              		.cfi_endproc
+ 214              	.LFE33:
+ 216              		.section	.text.frame_delay,"ax",%progbits
+ 217              		.align	2
+ 218              		.global	frame_delay
+ 219              		.code	16
+ 220              		.thumb_func
+ 222              	frame_delay:
+ 223              	.LFB34:
+  73:../src/tvout.c **** 
+  74:../src/tvout.c **** void frame_delay(int n){
+ 224              		.loc 1 74 0
+ 225              		.cfi_startproc
+ 226              	.LVL7:
+  75:../src/tvout.c **** 	int t0,l;
+  76:../src/tvout.c **** 	l=ln_cntr;
+ 227              		.loc 1 76 0
+ 228 0000 0649     		ldr	r1, .L25
+  77:../src/tvout.c **** 	t0=frame_cntr+n;
+ 229              		.loc 1 77 0
+ 230 0002 074A     		ldr	r2, .L25+4
+  74:../src/tvout.c **** void frame_delay(int n){
+ 231              		.loc 1 74 0
+ 232 0004 10B5     		push	{r4, lr}
+ 233              		.cfi_def_cfa_offset 8
+ 234              		.cfi_offset 4, -8
+ 235              		.cfi_offset 14, -4
+  76:../src/tvout.c **** 	l=ln_cntr;
+ 236              		.loc 1 76 0
+ 237 0006 0C88     		ldrh	r4, [r1]
+ 238              		.loc 1 77 0
+ 239 0008 1368     		ldr	r3, [r2]
+  76:../src/tvout.c **** 	l=ln_cntr;
+ 240              		.loc 1 76 0
+ 241 000a A4B2     		uxth	r4, r4
+ 242              	.LVL8:
+ 243              		.loc 1 77 0
+ 244 000c C018     		add	r0, r0, r3
+ 245              	.LVL9:
+ 246              	.L23:
+  78:../src/tvout.c **** 	while ((frame_cntr<t0)||(l!=ln_cntr));
+ 247              		.loc 1 78 0 discriminator 1
+ 248 000e 1368     		ldr	r3, [r2]
+ 249 0010 9842     		cmp	r0, r3
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 7
+
+
+ 250 0012 FCD8     		bhi	.L23
+ 251              		.loc 1 78 0 is_stmt 0 discriminator 2
+ 252 0014 0B88     		ldrh	r3, [r1]
+ 253 0016 9C42     		cmp	r4, r3
+ 254 0018 F9D1     		bne	.L23
+  79:../src/tvout.c **** }//f()
+ 255              		.loc 1 79 0 is_stmt 1
+ 256              		@ sp needed
+ 257              	.LVL10:
+ 258 001a 10BD     		pop	{r4, pc}
+ 259              	.L26:
+ 260              		.align	2
+ 261              	.L25:
+ 262 001c 00000000 		.word	.LANCHOR0
+ 263 0020 00000000 		.word	.LANCHOR1
+ 264              		.cfi_endproc
+ 265              	.LFE34:
+ 267              		.section	.text.frame_sync,"ax",%progbits
+ 268              		.align	2
+ 269              		.global	frame_sync
+ 270              		.code	16
+ 271              		.thumb_func
+ 273              	frame_sync:
+ 274              	.LFB35:
+  80:../src/tvout.c **** 
+  81:../src/tvout.c **** void frame_sync(){// attend le prochain frame
+ 275              		.loc 1 81 0
+ 276              		.cfi_startproc
+  82:../src/tvout.c **** 	int i;
+  83:../src/tvout.c **** 	i=frame_cntr;
+ 277              		.loc 1 83 0
+ 278 0000 024A     		ldr	r2, .L30
+ 279 0002 1168     		ldr	r1, [r2]
+ 280              	.LVL11:
+ 281              	.L29:
+  84:../src/tvout.c **** 	while (frame_cntr==i);
+ 282              		.loc 1 84 0 discriminator 1
+ 283 0004 1368     		ldr	r3, [r2]
+ 284 0006 9942     		cmp	r1, r3
+ 285 0008 FCD0     		beq	.L29
+  85:../src/tvout.c **** }//f()
+ 286              		.loc 1 85 0
+ 287              		@ sp needed
+ 288 000a 7047     		bx	lr
+ 289              	.L31:
+ 290              		.align	2
+ 291              	.L30:
+ 292 000c 00000000 		.word	.LANCHOR1
+ 293              		.cfi_endproc
+ 294              	.LFE35:
+ 296              		.global	frame_cntr
+ 297              		.global	ln_cntr
+ 298              		.comm	video_buffer,448,4
+ 299              		.section	.bss.frame_cntr,"aw",%nobits
+ 300              		.align	2
+ 301              		.set	.LANCHOR1,. + 0
+ 304              	frame_cntr:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 8
+
+
+ 305 0000 00000000 		.space	4
+ 306              		.section	.bss.ln_cntr,"aw",%nobits
+ 307              		.align	1
+ 308              		.set	.LANCHOR0,. + 0
+ 311              	ln_cntr:
+ 312 0000 0000     		.space	2
+ 313              		.text
+ 314              	.Letext0:
+ 315              		.file 2 "c:\\nxp\\lpcxpresso_7.0.2_102\\lpcxpresso\\tools\\redlib\\include\\stdint.h"
+ 316              		.file 3 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/LP
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 tvout.c
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:18     .text.SCT_IRQHandler:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:23     .text.SCT_IRQHandler:00000000 SCT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:207    .text.SCT_IRQHandler:000000e0 $d
+                            *COM*:000001c0 video_buffer
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:217    .text.frame_delay:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:222    .text.frame_delay:00000000 frame_delay
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:262    .text.frame_delay:0000001c $d
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:268    .text.frame_sync:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:273    .text.frame_sync:00000000 frame_sync
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:292    .text.frame_sync:0000000c $d
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:304    .bss.frame_cntr:00000000 frame_cntr
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:311    .bss.ln_cntr:00000000 ln_cntr
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:300    .bss.frame_cntr:00000000 $d
+C:\Users\Jacques\AppData\Local\Temp\cceV9Dxw.s:307    .bss.ln_cntr:00000000 $d
+                     .debug_frame:00000010 $d
+
+NO UNDEFINED SYMBOLS

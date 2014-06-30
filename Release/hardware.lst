@@ -1,0 +1,2366 @@
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"hardware.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.assign_pins,"ax",%progbits
+  18              		.align	2
+  19              		.global	assign_pins
+  20              		.code	16
+  21              		.thumb_func
+  23              	assign_pins:
+  24              	.LFB33:
+  25              		.file 1 "../src/hardware.c"
+   1:../src/hardware.c ****  /*
+   2:../src/hardware.c **** * Copyright 2014, Jacques Deschênes
+   3:../src/hardware.c **** * This file is part of LPC810-pong.
+   4:../src/hardware.c **** *
+   5:../src/hardware.c **** *     LPC810-pong is free software: you can redistribute it and/or modify
+   6:../src/hardware.c **** *     it under the terms of the GNU General Public License as published by
+   7:../src/hardware.c **** *     the Free Software Foundation, either version 3 of the License, or
+   8:../src/hardware.c **** *     (at your option) any later version.
+   9:../src/hardware.c **** *
+  10:../src/hardware.c **** *     VPC-32 is distributed in the hope that it will be useful,
+  11:../src/hardware.c **** *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  12:../src/hardware.c **** *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  13:../src/hardware.c **** *     GNU General Public License for more details.
+  14:../src/hardware.c **** *
+  15:../src/hardware.c **** *     You should have received a copy of the GNU General Public License
+  16:../src/hardware.c **** *     along with LPC810-pong.  If not, see <http://www.gnu.org/licenses/>.
+  17:../src/hardware.c **** */
+  18:../src/hardware.c **** 
+  19:../src/hardware.c **** 
+  20:../src/hardware.c **** /*
+  21:../src/hardware.c ****  * hardware.c
+  22:../src/hardware.c ****  *
+  23:../src/hardware.c ****  *  Created on: 2014-06-18
+  24:../src/hardware.c ****  *      Author: Jacques
+  25:../src/hardware.c ****  */
+  26:../src/hardware.c **** 
+  27:../src/hardware.c **** 
+  28:../src/hardware.c **** #include "hardware.h"
+  29:../src/hardware.c **** #include "tvout.h"
+  30:../src/hardware.c **** 
+  31:../src/hardware.c **** inline void assign_pins(){ // selectionne les périphériques sur les broches
+  26              		.loc 1 31 0
+  27              		.cfi_startproc
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 2
+
+
+  32:../src/hardware.c **** 	// on désactive tous les périphériques et fonctions inutilisés pour avoir accès aux GPIO
+  33:../src/hardware.c **** 	 m_disable_pin(DIS_SWCLK|DIS_SWDIO|DIS_CLKIN);
+  28              		.loc 1 33 0
+  29 0000 0D4B     		ldr	r3, .L2
+  30 0002 E022     		mov	r2, #224
+  31 0004 5200     		lsl	r2, r2, #1
+  32 0006 9858     		ldr	r0, [r3, r2]
+  33 0008 8C21     		mov	r1, #140
+  34 000a 0143     		orr	r1, r0
+  35 000c 9950     		str	r1, [r3, r2]
+  34:../src/hardware.c **** 	 LPC_SWM->PINENABLE0 &= ~(DIS_ACMP_I1|DIS_ACMP_I2); // activation des entrées comparateur analogi
+  36              		.loc 1 34 0
+  37 000e 9958     		ldr	r1, [r3, r2]
+  38 0010 0320     		mov	r0, #3
+  39 0012 8143     		bic	r1, r0
+  40 0014 9950     		str	r1, [r3, r2]
+  35:../src/hardware.c **** 	// configuration switch matrix
+  36:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL |= CLK_SWM; // activation signal clock sur SWM
+  41              		.loc 1 36 0
+  42 0016 0949     		ldr	r1, .L2+4
+  43 0018 8022     		mov	r2, #128
+  44 001a 8858     		ldr	r0, [r1, r2]
+  37:../src/hardware.c **** 	LPC_SWM->PINASSIGN6 = 0x00ffffff|(SYNC_OUT<<24); // SYNC_OUT sur PIO0_4  (CTOUT_0)
+  38:../src/hardware.c **** 	LPC_SWM->PINASSIGN4 = 0xffffff00|VIDEO_OUT; // VIDEO_OUT sur PIO0_3  (SPI0 MOSI)
+  39:../src/hardware.c **** 	LPC_SWM->PINASSIGN7 = 0xffffff00|AUDIO_OUT; // AUDIO_OUT sur PIO0_2  (CTOUT_1)
+  40:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL &= ~CLK_SWM; 	// désactivation signal clock sur SWM
+  41:../src/hardware.c **** }//f()
+  45              		.loc 1 41 0
+  46              		@ sp needed
+  36:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL |= CLK_SWM; // activation signal clock sur SWM
+  47              		.loc 1 36 0
+  48 001c 1043     		orr	r0, r2
+  49 001e 8850     		str	r0, [r1, r2]
+  37:../src/hardware.c **** 	LPC_SWM->PINASSIGN6 = 0x00ffffff|(SYNC_OUT<<24); // SYNC_OUT sur PIO0_4  (CTOUT_0)
+  50              		.loc 1 37 0
+  51 0020 0748     		ldr	r0, .L2+8
+  52 0022 9861     		str	r0, [r3, #24]
+  38:../src/hardware.c **** 	LPC_SWM->PINASSIGN4 = 0xffffff00|VIDEO_OUT; // VIDEO_OUT sur PIO0_3  (SPI0 MOSI)
+  53              		.loc 1 38 0
+  54 0024 FD20     		mov	r0, #253
+  55 0026 4042     		neg	r0, r0
+  56 0028 1861     		str	r0, [r3, #16]
+  39:../src/hardware.c **** 	LPC_SWM->PINASSIGN7 = 0xffffff00|AUDIO_OUT; // AUDIO_OUT sur PIO0_2  (CTOUT_1)
+  57              		.loc 1 39 0
+  58 002a FE20     		mov	r0, #254
+  59 002c 4042     		neg	r0, r0
+  60 002e D861     		str	r0, [r3, #28]
+  40:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL &= ~CLK_SWM; 	// désactivation signal clock sur SWM
+  61              		.loc 1 40 0
+  62 0030 8B58     		ldr	r3, [r1, r2]
+  63 0032 9343     		bic	r3, r2
+  64 0034 8B50     		str	r3, [r1, r2]
+  65              		.loc 1 41 0
+  66 0036 7047     		bx	lr
+  67              	.L3:
+  68              		.align	2
+  69              	.L2:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 3
+
+
+  70 0038 00C00040 		.word	1073790976
+  71 003c 00800440 		.word	1074036736
+  72 0040 FFFFFF04 		.word	83886079
+  73              		.cfi_endproc
+  74              	.LFE33:
+  76              		.section	.text.SPI0_init,"ax",%progbits
+  77              		.align	2
+  78              		.global	SPI0_init
+  79              		.code	16
+  80              		.thumb_func
+  82              	SPI0_init:
+  83              	.LFB34:
+  42:../src/hardware.c **** 
+  43:../src/hardware.c **** void SPI0_init(){
+  84              		.loc 1 43 0
+  85              		.cfi_startproc
+  44:../src/hardware.c **** 	LPC_SPI0->DIV=PIXCLK_DIV; // pixel clock
+  86              		.loc 1 44 0
+  87 0000 044B     		ldr	r3, .L5
+  88 0002 1222     		mov	r2, #18
+  89 0004 5A62     		str	r2, [r3, #36]
+  45:../src/hardware.c **** 	LPC_SPI0->CFG |= SPI_MASTER;
+  90              		.loc 1 45 0
+  91 0006 1968     		ldr	r1, [r3]
+  92 0008 0422     		mov	r2, #4
+  93 000a 0A43     		orr	r2, r1
+  94 000c 1A60     		str	r2, [r3]
+  46:../src/hardware.c **** 	LPC_SPI0->TXCTRL = ((7u<<SPI_DATLEN)|(1u<<SPI_IGNRX)|(1u<<SPI_TXSSEL_N));
+  95              		.loc 1 46 0
+  96 000e 024A     		ldr	r2, .L5+4
+  47:../src/hardware.c **** }//f()
+  97              		.loc 1 47 0
+  98              		@ sp needed
+  46:../src/hardware.c **** 	LPC_SPI0->TXCTRL = ((7u<<SPI_DATLEN)|(1u<<SPI_IGNRX)|(1u<<SPI_TXSSEL_N));
+  99              		.loc 1 46 0
+ 100 0010 1A62     		str	r2, [r3, #32]
+ 101              		.loc 1 47 0
+ 102 0012 7047     		bx	lr
+ 103              	.L6:
+ 104              		.align	2
+ 105              	.L5:
+ 106 0014 00800540 		.word	1074102272
+ 107 0018 00004107 		.word	121700352
+ 108              		.cfi_endproc
+ 109              	.LFE34:
+ 111              		.section	.text.PWM_init,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	PWM_init
+ 114              		.code	16
+ 115              		.thumb_func
+ 117              	PWM_init:
+ 118              	.LFB35:
+  48:../src/hardware.c **** 
+  49:../src/hardware.c **** void PWM_init(){
+ 119              		.loc 1 49 0
+ 120              		.cfi_startproc
+  50:../src/hardware.c **** 	LPC_SCT->CONFIG=3u<<17; //2 compteurs 16 bits, clocké par BUS_CLOCK et autolimit
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 4
+
+
+ 121              		.loc 1 50 0
+ 122 0000 374B     		ldr	r3, .L8
+ 123 0002 C022     		mov	r2, #192
+ 124 0004 D202     		lsl	r2, r2, #11
+  49:../src/hardware.c **** void PWM_init(){
+ 125              		.loc 1 49 0
+ 126 0006 70B5     		push	{r4, r5, r6, lr}
+ 127              		.cfi_def_cfa_offset 16
+ 128              		.cfi_offset 4, -16
+ 129              		.cfi_offset 5, -12
+ 130              		.cfi_offset 6, -8
+ 131              		.cfi_offset 14, -4
+  51:../src/hardware.c **** 	// initialisation SCT pour synchronisation vidéo , utilise CTR_L
+  52:../src/hardware.c **** 	LPC_SCT->STATE_L=0; // état 0, les états ne sont pas utilisés
+ 132              		.loc 1 52 0
+ 133 0008 0021     		mov	r1, #0
+  50:../src/hardware.c **** 	LPC_SCT->CONFIG=3u<<17; //2 compteurs 16 bits, clocké par BUS_CLOCK et autolimit
+ 134              		.loc 1 50 0
+ 135 000a 1A60     		str	r2, [r3]
+ 136              		.loc 1 52 0
+ 137 000c 4422     		mov	r2, #68
+ 138 000e 9952     		strh	r1, [r3, r2]
+  53:../src/hardware.c **** 	LPC_SCT->REGMODE_L=0; // mode match.
+ 139              		.loc 1 53 0
+ 140 0010 4C22     		mov	r2, #76
+ 141 0012 9952     		strh	r1, [r3, r2]
+  54:../src/hardware.c **** 	LPC_SCT->MATCH[0].L=LINE_PERIOD; // période ligne vidéo
+ 142              		.loc 1 54 0
+ 143 0014 8020     		mov	r0, #128
+ 144 0016 334A     		ldr	r2, .L8+4
+ 145 0018 4000     		lsl	r0, r0, #1
+ 146 001a 1A52     		strh	r2, [r3, r0]
+  55:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].L=LINE_PERIOD; // valeur de rechargement de registre MATCH[0].L
+ 147              		.loc 1 55 0
+ 148 001c 8020     		mov	r0, #128
+ 149 001e 8000     		lsl	r0, r0, #2
+  56:../src/hardware.c **** 	LPC_SCT->MATCH[1].L=H_PULSE; // largeur impulsion de synchronisation horizontale
+ 150              		.loc 1 56 0
+ 151 0020 8224     		mov	r4, #130
+  55:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].L=LINE_PERIOD; // valeur de rechargement de registre MATCH[0].L
+ 152              		.loc 1 55 0
+ 153 0022 1A52     		strh	r2, [r3, r0]
+ 154              		.loc 1 56 0
+ 155 0024 6400     		lsl	r4, r4, #1
+ 156 0026 8B22     		mov	r2, #139
+ 157 0028 1A53     		strh	r2, [r3, r4]
+  57:../src/hardware.c **** 	LPC_SCT->MATCHREL[1].L=H_PULSE; // valeur de rechargement
+ 158              		.loc 1 57 0
+ 159 002a 8124     		mov	r4, #129
+ 160 002c A400     		lsl	r4, r4, #2
+ 161 002e 1A53     		strh	r2, [r3, r4]
+  58:../src/hardware.c **** 	LPC_SCT->MATCH[2].L=VIDEO_DELAY;
+ 162              		.loc 1 58 0
+ 163 0030 8424     		mov	r4, #132
+ 164 0032 B222     		mov	r2, #178
+ 165 0034 6400     		lsl	r4, r4, #1
+ 166 0036 1A53     		strh	r2, [r3, r4]
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 5
+
+
+  59:../src/hardware.c **** 	LPC_SCT->MATCHREL[2].L=VIDEO_DELAY;
+ 167              		.loc 1 59 0
+ 168 0038 8224     		mov	r4, #130
+ 169 003a A400     		lsl	r4, r4, #2
+ 170 003c 1A53     		strh	r2, [r3, r4]
+  60:../src/hardware.c **** 	// événement zéro met fin à l'impulsion de synchronisation horizontale
+  61:../src/hardware.c **** 	LPC_SCT->EVENT[0].CTRL=1u|(1u<<5)|(1u<<12); //contrôle CTOUT_0, condition CTR_L==MATCH[1].L
+ 171              		.loc 1 61 0
+ 172 003e 2A4C     		ldr	r4, .L8+8
+ 173 0040 C122     		mov	r2, #193
+ 174 0042 9200     		lsl	r2, r2, #2
+ 175 0044 9C50     		str	r4, [r3, r2]
+  62:../src/hardware.c **** 	LPC_SCT->EVENT[0].STATE=1; // événement actif lorsque STATE_L==0
+ 176              		.loc 1 62 0
+ 177 0046 C024     		mov	r4, #192
+ 178 0048 0122     		mov	r2, #1
+ 179 004a A400     		lsl	r4, r4, #2
+ 180 004c 1A51     		str	r2, [r3, r4]
+  63:../src/hardware.c **** 	LPC_SCT->OUT[0].SET=(1u<<0); // contrôlé par événement 0
+ 181              		.loc 1 63 0
+ 182 004e A024     		mov	r4, #160
+ 183 0050 E400     		lsl	r4, r4, #3
+ 184 0052 1A51     		str	r2, [r3, r4]
+  64:../src/hardware.c **** 	// événement 1 débute l'impulsion de synchronisation horizontale
+  65:../src/hardware.c **** 	LPC_SCT->EVENT[1].CTRL=(1u<<5)|(1u<<12); // contrôle CTOUT_0, condition CTR_L==MATCH[0].L
+ 185              		.loc 1 65 0
+ 186 0054 8125     		mov	r5, #129
+ 187 0056 C324     		mov	r4, #195
+ 188 0058 6D01     		lsl	r5, r5, #5
+ 189 005a A400     		lsl	r4, r4, #2
+ 190 005c 1D51     		str	r5, [r3, r4]
+  66:../src/hardware.c **** 	LPC_SCT->EVENT[1].STATE=1; // événement actif lorsque STATE_L==0
+ 191              		.loc 1 66 0
+ 192 005e C224     		mov	r4, #194
+ 193 0060 A400     		lsl	r4, r4, #2
+  67:../src/hardware.c **** 	LPC_SCT->OUT[0].CLR=(1u<<1); // contrôlé par événement 1
+ 194              		.loc 1 67 0
+ 195 0062 224D     		ldr	r5, .L8+12
+  66:../src/hardware.c **** 	LPC_SCT->EVENT[1].STATE=1; // événement actif lorsque STATE_L==0
+ 196              		.loc 1 66 0
+ 197 0064 1A51     		str	r2, [r3, r4]
+ 198              		.loc 1 67 0
+ 199 0066 0224     		mov	r4, #2
+ 200 0068 5C51     		str	r4, [r3, r5]
+  68:../src/hardware.c ****     // événement 2 débute l'envoie des bits vidéo
+  69:../src/hardware.c **** 	LPC_SCT->EVENT[2].CTRL=2|(1u<<12);// CTR_L=MATCH[2]
+ 201              		.loc 1 69 0
+ 202 006a 214E     		ldr	r6, .L8+16
+ 203 006c C525     		mov	r5, #197
+ 204 006e AD00     		lsl	r5, r5, #2
+ 205 0070 5E51     		str	r6, [r3, r5]
+  70:../src/hardware.c **** 	LPC_SCT->EVENT[2].STATE=1;
+ 206              		.loc 1 70 0
+ 207 0072 C425     		mov	r5, #196
+ 208 0074 AD00     		lsl	r5, r5, #2
+ 209 0076 5A51     		str	r2, [r3, r5]
+  71:../src/hardware.c **** 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 6
+
+
+  72:../src/hardware.c **** 	// inialistaion SCT pour sortie audio, compteur H
+  73:../src/hardware.c **** 	LPC_SCT->CTRL_H=(1u<<2); //HALT
+ 210              		.loc 1 73 0
+ 211 0078 0425     		mov	r5, #4
+ 212 007a DD80     		strh	r5, [r3, #6]
+  74:../src/hardware.c **** 	LPC_SCT->CTRL_H &=~(255<<5); // diviseur
+ 213              		.loc 1 74 0
+ 214 007c 5D68     		ldr	r5, [r3, #4]
+ 215 007e 1D4E     		ldr	r6, .L8+20
+ 216 0080 2D0C     		lsr	r5, r5, #16
+ 217 0082 3540     		and	r5, r6
+ 218 0084 DD80     		strh	r5, [r3, #6]
+  75:../src/hardware.c **** 	LPC_SCT->CTRL_H|=(29<<5); // sys_clock/30
+ 219              		.loc 1 75 0
+ 220 0086 5E68     		ldr	r6, [r3, #4]
+ 221 0088 E825     		mov	r5, #232
+ 222 008a 360C     		lsr	r6, r6, #16
+ 223 008c AD00     		lsl	r5, r5, #2
+ 224 008e 3543     		orr	r5, r6
+ 225 0090 DD80     		strh	r5, [r3, #6]
+  76:../src/hardware.c **** 	LPC_SCT->STATE_H=0; // état 0, les états ne sont pas utilisés
+ 226              		.loc 1 76 0
+ 227 0092 4625     		mov	r5, #70
+ 228 0094 5953     		strh	r1, [r3, r5]
+  77:../src/hardware.c **** 	LPC_SCT->REGMODE_H=0; // mode match
+ 229              		.loc 1 77 0
+ 230 0096 4E25     		mov	r5, #78
+ 231 0098 5953     		strh	r1, [r3, r5]
+  78:../src/hardware.c **** 	LPC_SCT->EVENT[3].CTRL=(1u<<4)|(1u<<5)|(1u<<6)|(1u<<12); // contrôle CTOUT_1, condition CTR_H==MA
+ 232              		.loc 1 78 0
+ 233 009a 174D     		ldr	r5, .L8+24
+ 234 009c C721     		mov	r1, #199
+ 235 009e 8900     		lsl	r1, r1, #2
+ 236 00a0 5D50     		str	r5, [r3, r1]
+  79:../src/hardware.c **** 	LPC_SCT->EVENT[3].STATE=1; // événement actif lorsque STATE_H=0
+ 237              		.loc 1 79 0
+ 238 00a2 C621     		mov	r1, #198
+ 239 00a4 8900     		lsl	r1, r1, #2
+ 240 00a6 5A50     		str	r2, [r3, r1]
+  80:../src/hardware.c **** 	LPC_SCT->EVENT[4].CTRL=1u|(1u<<4)|(1u<<5)|(1u<<6)|(1u<<12); // contrôle CTOUT_1, condition CTR_H=
+ 241              		.loc 1 80 0
+ 242 00a8 144D     		ldr	r5, .L8+28
+ 243 00aa C921     		mov	r1, #201
+ 244 00ac 8900     		lsl	r1, r1, #2
+ 245 00ae 5D50     		str	r5, [r3, r1]
+  81:../src/hardware.c **** 	LPC_SCT->EVENT[4].STATE=1;  // événement actif lorsque STATE_H=0
+ 246              		.loc 1 81 0
+ 247 00b0 C821     		mov	r1, #200
+ 248 00b2 8900     		lsl	r1, r1, #2
+ 249 00b4 5A50     		str	r2, [r3, r1]
+  82:../src/hardware.c **** 	LPC_SCT->OUT[1].CLR=(1u<<3);  // événement 3 met COUT_1 à 0
+ 250              		.loc 1 82 0
+ 251 00b6 124A     		ldr	r2, .L8+32
+ 252 00b8 0821     		mov	r1, #8
+ 253 00ba 9950     		str	r1, [r3, r2]
+  83:../src/hardware.c **** 	LPC_SCT->OUT[1].SET=(1u<<4);  // événement 4 met CTOUT_1 à 1
+ 254              		.loc 1 83 0
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 7
+
+
+ 255 00bc A122     		mov	r2, #161
+ 256 00be 1021     		mov	r1, #16
+ 257 00c0 D200     		lsl	r2, r2, #3
+ 258 00c2 9950     		str	r1, [r3, r2]
+  84:../src/hardware.c **** 
+  85:../src/hardware.c **** 	LPC_SCT->EVFLAG=0x3f; // met à zéro tous les indicateurs d'évémenements
+ 259              		.loc 1 85 0
+ 260 00c4 3F21     		mov	r1, #63
+ 261 00c6 F422     		mov	r2, #244
+ 262 00c8 9950     		str	r1, [r3, r2]
+  86:../src/hardware.c **** 	LPC_SCT->EVEN =(1u<<SCT_IRQ_EVENT_1); // interruption authorisé sur événement 1
+ 263              		.loc 1 86 0
+ 264 00ca F022     		mov	r2, #240
+ 265 00cc 9C50     		str	r4, [r3, r2]
+ 266              	.LVL0:
+ 267              	.LBB18:
+ 268              	.LBB19:
+ 269              		.file 2 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/co
+   1:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /**************************************************************************//**
+   2:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  * @file     core_cm0plus.h
+   3:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  * @brief    CMSIS Cortex-M0+ Core Peripheral Access Layer Header File
+   4:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  * @version  V3.20
+   5:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  * @date     25. February 2013
+   6:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  *
+   7:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  * @note
+   8:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  *
+   9:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  ******************************************************************************/
+  10:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* Copyright (c) 2009 - 2013 ARM LIMITED
+  11:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  12:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    All rights reserved.
+  13:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    Redistribution and use in source and binary forms, with or without
+  14:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    modification, are permitted provided that the following conditions are met:
+  15:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    - Redistributions of source code must retain the above copyright
+  16:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      notice, this list of conditions and the following disclaimer.
+  17:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    - Redistributions in binary form must reproduce the above copyright
+  18:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      notice, this list of conditions and the following disclaimer in the
+  19:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      documentation and/or other materials provided with the distribution.
+  20:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    - Neither the name of ARM nor the names of its contributors may be used
+  21:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      to endorse or promote products derived from this software without
+  22:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      specific prior written permission.
+  23:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    *
+  24:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  25:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  26:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  27:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    ARE DISCLAIMED. IN NO EVENT SHALL COPYRIGHT HOLDERS AND CONTRIBUTORS BE
+  28:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  29:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  30:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  31:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  32:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  33:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  34:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    POSSIBILITY OF SUCH DAMAGE.
+  35:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    ---------------------------------------------------------------------------*/
+  36:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  37:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  38:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if defined ( __ICCARM__ )
+  39:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  #pragma system_include  /* treat file as system include file for MISRA check */
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 8
+
+
+  40:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+  41:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  42:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #ifdef __cplusplus
+  43:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  extern "C" {
+  44:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+  45:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  46:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #ifndef __CORE_CM0PLUS_H_GENERIC
+  47:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define __CORE_CM0PLUS_H_GENERIC
+  48:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  49:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \page CMSIS_MISRA_Exceptions  MISRA-C:2004 Compliance Exceptions
+  50:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   CMSIS violates the following MISRA-C:2004 rules:
+  51:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  52:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    \li Required Rule 8.5, object/function definition in header file.<br>
+  53:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      Function definitions in header files are used to allow 'inlining'.
+  54:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  55:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    \li Required Rule 18.4, declaration of union type or object of union type: '{...}'.<br>
+  56:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      Unions are used for effective representation of core registers.
+  57:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  58:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****    \li Advisory Rule 19.7, Function-like macro defined.<br>
+  59:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****      Function-like macros are used to allow more efficient code.
+  60:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+  61:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  62:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  63:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*******************************************************************************
+  64:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  *                 CMSIS definitions
+  65:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  ******************************************************************************/
+  66:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup Cortex-M0+
+  67:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+  68:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+  69:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  70:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*  CMSIS CM0P definitions */
+  71:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define __CM0PLUS_CMSIS_VERSION_MAIN (0x03)                                /*!< [31:16] CMSIS HAL m
+  72:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define __CM0PLUS_CMSIS_VERSION_SUB  (0x20)                                /*!< [15:0]  CMSIS HAL s
+  73:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define __CM0PLUS_CMSIS_VERSION      ((__CM0PLUS_CMSIS_VERSION_MAIN << 16) | \
+  74:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****                                        __CM0PLUS_CMSIS_VERSION_SUB)        /*!< CMSIS HAL version n
+  75:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  76:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define __CORTEX_M                (0x00)                                   /*!< Cortex-M Core      
+  77:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  78:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  79:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if   defined ( __CC_ARM )
+  80:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __ASM            __asm                                      /*!< asm keyword for ARM Comp
+  81:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __INLINE         __inline                                   /*!< inline keyword for ARM C
+  82:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __STATIC_INLINE  static __inline
+  83:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  84:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __ICCARM__ )
+  85:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __ASM            __asm                                      /*!< asm keyword for IAR Comp
+  86:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __INLINE         inline                                     /*!< inline keyword for IAR C
+  87:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __STATIC_INLINE  static inline
+  88:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  89:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __GNUC__ )
+  90:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __ASM            __asm                                      /*!< asm keyword for GNU Comp
+  91:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __INLINE         inline                                     /*!< inline keyword for GNU C
+  92:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __STATIC_INLINE  static inline
+  93:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  94:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __TASKING__ )
+  95:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __ASM            __asm                                      /*!< asm keyword for TASKING 
+  96:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __INLINE         inline                                     /*!< inline keyword for TASKI
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 9
+
+
+  97:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __STATIC_INLINE  static inline
+  98:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+  99:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 100:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 101:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** __FPU_USED indicates whether an FPU is used or not. This core does not support an FPU at all
+ 102:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** */
+ 103:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define __FPU_USED       0
+ 104:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 105:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if defined ( __CC_ARM )
+ 106:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #if defined __TARGET_FPU_VFP
+ 107:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
+ 108:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 109:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 110:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __ICCARM__ )
+ 111:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #if defined __ARMVFP__
+ 112:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
+ 113:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 114:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 115:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __GNUC__ )
+ 116:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #if defined (__VFP_FP__) && !defined(__SOFTFP__)
+ 117:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)
+ 118:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 119:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 120:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __TASKING__ )
+ 121:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #if defined __FPU_VFP__
+ 122:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #error "Compiler generates FPU instructions for a device without an FPU (check __FPU_PRESENT)"
+ 123:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 124:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 125:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 126:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #include <stdint.h>                      /* standard types definitions                      */
+ 127:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #include <core_cmInstr.h>                /* Core Instruction Access                         */
+ 128:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #include <core_cmFunc.h>                 /* Core Function Access                            */
+ 129:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 130:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif /* __CORE_CM0PLUS_H_GENERIC */
+ 131:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 132:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #ifndef __CMSIS_GENERIC
+ 133:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 134:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #ifndef __CORE_CM0PLUS_H_DEPENDANT
+ 135:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define __CORE_CM0PLUS_H_DEPENDANT
+ 136:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 137:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* check device defines and use defaults */
+ 138:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if defined __CHECK_DEVICE_DEFINES
+ 139:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #ifndef __CM0PLUS_REV
+ 140:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #define __CM0PLUS_REV             0x0000
+ 141:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "__CM0PLUS_REV not defined in device header file; using default!"
+ 142:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 143:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 144:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #ifndef __MPU_PRESENT
+ 145:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #define __MPU_PRESENT             0
+ 146:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "__MPU_PRESENT not defined in device header file; using default!"
+ 147:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 148:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 149:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #ifndef __VTOR_PRESENT
+ 150:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #define __VTOR_PRESENT            0
+ 151:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "__VTOR_PRESENT not defined in device header file; using default!"
+ 152:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 153:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 10
+
+
+ 154:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #ifndef __NVIC_PRIO_BITS
+ 155:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #define __NVIC_PRIO_BITS          2
+ 156:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "__NVIC_PRIO_BITS not defined in device header file; using default!"
+ 157:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 158:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 159:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #ifndef __Vendor_SysTickConfig
+ 160:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #define __Vendor_SysTickConfig    0
+ 161:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "__Vendor_SysTickConfig not defined in device header file; using default!"
+ 162:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
+ 163:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 164:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 165:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* IO definitions (access restrictions to peripheral registers) */
+ 166:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /**
+ 167:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_glob_defs CMSIS Global Defines
+ 168:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 169:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     <strong>IO Type Qualifiers</strong> are used
+ 170:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \li to specify the access to peripheral variables.
+ 171:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \li for automatic generation of peripheral register debug information.
+ 172:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** */
+ 173:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #ifdef __cplusplus
+ 174:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define   __I     volatile             /*!< Defines 'read only' permissions                 */
+ 175:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #else
+ 176:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define   __I     volatile const       /*!< Defines 'read only' permissions                 */
+ 177:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 178:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define     __O     volatile             /*!< Defines 'write only' permissions                */
+ 179:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define     __IO    volatile             /*!< Defines 'read / write' permissions              */
+ 180:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 181:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} end of group Cortex-M0+ */
+ 182:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 183:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 184:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 185:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*******************************************************************************
+ 186:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  *                 Register Abstraction
+ 187:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   Core Register contain:
+ 188:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core Register
+ 189:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core NVIC Register
+ 190:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core SCB Register
+ 191:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core SysTick Register
+ 192:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core MPU Register
+ 193:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  ******************************************************************************/
+ 194:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \defgroup CMSIS_core_register Defines and Type Definitions
+ 195:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief Type definitions and defines for Cortex-M processor based devices.
+ 196:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** */
+ 197:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 198:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup    CMSIS_core_register
+ 199:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup   CMSIS_CORE  Status and Control Registers
+ 200:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief  Core Register type definitions.
+ 201:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+ 202:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 203:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 204:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Union type to access the Application Program Status Register (APSR).
+ 205:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 206:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef union
+ 207:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 208:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   struct
+ 209:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   {
+ 210:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__CORTEX_M != 0x04)
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 11
+
+
+ 211:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:27;              /*!< bit:  0..26  Reserved                           */
+ 212:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #else
+ 213:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:16;              /*!< bit:  0..15  Reserved                           */
+ 214:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t GE:4;                       /*!< bit: 16..19  Greater than or Equal flags        */
+ 215:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved1:7;               /*!< bit: 20..26  Reserved                           */
+ 216:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 217:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t Q:1;                        /*!< bit:     27  Saturation condition flag          */
+ 218:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t V:1;                        /*!< bit:     28  Overflow condition code flag       */
+ 219:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t C:1;                        /*!< bit:     29  Carry condition code flag          */
+ 220:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t Z:1;                        /*!< bit:     30  Zero condition code flag           */
+ 221:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t N:1;                        /*!< bit:     31  Negative condition code flag       */
+ 222:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   } b;                                   /*!< Structure used for bit  access                  */
+ 223:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   uint32_t w;                            /*!< Type      used for word access                  */
+ 224:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } APSR_Type;
+ 225:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 226:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 227:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Union type to access the Interrupt Program Status Register (IPSR).
+ 228:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 229:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef union
+ 230:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 231:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   struct
+ 232:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   {
+ 233:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t ISR:9;                      /*!< bit:  0.. 8  Exception number                   */
+ 234:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:23;              /*!< bit:  9..31  Reserved                           */
+ 235:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   } b;                                   /*!< Structure used for bit  access                  */
+ 236:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   uint32_t w;                            /*!< Type      used for word access                  */
+ 237:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } IPSR_Type;
+ 238:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 239:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 240:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Union type to access the Special-Purpose Program Status Registers (xPSR).
+ 241:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 242:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef union
+ 243:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 244:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   struct
+ 245:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   {
+ 246:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t ISR:9;                      /*!< bit:  0.. 8  Exception number                   */
+ 247:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__CORTEX_M != 0x04)
+ 248:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:15;              /*!< bit:  9..23  Reserved                           */
+ 249:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #else
+ 250:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:7;               /*!< bit:  9..15  Reserved                           */
+ 251:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t GE:4;                       /*!< bit: 16..19  Greater than or Equal flags        */
+ 252:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved1:4;               /*!< bit: 20..23  Reserved                           */
+ 253:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 254:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t T:1;                        /*!< bit:     24  Thumb bit        (read 0)          */
+ 255:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t IT:2;                       /*!< bit: 25..26  saved IT state   (read 0)          */
+ 256:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t Q:1;                        /*!< bit:     27  Saturation condition flag          */
+ 257:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t V:1;                        /*!< bit:     28  Overflow condition code flag       */
+ 258:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t C:1;                        /*!< bit:     29  Carry condition code flag          */
+ 259:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t Z:1;                        /*!< bit:     30  Zero condition code flag           */
+ 260:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t N:1;                        /*!< bit:     31  Negative condition code flag       */
+ 261:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   } b;                                   /*!< Structure used for bit  access                  */
+ 262:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   uint32_t w;                            /*!< Type      used for word access                  */
+ 263:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } xPSR_Type;
+ 264:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 265:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 266:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Union type to access the Control Registers (CONTROL).
+ 267:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 12
+
+
+ 268:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef union
+ 269:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 270:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   struct
+ 271:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   {
+ 272:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t nPRIV:1;                    /*!< bit:      0  Execution privilege in Thread mode */
+ 273:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t SPSEL:1;                    /*!< bit:      1  Stack to be used                   */
+ 274:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t FPCA:1;                     /*!< bit:      2  FP extension active flag           */
+ 275:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:29;              /*!< bit:  3..31  Reserved                           */
+ 276:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   } b;                                   /*!< Structure used for bit  access                  */
+ 277:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   uint32_t w;                            /*!< Type      used for word access                  */
+ 278:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } CONTROL_Type;
+ 279:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 280:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} end of group CMSIS_CORE */
+ 281:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 282:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 283:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup    CMSIS_core_register
+ 284:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup   CMSIS_NVIC  Nested Vectored Interrupt Controller (NVIC)
+ 285:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Type definitions for the NVIC Registers
+ 286:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+ 287:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 288:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 289:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Structure type to access the Nested Vectored Interrupt Controller (NVIC).
+ 290:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 291:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef struct
+ 292:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 293:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t ISER[1];                 /*!< Offset: 0x000 (R/W)  Interrupt Set Enable Register   
+ 294:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED0[31];
+ 295:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t ICER[1];                 /*!< Offset: 0x080 (R/W)  Interrupt Clear Enable Register 
+ 296:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RSERVED1[31];
+ 297:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t ISPR[1];                 /*!< Offset: 0x100 (R/W)  Interrupt Set Pending Register  
+ 298:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED2[31];
+ 299:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t ICPR[1];                 /*!< Offset: 0x180 (R/W)  Interrupt Clear Pending Register
+ 300:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED3[31];
+ 301:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED4[64];
+ 302:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t IP[8];                   /*!< Offset: 0x300 (R/W)  Interrupt Priority Register     
+ 303:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** }  NVIC_Type;
+ 304:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 305:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} end of group CMSIS_NVIC */
+ 306:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 307:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 308:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup  CMSIS_core_register
+ 309:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_SCB     System Control Block (SCB)
+ 310:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Type definitions for the System Control Block Registers
+ 311:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+ 312:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 313:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 314:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Structure type to access the System Control Block (SCB).
+ 315:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 316:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef struct
+ 317:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 318:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __I  uint32_t CPUID;                   /*!< Offset: 0x000 (R/ )  CPUID Base Register             
+ 319:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t ICSR;                    /*!< Offset: 0x004 (R/W)  Interrupt Control and State Regi
+ 320:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__VTOR_PRESENT == 1)
+ 321:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t VTOR;                    /*!< Offset: 0x008 (R/W)  Vector Table Offset Register    
+ 322:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #else
+ 323:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED0;
+ 324:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 13
+
+
+ 325:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t AIRCR;                   /*!< Offset: 0x00C (R/W)  Application Interrupt and Reset 
+ 326:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t SCR;                     /*!< Offset: 0x010 (R/W)  System Control Register         
+ 327:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t CCR;                     /*!< Offset: 0x014 (R/W)  Configuration Control Register  
+ 328:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED1;
+ 329:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t SHP[2];                  /*!< Offset: 0x01C (R/W)  System Handlers Priority Registe
+ 330:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t SHCSR;                   /*!< Offset: 0x024 (R/W)  System Handler Control and State
+ 331:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } SCB_Type;
+ 332:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 333:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SCB CPUID Register Definitions */
+ 334:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_IMPLEMENTER_Pos          24                                             /*!< SCB 
+ 335:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_IMPLEMENTER_Msk          (0xFFUL << SCB_CPUID_IMPLEMENTER_Pos)          /*!< SCB 
+ 336:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 337:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_VARIANT_Pos              20                                             /*!< SCB 
+ 338:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_VARIANT_Msk              (0xFUL << SCB_CPUID_VARIANT_Pos)               /*!< SCB 
+ 339:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 340:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_ARCHITECTURE_Pos         16                                             /*!< SCB 
+ 341:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_ARCHITECTURE_Msk         (0xFUL << SCB_CPUID_ARCHITECTURE_Pos)          /*!< SCB 
+ 342:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 343:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_PARTNO_Pos                4                                             /*!< SCB 
+ 344:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_PARTNO_Msk               (0xFFFUL << SCB_CPUID_PARTNO_Pos)              /*!< SCB 
+ 345:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 346:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_REVISION_Pos              0                                             /*!< SCB 
+ 347:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CPUID_REVISION_Msk             (0xFUL << SCB_CPUID_REVISION_Pos)              /*!< SCB 
+ 348:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 349:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SCB Interrupt Control State Register Definitions */
+ 350:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_NMIPENDSET_Pos            31                                             /*!< SCB 
+ 351:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_NMIPENDSET_Msk            (1UL << SCB_ICSR_NMIPENDSET_Pos)               /*!< SCB 
+ 352:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 353:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSVSET_Pos             28                                             /*!< SCB 
+ 354:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSVSET_Msk             (1UL << SCB_ICSR_PENDSVSET_Pos)                /*!< SCB 
+ 355:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 356:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSVCLR_Pos             27                                             /*!< SCB 
+ 357:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSVCLR_Msk             (1UL << SCB_ICSR_PENDSVCLR_Pos)                /*!< SCB 
+ 358:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 359:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSTSET_Pos             26                                             /*!< SCB 
+ 360:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSTSET_Msk             (1UL << SCB_ICSR_PENDSTSET_Pos)                /*!< SCB 
+ 361:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 362:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSTCLR_Pos             25                                             /*!< SCB 
+ 363:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_PENDSTCLR_Msk             (1UL << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB 
+ 364:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 365:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_ISRPREEMPT_Pos            23                                             /*!< SCB 
+ 366:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_ISRPREEMPT_Msk            (1UL << SCB_ICSR_ISRPREEMPT_Pos)               /*!< SCB 
+ 367:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 368:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_ISRPENDING_Pos            22                                             /*!< SCB 
+ 369:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_ISRPENDING_Msk            (1UL << SCB_ICSR_ISRPENDING_Pos)               /*!< SCB 
+ 370:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 371:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_VECTPENDING_Pos           12                                             /*!< SCB 
+ 372:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_VECTPENDING_Msk           (0x1FFUL << SCB_ICSR_VECTPENDING_Pos)          /*!< SCB 
+ 373:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 374:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_VECTACTIVE_Pos             0                                             /*!< SCB 
+ 375:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_ICSR_VECTACTIVE_Msk            (0x1FFUL << SCB_ICSR_VECTACTIVE_Pos)           /*!< SCB 
+ 376:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 377:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__VTOR_PRESENT == 1)
+ 378:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SCB Interrupt Control State Register Definitions */
+ 379:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_VTOR_TBLOFF_Pos                 8                                             /*!< SCB 
+ 380:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_VTOR_TBLOFF_Msk                (0xFFFFFFUL << SCB_VTOR_TBLOFF_Pos)            /*!< SCB 
+ 381:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 14
+
+
+ 382:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 383:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SCB Application Interrupt and Reset Control Register Definitions */
+ 384:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_VECTKEY_Pos              16                                             /*!< SCB 
+ 385:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_VECTKEY_Msk              (0xFFFFUL << SCB_AIRCR_VECTKEY_Pos)            /*!< SCB 
+ 386:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 387:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_VECTKEYSTAT_Pos          16                                             /*!< SCB 
+ 388:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_VECTKEYSTAT_Msk          (0xFFFFUL << SCB_AIRCR_VECTKEYSTAT_Pos)        /*!< SCB 
+ 389:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 390:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_ENDIANESS_Pos            15                                             /*!< SCB 
+ 391:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_ENDIANESS_Msk            (1UL << SCB_AIRCR_ENDIANESS_Pos)               /*!< SCB 
+ 392:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 393:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_SYSRESETREQ_Pos           2                                             /*!< SCB 
+ 394:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_SYSRESETREQ_Msk          (1UL << SCB_AIRCR_SYSRESETREQ_Pos)             /*!< SCB 
+ 395:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 396:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_VECTCLRACTIVE_Pos         1                                             /*!< SCB 
+ 397:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_AIRCR_VECTCLRACTIVE_Msk        (1UL << SCB_AIRCR_VECTCLRACTIVE_Pos)           /*!< SCB 
+ 398:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 399:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SCB System Control Register Definitions */
+ 400:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SCR_SEVONPEND_Pos               4                                             /*!< SCB 
+ 401:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SCR_SEVONPEND_Msk              (1UL << SCB_SCR_SEVONPEND_Pos)                 /*!< SCB 
+ 402:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 403:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SCR_SLEEPDEEP_Pos               2                                             /*!< SCB 
+ 404:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SCR_SLEEPDEEP_Msk              (1UL << SCB_SCR_SLEEPDEEP_Pos)                 /*!< SCB 
+ 405:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 406:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SCR_SLEEPONEXIT_Pos             1                                             /*!< SCB 
+ 407:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SCR_SLEEPONEXIT_Msk            (1UL << SCB_SCR_SLEEPONEXIT_Pos)               /*!< SCB 
+ 408:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 409:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SCB Configuration Control Register Definitions */
+ 410:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CCR_STKALIGN_Pos                9                                             /*!< SCB 
+ 411:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CCR_STKALIGN_Msk               (1UL << SCB_CCR_STKALIGN_Pos)                  /*!< SCB 
+ 412:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 413:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CCR_UNALIGN_TRP_Pos             3                                             /*!< SCB 
+ 414:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_CCR_UNALIGN_TRP_Msk            (1UL << SCB_CCR_UNALIGN_TRP_Pos)               /*!< SCB 
+ 415:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 416:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SCB System Handler Control and State Register Definitions */
+ 417:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SHCSR_SVCALLPENDED_Pos         15                                             /*!< SCB 
+ 418:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_SHCSR_SVCALLPENDED_Msk         (1UL << SCB_SHCSR_SVCALLPENDED_Pos)            /*!< SCB 
+ 419:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 420:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} end of group CMSIS_SCB */
+ 421:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 422:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 423:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup  CMSIS_core_register
+ 424:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_SysTick     System Tick Timer (SysTick)
+ 425:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Type definitions for the System Timer Registers.
+ 426:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+ 427:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 428:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 429:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Structure type to access the System Timer (SysTick).
+ 430:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 431:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef struct
+ 432:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 433:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t CTRL;                    /*!< Offset: 0x000 (R/W)  SysTick Control and Status Regis
+ 434:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t LOAD;                    /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register   
+ 435:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t VAL;                     /*!< Offset: 0x008 (R/W)  SysTick Current Value Register  
+ 436:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __I  uint32_t CALIB;                   /*!< Offset: 0x00C (R/ )  SysTick Calibration Register    
+ 437:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } SysTick_Type;
+ 438:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 15
+
+
+ 439:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SysTick Control / Status Register Definitions */
+ 440:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_COUNTFLAG_Pos         16                                             /*!< SysT
+ 441:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_COUNTFLAG_Msk         (1UL << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysT
+ 442:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 443:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_CLKSOURCE_Pos          2                                             /*!< SysT
+ 444:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_CLKSOURCE_Msk         (1UL << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysT
+ 445:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 446:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_TICKINT_Pos            1                                             /*!< SysT
+ 447:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_TICKINT_Msk           (1UL << SysTick_CTRL_TICKINT_Pos)              /*!< SysT
+ 448:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 449:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_ENABLE_Pos             0                                             /*!< SysT
+ 450:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CTRL_ENABLE_Msk            (1UL << SysTick_CTRL_ENABLE_Pos)               /*!< SysT
+ 451:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 452:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SysTick Reload Register Definitions */
+ 453:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_LOAD_RELOAD_Pos             0                                             /*!< SysT
+ 454:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFUL << SysTick_LOAD_RELOAD_Pos)        /*!< SysT
+ 455:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 456:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SysTick Current Register Definitions */
+ 457:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_VAL_CURRENT_Pos             0                                             /*!< SysT
+ 458:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_VAL_CURRENT_Msk            (0xFFFFFFUL << SysTick_VAL_CURRENT_Pos)        /*!< SysT
+ 459:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 460:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SysTick Calibration Register Definitions */
+ 461:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CALIB_NOREF_Pos            31                                             /*!< SysT
+ 462:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CALIB_NOREF_Msk            (1UL << SysTick_CALIB_NOREF_Pos)               /*!< SysT
+ 463:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 464:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CALIB_SKEW_Pos             30                                             /*!< SysT
+ 465:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CALIB_SKEW_Msk             (1UL << SysTick_CALIB_SKEW_Pos)                /*!< SysT
+ 466:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 467:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CALIB_TENMS_Pos             0                                             /*!< SysT
+ 468:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_CALIB_TENMS_Msk            (0xFFFFFFUL << SysTick_VAL_CURRENT_Pos)        /*!< SysT
+ 469:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 470:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} end of group CMSIS_SysTick */
+ 471:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 472:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__MPU_PRESENT == 1)
+ 473:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup  CMSIS_core_register
+ 474:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_MPU     Memory Protection Unit (MPU)
+ 475:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Type definitions for the Memory Protection Unit (MPU)
+ 476:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+ 477:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 478:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 479:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Structure type to access the Memory Protection Unit (MPU).
+ 480:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 481:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef struct
+ 482:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 483:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __I  uint32_t TYPE;                    /*!< Offset: 0x000 (R/ )  MPU Type Register               
+ 484:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t CTRL;                    /*!< Offset: 0x004 (R/W)  MPU Control Register            
+ 485:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t RNR;                     /*!< Offset: 0x008 (R/W)  MPU Region RNRber Register      
+ 486:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t RBAR;                    /*!< Offset: 0x00C (R/W)  MPU Region Base Address Register
+ 487:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t RASR;                    /*!< Offset: 0x010 (R/W)  MPU Region Attribute and Size Re
+ 488:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } MPU_Type;
+ 489:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 490:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* MPU Type Register */
+ 491:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_IREGION_Pos               16                                             /*!< MPU 
+ 492:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_IREGION_Msk               (0xFFUL << MPU_TYPE_IREGION_Pos)               /*!< MPU 
+ 493:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 494:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_DREGION_Pos                8                                             /*!< MPU 
+ 495:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_DREGION_Msk               (0xFFUL << MPU_TYPE_DREGION_Pos)               /*!< MPU 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 16
+
+
+ 496:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 497:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_SEPARATE_Pos               0                                             /*!< MPU 
+ 498:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_SEPARATE_Msk              (1UL << MPU_TYPE_SEPARATE_Pos)                 /*!< MPU 
+ 499:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 500:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* MPU Control Register */
+ 501:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_CTRL_PRIVDEFENA_Pos             2                                             /*!< MPU 
+ 502:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_CTRL_PRIVDEFENA_Msk            (1UL << MPU_CTRL_PRIVDEFENA_Pos)               /*!< MPU 
+ 503:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 504:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_CTRL_HFNMIENA_Pos               1                                             /*!< MPU 
+ 505:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_CTRL_HFNMIENA_Msk              (1UL << MPU_CTRL_HFNMIENA_Pos)                 /*!< MPU 
+ 506:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 507:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_CTRL_ENABLE_Pos                 0                                             /*!< MPU 
+ 508:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_CTRL_ENABLE_Msk                (1UL << MPU_CTRL_ENABLE_Pos)                   /*!< MPU 
+ 509:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 510:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* MPU Region Number Register */
+ 511:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RNR_REGION_Pos                  0                                             /*!< MPU 
+ 512:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RNR_REGION_Msk                 (0xFFUL << MPU_RNR_REGION_Pos)                 /*!< MPU 
+ 513:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 514:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* MPU Region Base Address Register */
+ 515:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RBAR_ADDR_Pos                   8                                             /*!< MPU 
+ 516:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RBAR_ADDR_Msk                  (0xFFFFFFUL << MPU_RBAR_ADDR_Pos)              /*!< MPU 
+ 517:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 518:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RBAR_VALID_Pos                  4                                             /*!< MPU 
+ 519:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RBAR_VALID_Msk                 (1UL << MPU_RBAR_VALID_Pos)                    /*!< MPU 
+ 520:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 521:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RBAR_REGION_Pos                 0                                             /*!< MPU 
+ 522:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RBAR_REGION_Msk                (0xFUL << MPU_RBAR_REGION_Pos)                 /*!< MPU 
+ 523:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 524:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* MPU Region Attribute and Size Register */
+ 525:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ATTRS_Pos                 16                                             /*!< MPU 
+ 526:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ATTRS_Msk                 (0xFFFFUL << MPU_RASR_ATTRS_Pos)               /*!< MPU 
+ 527:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 528:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_XN_Pos                    28                                             /*!< MPU 
+ 529:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_XN_Msk                    (1UL << MPU_RASR_XN_Pos)                       /*!< MPU 
+ 530:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 531:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_AP_Pos                    24                                             /*!< MPU 
+ 532:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_AP_Msk                    (0x7UL << MPU_RASR_AP_Pos)                     /*!< MPU 
+ 533:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 534:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_TEX_Pos                   19                                             /*!< MPU 
+ 535:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_TEX_Msk                   (0x7UL << MPU_RASR_TEX_Pos)                    /*!< MPU 
+ 536:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 537:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_S_Pos                     18                                             /*!< MPU 
+ 538:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_S_Msk                     (1UL << MPU_RASR_S_Pos)                        /*!< MPU 
+ 539:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 540:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_C_Pos                     17                                             /*!< MPU 
+ 541:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_C_Msk                     (1UL << MPU_RASR_C_Pos)                        /*!< MPU 
+ 542:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 543:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_B_Pos                     16                                             /*!< MPU 
+ 544:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_B_Msk                     (1UL << MPU_RASR_B_Pos)                        /*!< MPU 
+ 545:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 546:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_SRD_Pos                    8                                             /*!< MPU 
+ 547:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_SRD_Msk                   (0xFFUL << MPU_RASR_SRD_Pos)                   /*!< MPU 
+ 548:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 549:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_SIZE_Pos                   1                                             /*!< MPU 
+ 550:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_SIZE_Msk                  (0x1FUL << MPU_RASR_SIZE_Pos)                  /*!< MPU 
+ 551:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 552:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ENABLE_Pos                 0                                             /*!< MPU 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 17
+
+
+ 553:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ENABLE_Msk                (1UL << MPU_RASR_ENABLE_Pos)                   /*!< MPU 
+ 554:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 555:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} end of group CMSIS_MPU */
+ 556:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 557:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 558:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 559:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup  CMSIS_core_register
+ 560:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_CoreDebug       Core Debug Registers (CoreDebug)
+ 561:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Cortex-M0+ Core Debug Registers (DCB registers, SHCSR, and DFSR)
+ 562:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****                 are only accessible over DAP and not via processor. Therefore
+ 563:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****                 they are not covered by the Cortex-M0 header file.
+ 564:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+ 565:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 566:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} end of group CMSIS_CoreDebug */
+ 567:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 568:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 569:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup    CMSIS_core_register
+ 570:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup   CMSIS_core_base     Core Definitions
+ 571:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Definitions for base addresses, unions, and structures.
+ 572:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   @{
+ 573:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 574:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 575:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* Memory mapping of Cortex-M0+ Hardware */
+ 576:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCS_BASE            (0xE000E000UL)                            /*!< System Control Space Bas
+ 577:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick_BASE        (SCS_BASE +  0x0010UL)                    /*!< SysTick Base Address    
+ 578:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define NVIC_BASE           (SCS_BASE +  0x0100UL)                    /*!< NVIC Base Address       
+ 579:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_BASE            (SCS_BASE +  0x0D00UL)                    /*!< System Control Block Bas
+ 580:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 581:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB                 ((SCB_Type       *)     SCB_BASE      )   /*!< SCB configuration struct
+ 582:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SysTick             ((SysTick_Type   *)     SysTick_BASE  )   /*!< SysTick configuration st
+ 583:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define NVIC                ((NVIC_Type      *)     NVIC_BASE     )   /*!< NVIC configuration struc
+ 584:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 585:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__MPU_PRESENT == 1)
+ 586:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define MPU_BASE          (SCS_BASE +  0x0D90UL)                    /*!< Memory Protection Unit  
+ 587:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define MPU               ((MPU_Type       *)     MPU_BASE      )   /*!< Memory Protection Unit  
+ 588:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
+ 589:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 590:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*@} */
+ 591:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 592:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 593:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 594:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /*******************************************************************************
+ 595:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  *                Hardware Abstraction Layer
+ 596:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   Core Function Interface contains:
+ 597:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core NVIC Functions
+ 598:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core SysTick Functions
+ 599:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   - Core Register Access Functions
+ 600:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  ******************************************************************************/
+ 601:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \defgroup CMSIS_Core_FunctionInterface Functions and Instructions Reference
+ 602:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** */
+ 603:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 604:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 605:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 606:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* ##########################   NVIC functions  #################################### */
+ 607:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+ 608:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_Core_NVICFunctions NVIC Functions
+ 609:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Functions that manage interrupts and exceptions via the NVIC.
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 18
+
+
+ 610:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     @{
+ 611:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 612:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 613:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* Interrupt Priorities are WORD accessible only under ARMv6M                   */
+ 614:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* The following MACROS handle generation of the register offset and byte masks */
+ 615:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define _BIT_SHIFT(IRQn)         (  (((uint32_t)(IRQn)       )    &  0x03) * 8 )
+ 616:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define _SHP_IDX(IRQn)           ( ((((uint32_t)(IRQn) & 0x0F)-8) >>    2)     )
+ 617:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define _IP_IDX(IRQn)            (   ((uint32_t)(IRQn)            >>    2)     )
+ 618:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 619:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 620:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Enable External Interrupt
+ 621:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 622:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function enables a device-specific interrupt in the NVIC interrupt controller.
+ 623:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 624:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \param [in]      IRQn  External interrupt number. Value cannot be negative.
+ 625:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 626:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** __STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
+ 627:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 270              		.loc 2 628 0
+ 271 00ce 0D4A     		ldr	r2, .L8+36
+ 272              	.LBE19:
+ 273              	.LBE18:
+  87:../src/hardware.c **** 	NVIC_EnableIRQ(SCT_IRQn); // active l'interruption SCT (9)
+  88:../src/hardware.c **** 
+  89:../src/hardware.c **** 	LPC_SCT->CTRL_L = (LPC_SCT->CTRL_L & ~(3u << 1))|(1u<<3); // remet compteur à zéro et démarre l
+  90:../src/hardware.c **** 
+  91:../src/hardware.c **** }//f()
+ 274              		.loc 1 91 0
+ 275              		@ sp needed
+ 276              	.LBB21:
+ 277              	.LBB20:
+ 278              		.loc 2 628 0
+ 279 00d0 1060     		str	r0, [r2]
+ 280              	.LBE20:
+ 281              	.LBE21:
+  89:../src/hardware.c **** 	LPC_SCT->CTRL_L = (LPC_SCT->CTRL_L & ~(3u << 1))|(1u<<3); // remet compteur à zéro et démarre l
+ 282              		.loc 1 89 0
+ 283 00d2 5968     		ldr	r1, [r3, #4]
+ 284 00d4 0C4A     		ldr	r2, .L8+40
+ 285 00d6 0A40     		and	r2, r1
+ 286 00d8 0821     		mov	r1, #8
+ 287 00da 0A43     		orr	r2, r1
+ 288 00dc 9A80     		strh	r2, [r3, #4]
+ 289              		.loc 1 91 0
+ 290 00de 70BD     		pop	{r4, r5, r6, pc}
+ 291              	.L9:
+ 292              		.align	2
+ 293              	.L8:
+ 294 00e0 00400050 		.word	1342193664
+ 295 00e4 65070000 		.word	1893
+ 296 00e8 21100000 		.word	4129
+ 297 00ec 04050000 		.word	1284
+ 298 00f0 02100000 		.word	4098
+ 299 00f4 1FE0FFFF 		.word	-8161
+ 300 00f8 70100000 		.word	4208
+ 301 00fc 71100000 		.word	4209
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 19
+
+
+ 302 0100 0C050000 		.word	1292
+ 303 0104 00E100E0 		.word	-536813312
+ 304 0108 F1FF0000 		.word	65521
+ 305              		.cfi_endproc
+ 306              	.LFE35:
+ 308              		.section	.text.sysclock_init,"ax",%progbits
+ 309              		.align	2
+ 310              		.global	sysclock_init
+ 311              		.code	16
+ 312              		.thumb_func
+ 314              	sysclock_init:
+ 315              	.LFB36:
+  92:../src/hardware.c **** 
+  93:../src/hardware.c **** void sysclock_init(){
+ 316              		.loc 1 93 0
+ 317              		.cfi_startproc
+ 318 0000 10B5     		push	{r4, lr}
+ 319              		.cfi_def_cfa_offset 8
+ 320              		.cfi_offset 4, -8
+ 321              		.cfi_offset 14, -4
+  94:../src/hardware.c **** 	LPC_SYSCON->PDRUNCFG &=~((1u<<7u)|(1u<<15u)); // activation du PLL et ACMP
+ 322              		.loc 1 94 0
+ 323 0002 8E23     		mov	r3, #142
+ 324 0004 164C     		ldr	r4, .L14
+ 325 0006 9B00     		lsl	r3, r3, #2
+ 326 0008 E158     		ldr	r1, [r4, r3]
+ 327 000a 164A     		ldr	r2, .L14+4
+  95:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCLKSEL=0; // sélection source du PLL, alimenté par IRC (12Mhz)
+  96:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCLKUEN=0; // mise à jour
+  97:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCLKUEN=1; // source PLL
+  98:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCTRL=4|(1<<5); // feedback div =5, post-diviseur=4 pour FCLKOUT=60Mhz
+  99:../src/hardware.c **** 	while (!(LPC_SYSCON->SYSPLLSTAT&1));// attend que le PLL sois stable
+ 328              		.loc 1 99 0
+ 329 000c 0120     		mov	r0, #1
+  94:../src/hardware.c **** 	LPC_SYSCON->PDRUNCFG &=~((1u<<7u)|(1u<<15u)); // activation du PLL et ACMP
+ 330              		.loc 1 94 0
+ 331 000e 0A40     		and	r2, r1
+ 332 0010 E250     		str	r2, [r4, r3]
+  95:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCLKSEL=0; // sélection source du PLL, alimenté par IRC (12Mhz)
+ 333              		.loc 1 95 0
+ 334 0012 0023     		mov	r3, #0
+ 335 0014 2364     		str	r3, [r4, #64]
+  96:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCLKUEN=0; // mise à jour
+ 336              		.loc 1 96 0
+ 337 0016 6364     		str	r3, [r4, #68]
+  97:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCLKUEN=1; // source PLL
+ 338              		.loc 1 97 0
+ 339 0018 0123     		mov	r3, #1
+ 340 001a 6364     		str	r3, [r4, #68]
+  98:../src/hardware.c **** 	LPC_SYSCON->SYSPLLCTRL=4|(1<<5); // feedback div =5, post-diviseur=4 pour FCLKOUT=60Mhz
+ 341              		.loc 1 98 0
+ 342 001c 2423     		mov	r3, #36
+ 343 001e A360     		str	r3, [r4, #8]
+ 344              	.L12:
+ 345              		.loc 1 99 0 discriminator 1
+ 346 0020 E368     		ldr	r3, [r4, #12]
+ 347 0022 0F4A     		ldr	r2, .L14
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 20
+
+
+ 348 0024 0121     		mov	r1, #1
+ 349 0026 1842     		tst	r0, r3
+ 350 0028 FAD0     		beq	.L12
+ 100:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKDIV=2; // FSYSCLK=FCLKOUT/2
+ 351              		.loc 1 100 0
+ 352 002a 0223     		mov	r3, #2
+ 353 002c 9367     		str	r3, [r2, #120]
+ 101:../src/hardware.c **** 	LPC_SYSCON->MAINCLKSEL=3;  // sélection main clock= sortie PLL
+ 354              		.loc 1 101 0
+ 355 002e 0323     		mov	r3, #3
+ 356 0030 1367     		str	r3, [r2, #112]
+ 102:../src/hardware.c **** 	LPC_SYSCON->MAINCLKUEN=0;  // mise à jour
+ 357              		.loc 1 102 0
+ 358 0032 0023     		mov	r3, #0
+ 359 0034 5367     		str	r3, [r2, #116]
+ 103:../src/hardware.c **** 	LPC_SYSCON->MAINCLKUEN=1;  // source main clock
+ 360              		.loc 1 103 0
+ 361 0036 5167     		str	r1, [r2, #116]
+ 104:../src/hardware.c **** 	m_periph_clock_enable(CLK_GPIO|CLK_SCT|CLK_MRT|CLK_SPI0|CLK_ACMP); // active signaux clock pour le
+ 362              		.loc 1 104 0
+ 363 0038 8023     		mov	r3, #128
+ 364 003a D058     		ldr	r0, [r2, r3]
+ 365 003c 0A4C     		ldr	r4, .L14+8
+ 105:../src/hardware.c **** 	m_periph_reset(RESET_MRT|RESET_GPIO|RESET_SCT|RESET_SPI0|RESET_ACMP); // réinitialise les périph
+ 106:../src/hardware.c **** 	LPC_CMP->CTRL=(3u<<25); //hystérésie 20mV.
+ 107:../src/hardware.c **** 	LPC_CMP->LAD=1;
+ 108:../src/hardware.c **** }//f()
+ 366              		.loc 1 108 0
+ 367              		@ sp needed
+ 104:../src/hardware.c **** 	m_periph_clock_enable(CLK_GPIO|CLK_SCT|CLK_MRT|CLK_SPI0|CLK_ACMP); // active signaux clock pour le
+ 368              		.loc 1 104 0
+ 369 003e 2043     		orr	r0, r4
+ 370 0040 D050     		str	r0, [r2, r3]
+ 105:../src/hardware.c **** 	m_periph_reset(RESET_MRT|RESET_GPIO|RESET_SCT|RESET_SPI0|RESET_ACMP); // réinitialise les périph
+ 371              		.loc 1 105 0
+ 372 0042 5068     		ldr	r0, [r2, #4]
+ 373 0044 094B     		ldr	r3, .L14+12
+ 374 0046 0340     		and	r3, r0
+ 375 0048 5360     		str	r3, [r2, #4]
+ 376 004a 5368     		ldr	r3, [r2, #4]
+ 377 004c 0848     		ldr	r0, .L14+16
+ 378 004e 0343     		orr	r3, r0
+ 379 0050 5360     		str	r3, [r2, #4]
+ 106:../src/hardware.c **** 	LPC_CMP->CTRL=(3u<<25); //hystérésie 20mV.
+ 380              		.loc 1 106 0
+ 381 0052 084B     		ldr	r3, .L14+20
+ 382 0054 C022     		mov	r2, #192
+ 383 0056 D204     		lsl	r2, r2, #19
+ 384 0058 1A60     		str	r2, [r3]
+ 107:../src/hardware.c **** 	LPC_CMP->LAD=1;
+ 385              		.loc 1 107 0
+ 386 005a 5960     		str	r1, [r3, #4]
+ 387              		.loc 1 108 0
+ 388 005c 10BD     		pop	{r4, pc}
+ 389              	.L15:
+ 390 005e C046     		.align	2
+ 391              	.L14:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 21
+
+
+ 392 0060 00800440 		.word	1074036736
+ 393 0064 7F7FFFFF 		.word	-32897
+ 394 0068 400D0800 		.word	527680
+ 395 006c 7EEAFFFF 		.word	-5506
+ 396 0070 81150000 		.word	5505
+ 397 0074 00400240 		.word	1073889280
+ 398              		.cfi_endproc
+ 399              	.LFE36:
+ 401              		.section	.text.initialize_hardware,"ax",%progbits
+ 402              		.align	2
+ 403              		.global	initialize_hardware
+ 404              		.code	16
+ 405              		.thumb_func
+ 407              	initialize_hardware:
+ 408              	.LFB37:
+ 109:../src/hardware.c **** 
+ 110:../src/hardware.c **** 
+ 111:../src/hardware.c **** void initialize_hardware(){
+ 409              		.loc 1 111 0
+ 410              		.cfi_startproc
+ 411 0000 08B5     		push	{r3, lr}
+ 412              		.cfi_def_cfa_offset 8
+ 413              		.cfi_offset 3, -8
+ 414              		.cfi_offset 14, -4
+ 112:../src/hardware.c **** 	 sysclock_init();
+ 415              		.loc 1 112 0
+ 416 0002 FFF7FEFF 		bl	sysclock_init
+ 417              	.LVL1:
+ 113:../src/hardware.c **** 	 LPC_MRT->Channel[0].CTRL=2;  //multi-rate timer canal 0 en mode 'one-shot bus stall'
+ 418              		.loc 1 113 0
+ 419 0006 1C4B     		ldr	r3, .L17
+ 420 0008 0222     		mov	r2, #2
+ 421 000a 9A60     		str	r2, [r3, #8]
+ 422              	.LBB34:
+ 423              	.LBB35:
+  33:../src/hardware.c **** 	 m_disable_pin(DIS_SWCLK|DIS_SWDIO|DIS_CLKIN);
+ 424              		.loc 1 33 0
+ 425 000c 1B4B     		ldr	r3, .L17+4
+ 426 000e E022     		mov	r2, #224
+ 427 0010 5200     		lsl	r2, r2, #1
+ 428 0012 9858     		ldr	r0, [r3, r2]
+ 429 0014 8C21     		mov	r1, #140
+ 430 0016 0143     		orr	r1, r0
+ 431 0018 9950     		str	r1, [r3, r2]
+  34:../src/hardware.c **** 	 LPC_SWM->PINENABLE0 &= ~(DIS_ACMP_I1|DIS_ACMP_I2); // activation des entrées comparateur analogi
+ 432              		.loc 1 34 0
+ 433 001a 9958     		ldr	r1, [r3, r2]
+ 434 001c 0320     		mov	r0, #3
+ 435 001e 8143     		bic	r1, r0
+ 436 0020 9950     		str	r1, [r3, r2]
+  36:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL |= CLK_SWM; // activation signal clock sur SWM
+ 437              		.loc 1 36 0
+ 438 0022 1749     		ldr	r1, .L17+8
+ 439 0024 8022     		mov	r2, #128
+ 440 0026 8858     		ldr	r0, [r1, r2]
+ 441              	.LBE35:
+ 442              	.LBE34:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 22
+
+
+ 114:../src/hardware.c **** 	 assign_pins(); // assignation des périphériques aux broches
+ 115:../src/hardware.c **** 	 //LPC_SYSCON->IRQLATENCY=40;
+ 116:../src/hardware.c **** 	 NVIC_SetPriority(SCT_IRQn,0); // plus haute priorité d'interruption
+ 117:../src/hardware.c **** 	 NVIC_SetPriority(MRT_IRQn,3); // plus basse priorité
+ 118:../src/hardware.c **** 	 PWM_init();
+ 119:../src/hardware.c ****      SPI0_init();
+ 120:../src/hardware.c **** }//f()
+ 443              		.loc 1 120 0
+ 444              		@ sp needed
+ 445              	.LBB37:
+ 446              	.LBB36:
+  36:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL |= CLK_SWM; // activation signal clock sur SWM
+ 447              		.loc 1 36 0
+ 448 0028 1043     		orr	r0, r2
+ 449 002a 8850     		str	r0, [r1, r2]
+  37:../src/hardware.c **** 	LPC_SWM->PINASSIGN6 = 0x00ffffff|(SYNC_OUT<<24); // SYNC_OUT sur PIO0_4  (CTOUT_0)
+ 450              		.loc 1 37 0
+ 451 002c 1548     		ldr	r0, .L17+12
+ 452 002e 9861     		str	r0, [r3, #24]
+  38:../src/hardware.c **** 	LPC_SWM->PINASSIGN4 = 0xffffff00|VIDEO_OUT; // VIDEO_OUT sur PIO0_3  (SPI0 MOSI)
+ 453              		.loc 1 38 0
+ 454 0030 FD20     		mov	r0, #253
+ 455 0032 4042     		neg	r0, r0
+ 456 0034 1861     		str	r0, [r3, #16]
+  39:../src/hardware.c **** 	LPC_SWM->PINASSIGN7 = 0xffffff00|AUDIO_OUT; // AUDIO_OUT sur PIO0_2  (CTOUT_1)
+ 457              		.loc 1 39 0
+ 458 0036 FE20     		mov	r0, #254
+ 459 0038 4042     		neg	r0, r0
+ 460 003a D861     		str	r0, [r3, #28]
+  40:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL &= ~CLK_SWM; 	// désactivation signal clock sur SWM
+ 461              		.loc 1 40 0
+ 462 003c 8B58     		ldr	r3, [r1, r2]
+ 463 003e 9343     		bic	r3, r2
+ 464 0040 8B50     		str	r3, [r1, r2]
+ 465              	.LVL2:
+ 466              	.LBE36:
+ 467              	.LBE37:
+ 468              	.LBB38:
+ 469              	.LBB39:
+ 629:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** }
+ 630:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 631:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 632:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Disable External Interrupt
+ 633:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 634:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function disables a device-specific interrupt in the NVIC interrupt controller.
+ 635:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 636:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \param [in]      IRQn  External interrupt number. Value cannot be negative.
+ 637:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 638:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** __STATIC_INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)
+ 639:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 640:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 641:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** }
+ 642:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 643:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 644:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Get Pending Interrupt
+ 645:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 646:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function reads the pending register in the NVIC and returns the pending bit
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 23
+
+
+ 647:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     for the specified interrupt.
+ 648:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 649:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \param [in]      IRQn  Interrupt number.
+ 650:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 651:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \return             0  Interrupt status is not pending.
+ 652:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \return             1  Interrupt status is pending.
+ 653:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 654:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** __STATIC_INLINE uint32_t NVIC_GetPendingIRQ(IRQn_Type IRQn)
+ 655:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 656:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   return((uint32_t) ((NVIC->ISPR[0] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0));
+ 657:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** }
+ 658:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 659:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 660:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Set Pending Interrupt
+ 661:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 662:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function sets the pending bit of an external interrupt.
+ 663:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 664:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \param [in]      IRQn  Interrupt number. Value cannot be negative.
+ 665:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 666:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** __STATIC_INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)
+ 667:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 668:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 669:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** }
+ 670:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 671:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 672:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Clear Pending Interrupt
+ 673:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 674:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function clears the pending bit of an external interrupt.
+ 675:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 676:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \param [in]      IRQn  External interrupt number. Value cannot be negative.
+ 677:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 678:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** __STATIC_INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+ 679:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 680:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ICPR[0] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* Clear pending interrupt */
+ 681:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** }
+ 682:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 683:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 684:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Set Interrupt Priority
+ 685:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 686:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function sets the priority of an interrupt.
+ 687:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 688:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \note The priority cannot be set for every core interrupt.
+ 689:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
+ 690:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \param [in]      IRQn  Interrupt number.
+ 691:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \param [in]  priority  Priority to set.
+ 692:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
+ 693:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** __STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+ 694:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** {
+ 695:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   if(IRQn < 0) {
+ 696:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     SCB->SHP[_SHP_IDX(IRQn)] = (SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
+ 697:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****         (((priority << (8 - __NVIC_PRIO_BITS)) & 0xFF) << _BIT_SHIFT(IRQn)); }
+ 698:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   else {
+ 699:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     NVIC->IP[_IP_IDX(IRQn)] = (NVIC->IP[_IP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
+ 470              		.loc 2 699 0
+ 471 0042 114A     		ldr	r2, .L17+16
+ 472 0044 C223     		mov	r3, #194
+ 473 0046 9B00     		lsl	r3, r3, #2
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 24
+
+
+ 474 0048 D058     		ldr	r0, [r2, r3]
+ 475 004a 1049     		ldr	r1, .L17+20
+ 476 004c 0140     		and	r1, r0
+ 477 004e D150     		str	r1, [r2, r3]
+ 478              	.LVL3:
+ 479              	.LBE39:
+ 480              	.LBE38:
+ 481              	.LBB40:
+ 482              	.LBB41:
+ 483 0050 D058     		ldr	r0, [r2, r3]
+ 484 0052 0F49     		ldr	r1, .L17+24
+ 485 0054 0140     		and	r1, r0
+ 486 0056 C020     		mov	r0, #192
+ 487 0058 0004     		lsl	r0, r0, #16
+ 488 005a 0143     		orr	r1, r0
+ 489 005c D150     		str	r1, [r2, r3]
+ 490              	.LBE41:
+ 491              	.LBE40:
+ 118:../src/hardware.c **** 	 PWM_init();
+ 492              		.loc 1 118 0
+ 493 005e FFF7FEFF 		bl	PWM_init
+ 494              	.LVL4:
+ 495              	.LBB42:
+ 496              	.LBB43:
+  44:../src/hardware.c **** 	LPC_SPI0->DIV=PIXCLK_DIV; // pixel clock
+ 497              		.loc 1 44 0
+ 498 0062 0C4B     		ldr	r3, .L17+28
+ 499 0064 1222     		mov	r2, #18
+ 500 0066 5A62     		str	r2, [r3, #36]
+  45:../src/hardware.c **** 	LPC_SPI0->CFG |= SPI_MASTER;
+ 501              		.loc 1 45 0
+ 502 0068 1968     		ldr	r1, [r3]
+ 503 006a 0422     		mov	r2, #4
+ 504 006c 0A43     		orr	r2, r1
+ 505 006e 1A60     		str	r2, [r3]
+  46:../src/hardware.c **** 	LPC_SPI0->TXCTRL = ((7u<<SPI_DATLEN)|(1u<<SPI_IGNRX)|(1u<<SPI_TXSSEL_N));
+ 506              		.loc 1 46 0
+ 507 0070 094A     		ldr	r2, .L17+32
+ 508 0072 1A62     		str	r2, [r3, #32]
+ 509              	.LBE43:
+ 510              	.LBE42:
+ 511              		.loc 1 120 0
+ 512 0074 08BD     		pop	{r3, pc}
+ 513              	.L18:
+ 514 0076 C046     		.align	2
+ 515              	.L17:
+ 516 0078 00400040 		.word	1073758208
+ 517 007c 00C00040 		.word	1073790976
+ 518 0080 00800440 		.word	1074036736
+ 519 0084 FFFFFF04 		.word	83886079
+ 520 0088 00E100E0 		.word	-536813312
+ 521 008c FF00FFFF 		.word	-65281
+ 522 0090 FFFF00FF 		.word	-16711681
+ 523 0094 00800540 		.word	1074102272
+ 524 0098 00004107 		.word	121700352
+ 525              		.cfi_endproc
+ 526              	.LFE37:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 25
+
+
+ 528              		.section	.text.delay_ms,"ax",%progbits
+ 529              		.align	2
+ 530              		.global	delay_ms
+ 531              		.code	16
+ 532              		.thumb_func
+ 534              	delay_ms:
+ 535              	.LFB38:
+ 121:../src/hardware.c **** 
+ 122:../src/hardware.c **** void delay_ms(uint32_t n){
+ 536              		.loc 1 122 0
+ 537              		.cfi_startproc
+ 538              	.LVL5:
+ 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 539              		.loc 1 123 0
+ 540 0000 0749     		ldr	r1, .L22
+ 541 0002 0123     		mov	r3, #1
+ 542 0004 CA68     		ldr	r2, [r1, #12]
+ 543 0006 1343     		orr	r3, r2
+ 544 0008 CB60     		str	r3, [r1, #12]
+ 124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
+ 545              		.loc 1 124 0
+ 546 000a 064B     		ldr	r3, .L22+4
+ 125:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
+ 547              		.loc 1 125 0
+ 548 000c 0122     		mov	r2, #1
+ 124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
+ 549              		.loc 1 124 0
+ 550 000e 5843     		mul	r0, r3
+ 551              	.LVL6:
+ 552 0010 054B     		ldr	r3, .L22+8
+ 553 0012 1840     		and	r0, r3
+ 554 0014 0860     		str	r0, [r1]
+ 555              	.L21:
+ 556              		.loc 1 125 0 discriminator 1
+ 557 0016 CB68     		ldr	r3, [r1, #12]
+ 558 0018 1A42     		tst	r2, r3
+ 559 001a FCD0     		beq	.L21
+ 126:../src/hardware.c **** }//f()
+ 560              		.loc 1 126 0
+ 561              		@ sp needed
+ 562 001c 7047     		bx	lr
+ 563              	.L23:
+ 564 001e C046     		.align	2
+ 565              	.L22:
+ 566 0020 00400040 		.word	1073758208
+ 567 0024 30750000 		.word	30000
+ 568 0028 F0FFFF7F 		.word	2147483632
+ 569              		.cfi_endproc
+ 570              	.LFE38:
+ 572              		.section	.text.delay_us,"ax",%progbits
+ 573              		.align	2
+ 574              		.global	delay_us
+ 575              		.code	16
+ 576              		.thumb_func
+ 578              	delay_us:
+ 579              	.LFB39:
+ 127:../src/hardware.c **** 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 26
+
+
+ 128:../src/hardware.c **** void delay_us(uint32_t n){
+ 580              		.loc 1 128 0
+ 581              		.cfi_startproc
+ 582              	.LVL7:
+ 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 583              		.loc 1 129 0
+ 584 0000 0749     		ldr	r1, .L27
+ 585 0002 0123     		mov	r3, #1
+ 586 0004 CA68     		ldr	r2, [r1, #12]
+ 587 0006 1343     		orr	r3, r2
+ 588 0008 CB60     		str	r3, [r1, #12]
+ 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
+ 589              		.loc 1 130 0
+ 590 000a 0301     		lsl	r3, r0, #4
+ 591 000c 181A     		sub	r0, r3, r0
+ 592              	.LVL8:
+ 593 000e 054B     		ldr	r3, .L27+4
+ 594 0010 4000     		lsl	r0, r0, #1
+ 595 0012 1840     		and	r0, r3
+ 596 0014 0860     		str	r0, [r1]
+ 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
+ 597              		.loc 1 131 0
+ 598 0016 0122     		mov	r2, #1
+ 599              	.L26:
+ 600              		.loc 1 131 0 is_stmt 0 discriminator 1
+ 601 0018 CB68     		ldr	r3, [r1, #12]
+ 602 001a 1A42     		tst	r2, r3
+ 603 001c FCD0     		beq	.L26
+ 132:../src/hardware.c **** }//f()
+ 604              		.loc 1 132 0 is_stmt 1
+ 605              		@ sp needed
+ 606 001e 7047     		bx	lr
+ 607              	.L28:
+ 608              		.align	2
+ 609              	.L27:
+ 610 0020 00400040 		.word	1073758208
+ 611 0024 FEFFFF7F 		.word	2147483646
+ 612              		.cfi_endproc
+ 613              	.LFE39:
+ 615              		.global	__aeabi_uidiv
+ 616              		.section	.text.tone,"ax",%progbits
+ 617              		.align	2
+ 618              		.global	tone
+ 619              		.code	16
+ 620              		.thumb_func
+ 622              	tone:
+ 623              	.LFB40:
+ 133:../src/hardware.c **** 
+ 134:../src/hardware.c **** 
+ 135:../src/hardware.c **** volatile unsigned tone_on=0;
+ 136:../src/hardware.c **** 
+ 137:../src/hardware.c **** #define AUDIO_CLOCK (SYS_CLOCK/30)
+ 138:../src/hardware.c **** 
+ 139:../src/hardware.c **** void tone(uint32_t freq, uint32_t msec){
+ 624              		.loc 1 139 0
+ 625              		.cfi_startproc
+ 626              	.LVL9:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 27
+
+
+ 627 0000 70B5     		push	{r4, r5, r6, lr}
+ 628              		.cfi_def_cfa_offset 16
+ 629              		.cfi_offset 4, -16
+ 630              		.cfi_offset 5, -12
+ 631              		.cfi_offset 6, -8
+ 632              		.cfi_offset 14, -4
+ 633 0002 194C     		ldr	r4, .L32
+ 634              		.loc 1 139 0
+ 635 0004 021C     		mov	r2, r0
+ 636              	.L31:
+ 140:../src/hardware.c **** 	while (tone_on);
+ 637              		.loc 1 140 0 discriminator 1
+ 638 0006 2368     		ldr	r3, [r4]
+ 639 0008 002B     		cmp	r3, #0
+ 640 000a FCD1     		bne	.L31
+ 141:../src/hardware.c **** 	LPC_MRT->Channel[1].STAT|=1;
+ 641              		.loc 1 141 0
+ 642 000c 174B     		ldr	r3, .L32+4
+ 643 000e 0125     		mov	r5, #1
+ 644 0010 D869     		ldr	r0, [r3, #28]
+ 645              	.LVL10:
+ 646              	.LBB44:
+ 647              	.LBB45:
+ 628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 648              		.loc 2 628 0
+ 649 0012 8026     		mov	r6, #128
+ 650              	.LBE45:
+ 651              	.LBE44:
+ 652              		.loc 1 141 0
+ 653 0014 2843     		orr	r0, r5
+ 654 0016 D861     		str	r0, [r3, #28]
+ 655              	.LVL11:
+ 656              	.LBB47:
+ 657              	.LBB46:
+ 628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 658              		.loc 2 628 0
+ 659 0018 1548     		ldr	r0, .L32+8
+ 660 001a F600     		lsl	r6, r6, #3
+ 661 001c 0660     		str	r6, [r0]
+ 662              	.LBE46:
+ 663              	.LBE47:
+ 142:../src/hardware.c **** 	NVIC_EnableIRQ(MRT_IRQn);
+ 143:../src/hardware.c **** 	LPC_MRT->Channel[1].CTRL=3u; //single shot interrupt mode
+ 664              		.loc 1 143 0
+ 665 001e 0320     		mov	r0, #3
+ 666 0020 9861     		str	r0, [r3, #24]
+ 144:../src/hardware.c **** 	LPC_MRT->Channel[1].INTVAL=(msec*MSEC)&0x7fffffff;
+ 667              		.loc 1 144 0
+ 668 0022 1448     		ldr	r0, .L32+12
+ 145:../src/hardware.c **** 	LPC_SCT->MATCH[0].H=((AUDIO_CLOCK/freq))-1;   // période
+ 146:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].H=((AUDIO_CLOCK/freq))-1;
+ 147:../src/hardware.c **** 	LPC_SCT->MATCH[1].H=((AUDIO_CLOCK/freq)>>1)-1;   // rapport cyclique 50%
+ 148:../src/hardware.c **** 	LPC_SCT->MATCHREL[1].H=((AUDIO_CLOCK/freq)>>1)-1;
+ 149:../src/hardware.c **** 	LPC_SCT->CTRL_H = (LPC_SCT->CTRL_H & ~(3u << 1))|(1u<<3); //démarre le PWM
+ 150:../src/hardware.c **** 	tone_on=1;
+ 151:../src/hardware.c **** }//f()
+ 669              		.loc 1 151 0
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 28
+
+
+ 670              		@ sp needed
+ 144:../src/hardware.c **** 	LPC_MRT->Channel[1].INTVAL=(msec*MSEC)&0x7fffffff;
+ 671              		.loc 1 144 0
+ 672 0024 4143     		mul	r1, r0
+ 673              	.LVL12:
+ 674 0026 1448     		ldr	r0, .L32+16
+ 675 0028 0140     		and	r1, r0
+ 676 002a 1961     		str	r1, [r3, #16]
+ 145:../src/hardware.c **** 	LPC_SCT->MATCH[0].H=((AUDIO_CLOCK/freq))-1;   // période
+ 677              		.loc 1 145 0
+ 678 002c 1348     		ldr	r0, .L32+20
+ 679 002e 111C     		mov	r1, r2
+ 680 0030 FFF7FEFF 		bl	__aeabi_uidiv
+ 681              	.LVL13:
+ 682 0034 124B     		ldr	r3, .L32+24
+ 683 0036 421E     		sub	r2, r0, #1
+ 684 0038 8121     		mov	r1, #129
+ 685 003a 92B2     		uxth	r2, r2
+ 686 003c 4900     		lsl	r1, r1, #1
+ 687 003e 5A52     		strh	r2, [r3, r1]
+ 146:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].H=((AUDIO_CLOCK/freq))-1;
+ 688              		.loc 1 146 0
+ 689 0040 1049     		ldr	r1, .L32+28
+ 690 0042 5A52     		strh	r2, [r3, r1]
+ 147:../src/hardware.c **** 	LPC_SCT->MATCH[1].H=((AUDIO_CLOCK/freq)>>1)-1;   // rapport cyclique 50%
+ 691              		.loc 1 147 0
+ 692 0044 4208     		lsr	r2, r0, #1
+ 693 0046 013A     		sub	r2, r2, #1
+ 694 0048 8321     		mov	r1, #131
+ 695 004a 92B2     		uxth	r2, r2
+ 696 004c 4900     		lsl	r1, r1, #1
+ 697 004e 5A52     		strh	r2, [r3, r1]
+ 148:../src/hardware.c **** 	LPC_SCT->MATCHREL[1].H=((AUDIO_CLOCK/freq)>>1)-1;
+ 698              		.loc 1 148 0
+ 699 0050 0D49     		ldr	r1, .L32+32
+ 700 0052 5A52     		strh	r2, [r3, r1]
+ 149:../src/hardware.c **** 	LPC_SCT->CTRL_H = (LPC_SCT->CTRL_H & ~(3u << 1))|(1u<<3); //démarre le PWM
+ 701              		.loc 1 149 0
+ 702 0054 5A68     		ldr	r2, [r3, #4]
+ 703 0056 0E21     		mov	r1, #14
+ 704 0058 120C     		lsr	r2, r2, #16
+ 705 005a 8A43     		bic	r2, r1
+ 706 005c 0821     		mov	r1, #8
+ 707 005e 0A43     		orr	r2, r1
+ 708 0060 DA80     		strh	r2, [r3, #6]
+ 150:../src/hardware.c **** 	tone_on=1;
+ 709              		.loc 1 150 0
+ 710 0062 2560     		str	r5, [r4]
+ 711              		.loc 1 151 0
+ 712 0064 70BD     		pop	{r4, r5, r6, pc}
+ 713              	.L33:
+ 714 0066 C046     		.align	2
+ 715              	.L32:
+ 716 0068 00000000 		.word	.LANCHOR0
+ 717 006c 00400040 		.word	1073758208
+ 718 0070 00E100E0 		.word	-536813312
+ 719 0074 30750000 		.word	30000
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 29
+
+
+ 720 0078 F0FFFF7F 		.word	2147483632
+ 721 007c 40420F00 		.word	1000000
+ 722 0080 00400050 		.word	1342193664
+ 723 0084 02020000 		.word	514
+ 724 0088 06020000 		.word	518
+ 725              		.cfi_endproc
+ 726              	.LFE40:
+ 728              		.section	.text.play_tune,"ax",%progbits
+ 729              		.align	2
+ 730              		.global	play_tune
+ 731              		.code	16
+ 732              		.thumb_func
+ 734              	play_tune:
+ 735              	.LFB41:
+ 152:../src/hardware.c **** 
+ 153:../src/hardware.c **** void play_tune(const int *tune, int pause){
+ 736              		.loc 1 153 0
+ 737              		.cfi_startproc
+ 738              	.LVL14:
+ 739 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 740              		.cfi_def_cfa_offset 24
+ 741              		.cfi_offset 3, -24
+ 742              		.cfi_offset 4, -20
+ 743              		.cfi_offset 5, -16
+ 744              		.cfi_offset 6, -12
+ 745              		.cfi_offset 7, -8
+ 746              		.cfi_offset 14, -4
+ 747 0002 031C     		mov	r3, r0
+ 748 0004 4646     		mov	r6, r8
+ 749 0006 4F46     		mov	r7, r9
+ 750 0008 8846     		mov	r8, r1
+ 154:../src/hardware.c **** 	int freq, duration;
+ 155:../src/hardware.c **** 	freq=*tune++;
+ 156:../src/hardware.c **** 	duration=*tune++;
+ 751              		.loc 1 156 0
+ 752 000a 5968     		ldr	r1, [r3, #4]
+ 753              	.LVL15:
+ 153:../src/hardware.c **** void play_tune(const int *tune, int pause){
+ 754              		.loc 1 153 0
+ 755 000c C0B4     		push	{r6, r7}
+ 756              		.cfi_def_cfa_offset 32
+ 757              		.cfi_offset 8, -32
+ 758              		.cfi_offset 9, -28
+ 759              		.loc 1 156 0
+ 760 000e 1E1C     		mov	r6, r3
+ 155:../src/hardware.c **** 	freq=*tune++;
+ 761              		.loc 1 155 0
+ 762 0010 0068     		ldr	r0, [r0]
+ 763              	.LVL16:
+ 764              		.loc 1 156 0
+ 765 0012 0836     		add	r6, r6, #8
+ 766              	.LVL17:
+ 157:../src/hardware.c **** 	while (duration){
+ 767              		.loc 1 157 0
+ 768 0014 0029     		cmp	r1, #0
+ 769 0016 1CD0     		beq	.L34
+ 770              	.LBB48:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 30
+
+
+ 771              	.LBB49:
+ 124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
+ 772              		.loc 1 124 0
+ 773 0018 1A4A     		ldr	r2, .L48
+ 774 001a 4346     		mov	r3, r8
+ 775 001c 5A43     		mul	r2, r3
+ 776 001e 1A4B     		ldr	r3, .L48+4
+ 777              	.LBE49:
+ 778              	.LBE48:
+ 779              	.LBB52:
+ 780              	.LBB53:
+ 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 781              		.loc 1 123 0
+ 782 0020 1A4C     		ldr	r4, .L48+8
+ 783              	.LBE53:
+ 784              	.LBE52:
+ 785              	.LBB57:
+ 786              	.LBB50:
+ 124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
+ 787              		.loc 1 124 0
+ 788 0022 1A40     		and	r2, r3
+ 789 0024 1A4F     		ldr	r7, .L48+12
+ 790 0026 9146     		mov	r9, r2
+ 791              	.LBE50:
+ 792              	.LBE57:
+ 793              	.LBB58:
+ 794              	.LBB54:
+ 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 795              		.loc 1 123 0
+ 796 0028 0125     		mov	r5, #1
+ 797              	.LVL18:
+ 798              	.L45:
+ 799              	.LBE54:
+ 800              	.LBE58:
+ 158:../src/hardware.c **** 		if (freq){
+ 801              		.loc 1 158 0
+ 802 002a 0028     		cmp	r0, #0
+ 803 002c 15D1     		bne	.L47
+ 804              	.LVL19:
+ 805              	.LBB59:
+ 806              	.LBB55:
+ 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 807              		.loc 1 123 0
+ 808 002e E368     		ldr	r3, [r4, #12]
+ 809              	.LBE55:
+ 810              	.LBE59:
+ 159:../src/hardware.c **** 			tone(freq,duration);
+ 160:../src/hardware.c **** 			while (tone_on);
+ 161:../src/hardware.c **** 			delay_ms(pause);
+ 162:../src/hardware.c **** 		}else{
+ 163:../src/hardware.c **** 			delay_ms(duration+pause);
+ 811              		.loc 1 163 0
+ 812 0030 4144     		add	r1, r1, r8
+ 813              	.LVL20:
+ 814              	.LBB60:
+ 815              	.LBB56:
+ 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 31
+
+
+ 816              		.loc 1 123 0
+ 817 0032 2B43     		orr	r3, r5
+ 818 0034 E360     		str	r3, [r4, #12]
+ 124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
+ 819              		.loc 1 124 0
+ 820 0036 134B     		ldr	r3, .L48
+ 821 0038 5943     		mul	r1, r3
+ 822              	.LVL21:
+ 823 003a 134B     		ldr	r3, .L48+4
+ 824 003c 1940     		and	r1, r3
+ 825 003e 2160     		str	r1, [r4]
+ 826              	.L44:
+ 125:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
+ 827              		.loc 1 125 0
+ 828 0040 E368     		ldr	r3, [r4, #12]
+ 829 0042 1D42     		tst	r5, r3
+ 830 0044 FCD0     		beq	.L44
+ 831              	.LVL22:
+ 832              	.LBE56:
+ 833              	.LBE60:
+ 164:../src/hardware.c **** 		}
+ 165:../src/hardware.c **** 		freq=*tune++;
+ 834              		.loc 1 165 0
+ 835 0046 3068     		ldr	r0, [r6]
+ 836              	.LVL23:
+ 837 0048 0836     		add	r6, r6, #8
+ 838              	.LVL24:
+ 839 004a 331F     		sub	r3, r6, #4
+ 166:../src/hardware.c **** 		duration=*tune++;
+ 840              		.loc 1 166 0
+ 841 004c 1968     		ldr	r1, [r3]
+ 842              	.LVL25:
+ 157:../src/hardware.c **** 	while (duration){
+ 843              		.loc 1 157 0
+ 844 004e 0029     		cmp	r1, #0
+ 845 0050 EBD1     		bne	.L45
+ 846              	.LVL26:
+ 847              	.L34:
+ 167:../src/hardware.c **** 	}
+ 168:../src/hardware.c **** }//f()
+ 848              		.loc 1 168 0
+ 849              		@ sp needed
+ 850              	.LVL27:
+ 851 0052 0CBC     		pop	{r2, r3}
+ 852 0054 9046     		mov	r8, r2
+ 853 0056 9946     		mov	r9, r3
+ 854 0058 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 855              	.LVL28:
+ 856              	.L47:
+ 159:../src/hardware.c **** 			tone(freq,duration);
+ 857              		.loc 1 159 0
+ 858 005a FFF7FEFF 		bl	tone
+ 859              	.LVL29:
+ 860              	.L38:
+ 160:../src/hardware.c **** 			while (tone_on);
+ 861              		.loc 1 160 0 discriminator 1
+ 862 005e 3B68     		ldr	r3, [r7]
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 32
+
+
+ 863 0060 002B     		cmp	r3, #0
+ 864 0062 FCD1     		bne	.L38
+ 865              	.LVL30:
+ 866              	.LBB61:
+ 867              	.LBB51:
+ 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 868              		.loc 1 123 0
+ 869 0064 E368     		ldr	r3, [r4, #12]
+ 870 0066 2B43     		orr	r3, r5
+ 871 0068 E360     		str	r3, [r4, #12]
+ 124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
+ 872              		.loc 1 124 0
+ 873 006a 4B46     		mov	r3, r9
+ 874 006c 2360     		str	r3, [r4]
+ 875              	.L42:
+ 125:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
+ 876              		.loc 1 125 0
+ 877 006e E368     		ldr	r3, [r4, #12]
+ 878 0070 1D42     		tst	r5, r3
+ 879 0072 FCD0     		beq	.L42
+ 880              	.LVL31:
+ 881              	.LBE51:
+ 882              	.LBE61:
+ 165:../src/hardware.c **** 		freq=*tune++;
+ 883              		.loc 1 165 0
+ 884 0074 3068     		ldr	r0, [r6]
+ 885              	.LVL32:
+ 886 0076 0836     		add	r6, r6, #8
+ 887              	.LVL33:
+ 888 0078 331F     		sub	r3, r6, #4
+ 166:../src/hardware.c **** 		duration=*tune++;
+ 889              		.loc 1 166 0
+ 890 007a 1968     		ldr	r1, [r3]
+ 891              	.LVL34:
+ 157:../src/hardware.c **** 	while (duration){
+ 892              		.loc 1 157 0
+ 893 007c 0029     		cmp	r1, #0
+ 894 007e D4D1     		bne	.L45
+ 895 0080 E7E7     		b	.L34
+ 896              	.L49:
+ 897 0082 C046     		.align	2
+ 898              	.L48:
+ 899 0084 30750000 		.word	30000
+ 900 0088 F0FFFF7F 		.word	2147483632
+ 901 008c 00400040 		.word	1073758208
+ 902 0090 00000000 		.word	.LANCHOR0
+ 903              		.cfi_endproc
+ 904              	.LFE41:
+ 906              		.section	.text.MRT_IRQHandler,"ax",%progbits
+ 907              		.align	2
+ 908              		.global	MRT_IRQHandler
+ 909              		.code	16
+ 910              		.thumb_func
+ 912              	MRT_IRQHandler:
+ 913              	.LFB42:
+ 169:../src/hardware.c **** 
+ 170:../src/hardware.c **** 
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 33
+
+
+ 171:../src/hardware.c **** 
+ 172:../src/hardware.c **** 
+ 173:../src/hardware.c **** void MRT_IRQHandler(void){
+ 914              		.loc 1 173 0
+ 915              		.cfi_startproc
+ 174:../src/hardware.c **** 	if (LPC_MRT->Channel[1].STAT&1){
+ 916              		.loc 1 174 0
+ 917 0000 094B     		ldr	r3, .L55
+ 918 0002 0122     		mov	r2, #1
+ 919 0004 D969     		ldr	r1, [r3, #28]
+ 920 0006 0A42     		tst	r2, r1
+ 921 0008 0DD0     		beq	.L50
+ 175:../src/hardware.c **** 		tone_on=0;
+ 922              		.loc 1 175 0
+ 923 000a 0849     		ldr	r1, .L55+4
+ 924 000c 0020     		mov	r0, #0
+ 925 000e 0860     		str	r0, [r1]
+ 176:../src/hardware.c **** 		LPC_SCT->CTRL_H=(1u<<2);// arrêt du PWM
+ 926              		.loc 1 176 0
+ 927 0010 0749     		ldr	r1, .L55+8
+ 928 0012 0420     		mov	r0, #4
+ 929 0014 C880     		strh	r0, [r1, #6]
+ 177:../src/hardware.c **** 		LPC_MRT->Channel[1].STAT|=1;
+ 930              		.loc 1 177 0
+ 931 0016 D969     		ldr	r1, [r3, #28]
+ 932 0018 0A43     		orr	r2, r1
+ 933 001a DA61     		str	r2, [r3, #28]
+ 934              	.LVL35:
+ 935              	.LBB62:
+ 936              	.LBB63:
+ 640:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 937              		.loc 2 640 0
+ 938 001c 8021     		mov	r1, #128
+ 939 001e 054A     		ldr	r2, .L55+12
+ 940 0020 C900     		lsl	r1, r1, #3
+ 941 0022 8023     		mov	r3, #128
+ 942 0024 D150     		str	r1, [r2, r3]
+ 943              	.LVL36:
+ 944              	.L50:
+ 945              	.LBE63:
+ 946              	.LBE62:
+ 178:../src/hardware.c **** 		NVIC_DisableIRQ(MRT_IRQn);
+ 179:../src/hardware.c **** 	}
+ 180:../src/hardware.c **** }//f()
+ 947              		.loc 1 180 0
+ 948              		@ sp needed
+ 949 0026 7047     		bx	lr
+ 950              	.L56:
+ 951              		.align	2
+ 952              	.L55:
+ 953 0028 00400040 		.word	1073758208
+ 954 002c 00000000 		.word	.LANCHOR0
+ 955 0030 00400050 		.word	1342193664
+ 956 0034 00E100E0 		.word	-536813312
+ 957              		.cfi_endproc
+ 958              	.LFE42:
+ 960              		.section	.text.read_pot,"ax",%progbits
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 34
+
+
+ 961              		.align	2
+ 962              		.global	read_pot
+ 963              		.code	16
+ 964              		.thumb_func
+ 966              	read_pot:
+ 967              	.LFB43:
+ 181:../src/hardware.c **** 
+ 182:../src/hardware.c **** 
+ 183:../src/hardware.c **** /*
+ 184:../src/hardware.c ****  *  utilisation du comparateur analogique avec la référence de
+ 185:../src/hardware.c ****  *  voltage à 32 niveaux pour créer un convertisseur A/N à 5 bits
+ 186:../src/hardware.c ****  *  la lecture se fait par approximation successive en divisant
+ 187:../src/hardware.c ****  *  l'intervalle en 2 à chaque test.
+ 188:../src/hardware.c ****  */
+ 189:../src/hardware.c **** int read_pot(int pot){
+ 968              		.loc 1 189 0
+ 969              		.cfi_startproc
+ 970              	.LVL37:
+ 971 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 972              		.cfi_def_cfa_offset 20
+ 973              		.cfi_offset 4, -20
+ 974              		.cfi_offset 5, -16
+ 975              		.cfi_offset 6, -12
+ 976              		.cfi_offset 7, -8
+ 977              		.cfi_offset 14, -4
+ 190:../src/hardware.c **** 	int min,max,test,count,last,current;
+ 191:../src/hardware.c **** 	min=0;
+ 192:../src/hardware.c **** 	max=31;
+ 193:../src/hardware.c **** 	test=15;
+ 194:../src/hardware.c **** 	LPC_CMP->CTRL &= ~(3u<<8);
+ 978              		.loc 1 194 0
+ 979 0002 364B     		ldr	r3, .L75
+ 189:../src/hardware.c **** int read_pot(int pot){
+ 980              		.loc 1 189 0
+ 981 0004 5F46     		mov	r7, fp
+ 982 0006 5646     		mov	r6, r10
+ 983 0008 4D46     		mov	r5, r9
+ 984 000a 4446     		mov	r4, r8
+ 985 000c F0B4     		push	{r4, r5, r6, r7}
+ 986              		.cfi_def_cfa_offset 36
+ 987              		.cfi_offset 8, -36
+ 988              		.cfi_offset 9, -32
+ 989              		.cfi_offset 10, -28
+ 990              		.cfi_offset 11, -24
+ 991              		.loc 1 194 0
+ 992 000e 1968     		ldr	r1, [r3]
+ 993 0010 334A     		ldr	r2, .L75+4
+ 189:../src/hardware.c **** int read_pot(int pot){
+ 994              		.loc 1 189 0
+ 995 0012 83B0     		sub	sp, sp, #12
+ 996              		.cfi_def_cfa_offset 48
+ 997              		.loc 1 194 0
+ 998 0014 0A40     		and	r2, r1
+ 999 0016 1A60     		str	r2, [r3]
+ 195:../src/hardware.c **** 	if (pot==LEFT_POT){
+ 196:../src/hardware.c **** 		LPC_CMP->CTRL|=(2u<<8); // entrée positive du comparateur sur ACMP0_I2
+ 1000              		.loc 1 196 0
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 35
+
+
+ 1001 0018 1968     		ldr	r1, [r3]
+ 1002 001a 8022     		mov	r2, #128
+ 195:../src/hardware.c **** 	if (pot==LEFT_POT){
+ 1003              		.loc 1 195 0
+ 1004 001c 0028     		cmp	r0, #0
+ 1005 001e 58D1     		bne	.L58
+ 1006              		.loc 1 196 0
+ 1007 0020 9200     		lsl	r2, r2, #2
+ 1008 0022 0A43     		orr	r2, r1
+ 1009 0024 1A60     		str	r2, [r3]
+ 1010              	.L60:
+ 189:../src/hardware.c **** int read_pot(int pot){
+ 1011              		.loc 1 189 0 discriminator 1
+ 1012 0026 1F23     		mov	r3, #31
+ 1013 0028 0020     		mov	r0, #0
+ 1014              	.LVL38:
+ 1015 002a 9C46     		mov	ip, r3
+ 1016              	.LBB64:
+ 1017              	.LBB65:
+ 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
+ 1018              		.loc 1 130 0 discriminator 1
+ 1019 002c 9623     		mov	r3, #150
+ 1020              	.LBE65:
+ 1021              	.LBE64:
+ 189:../src/hardware.c **** int read_pot(int pot){
+ 1022              		.loc 1 189 0 discriminator 1
+ 1023 002e 8046     		mov	r8, r0
+ 1024 0030 0F24     		mov	r4, #15
+ 197:../src/hardware.c **** 	}else{
+ 198:../src/hardware.c **** 		LPC_CMP->CTRL|=(1u<<8); // entrée positive du comparateur sur ACMP0_I1
+ 199:../src/hardware.c **** 	}
+ 200:../src/hardware.c **** 	while ((test<max) && (test>min)){
+ 201:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
+ 1025              		.loc 1 201 0 discriminator 1
+ 1026 0032 3F20     		mov	r0, #63
+ 1027              	.LBB71:
+ 1028              	.LBB66:
+ 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
+ 1029              		.loc 1 130 0 discriminator 1
+ 1030 0034 5B00     		lsl	r3, r3, #1
+ 1031              	.LBE66:
+ 1032              	.LBE71:
+ 1033              		.loc 1 201 0 discriminator 1
+ 1034 0036 294E     		ldr	r6, .L75
+ 1035              	.LBB72:
+ 1036              	.LBB67:
+ 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 1037              		.loc 1 129 0 discriminator 1
+ 1038 0038 2A4A     		ldr	r2, .L75+8
+ 1039              	.LBE67:
+ 1040              	.LBE72:
+ 189:../src/hardware.c **** int read_pot(int pot){
+ 1041              		.loc 1 189 0 discriminator 1
+ 1042 003a 0194     		str	r4, [sp, #4]
+ 1043              		.loc 1 201 0 discriminator 1
+ 1044 003c 8246     		mov	r10, r0
+ 202:../src/hardware.c **** 		LPC_CMP->LAD|=1|(test<<1u);
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 36
+
+
+ 1045              		.loc 1 202 0 discriminator 1
+ 1046 003e 0121     		mov	r1, #1
+ 1047              	.LBB73:
+ 1048              	.LBB68:
+ 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
+ 1049              		.loc 1 130 0 discriminator 1
+ 1050 0040 9946     		mov	r9, r3
+ 1051              	.LBE68:
+ 1052              	.LBE73:
+ 1053              	.LBB74:
+ 1054              	.LBB75:
+ 1055 0042 1E27     		mov	r7, #30
+ 1056              	.LVL39:
+ 1057              	.L59:
+ 1058              	.LBE75:
+ 1059              	.LBE74:
+ 201:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
+ 1060              		.loc 1 201 0
+ 1061 0044 7368     		ldr	r3, [r6, #4]
+ 1062 0046 5446     		mov	r4, r10
+ 1063 0048 A343     		bic	r3, r4
+ 1064 004a 7360     		str	r3, [r6, #4]
+ 1065              		.loc 1 202 0
+ 1066 004c 7368     		ldr	r3, [r6, #4]
+ 1067 004e 0198     		ldr	r0, [sp, #4]
+ 1068 0050 0B43     		orr	r3, r1
+ 1069 0052 4400     		lsl	r4, r0, #1
+ 1070 0054 2343     		orr	r3, r4
+ 1071 0056 7360     		str	r3, [r6, #4]
+ 1072              	.LVL40:
+ 1073              	.LBB77:
+ 1074              	.LBB69:
+ 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 1075              		.loc 1 129 0
+ 1076 0058 D368     		ldr	r3, [r2, #12]
+ 1077 005a 0B43     		orr	r3, r1
+ 1078 005c D360     		str	r3, [r2, #12]
+ 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
+ 1079              		.loc 1 130 0
+ 1080 005e 4B46     		mov	r3, r9
+ 1081 0060 1360     		str	r3, [r2]
+ 1082              	.L62:
+ 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
+ 1083              		.loc 1 131 0
+ 1084 0062 D368     		ldr	r3, [r2, #12]
+ 1085 0064 1942     		tst	r1, r3
+ 1086 0066 FCD0     		beq	.L62
+ 1087              	.LBE69:
+ 1088              	.LBE77:
+ 203:../src/hardware.c **** 		delay_us(10);
+ 204:../src/hardware.c **** 		count=0;
+ 205:../src/hardware.c **** 		last=1;
+ 206:../src/hardware.c **** 		while (count<5){
+ 207:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
+ 1089              		.loc 1 207 0
+ 1090 0068 8024     		mov	r4, #128
+ 1091 006a A403     		lsl	r4, r4, #14
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 37
+
+
+ 1092              	.LBB78:
+ 1093              	.LBB70:
+ 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
+ 1094              		.loc 1 131 0
+ 1095 006c 0123     		mov	r3, #1
+ 1096 006e 0025     		mov	r5, #0
+ 1097              	.LBE70:
+ 1098              	.LBE78:
+ 1099              		.loc 1 207 0
+ 1100 0070 A346     		mov	fp, r4
+ 1101              	.L67:
+ 1102              	.LVL41:
+ 1103 0072 3468     		ldr	r4, [r6]
+ 1104 0074 5846     		mov	r0, fp
+ 1105 0076 0440     		and	r4, r0
+ 1106              	.LVL42:
+ 208:../src/hardware.c **** 			if (current==last){
+ 209:../src/hardware.c **** 				count++;
+ 1107              		.loc 1 209 0
+ 1108 0078 0135     		add	r5, r5, #1
+ 1109              	.LVL43:
+ 208:../src/hardware.c **** 			if (current==last){
+ 1110              		.loc 1 208 0
+ 1111 007a 9C42     		cmp	r4, r3
+ 1112 007c 00D0     		beq	.L63
+ 210:../src/hardware.c **** 			}else{
+ 211:../src/hardware.c **** 				last=current;
+ 212:../src/hardware.c **** 				count=0;
+ 1113              		.loc 1 212 0
+ 1114 007e 0025     		mov	r5, #0
+ 1115              	.LVL44:
+ 1116              	.L63:
+ 1117              	.LBB79:
+ 1118              	.LBB76:
+ 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 1119              		.loc 1 129 0
+ 1120 0080 D368     		ldr	r3, [r2, #12]
+ 1121 0082 0B43     		orr	r3, r1
+ 1122 0084 D360     		str	r3, [r2, #12]
+ 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
+ 1123              		.loc 1 130 0
+ 1124 0086 1760     		str	r7, [r2]
+ 1125              	.L65:
+ 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
+ 1126              		.loc 1 131 0
+ 1127 0088 D368     		ldr	r3, [r2, #12]
+ 1128 008a 1942     		tst	r1, r3
+ 1129 008c FCD0     		beq	.L65
+ 1130              	.LBE76:
+ 1131              	.LBE79:
+ 206:../src/hardware.c **** 		while (count<5){
+ 1132              		.loc 1 206 0 discriminator 1
+ 1133 008e 042D     		cmp	r5, #4
+ 1134 0090 01DC     		bgt	.L66
+ 207:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
+ 1135              		.loc 1 207 0
+ 1136 0092 231C     		mov	r3, r4
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 38
+
+
+ 1137 0094 EDE7     		b	.L67
+ 1138              	.L66:
+ 213:../src/hardware.c **** 			}
+ 214:../src/hardware.c **** 			delay_us(1);
+ 215:../src/hardware.c **** 		}
+ 216:../src/hardware.c **** 		if (last){
+ 1139              		.loc 1 216 0
+ 1140 0096 002C     		cmp	r4, #0
+ 1141 0098 13D0     		beq	.L68
+ 1142              	.LVL45:
+ 217:../src/hardware.c **** 			min=test;
+ 218:../src/hardware.c **** 			test=test+((max-test)>>1);
+ 1143              		.loc 1 218 0
+ 1144 009a 0198     		ldr	r0, [sp, #4]
+ 1145 009c 6446     		mov	r4, ip
+ 1146              	.LVL46:
+ 1147 009e 231A     		sub	r3, r4, r0
+ 1148 00a0 5B10     		asr	r3, r3, #1
+ 1149              	.LVL47:
+ 1150 00a2 8046     		mov	r8, r0
+ 1151 00a4 1818     		add	r0, r3, r0
+ 1152              	.LVL48:
+ 1153 00a6 0190     		str	r0, [sp, #4]
+ 1154              	.LVL49:
+ 1155              	.L69:
+ 200:../src/hardware.c **** 	while ((test<max) && (test>min)){
+ 1156              		.loc 1 200 0 discriminator 1
+ 1157 00a8 019B     		ldr	r3, [sp, #4]
+ 1158 00aa 9C45     		cmp	ip, r3
+ 1159 00ac 01DD     		ble	.L74
+ 200:../src/hardware.c **** 	while ((test<max) && (test>min)){
+ 1160              		.loc 1 200 0 is_stmt 0 discriminator 2
+ 1161 00ae 4345     		cmp	r3, r8
+ 1162 00b0 C8DC     		bgt	.L59
+ 1163              	.L74:
+ 219:../src/hardware.c **** 		}else{
+ 220:../src/hardware.c **** 			max=test;
+ 221:../src/hardware.c **** 			test=test-((test-min)>>1);
+ 222:../src/hardware.c **** 		}
+ 223:../src/hardware.c **** 	}
+ 224:../src/hardware.c **** 	return	test;
+ 225:../src/hardware.c **** }//f()
+ 1164              		.loc 1 225 0 is_stmt 1
+ 1165 00b2 0198     		ldr	r0, [sp, #4]
+ 1166 00b4 03B0     		add	sp, sp, #12
+ 1167              		@ sp needed
+ 1168              	.LVL50:
+ 1169              	.LVL51:
+ 1170 00b6 3CBC     		pop	{r2, r3, r4, r5}
+ 1171 00b8 9046     		mov	r8, r2
+ 1172 00ba 9946     		mov	r9, r3
+ 1173 00bc A246     		mov	r10, r4
+ 1174 00be AB46     		mov	fp, r5
+ 1175 00c0 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1176              	.LVL52:
+ 1177              	.L68:
+ 221:../src/hardware.c **** 			test=test-((test-min)>>1);
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 39
+
+
+ 1178              		.loc 1 221 0
+ 1179 00c2 0198     		ldr	r0, [sp, #4]
+ 1180 00c4 4446     		mov	r4, r8
+ 1181              	.LVL53:
+ 1182 00c6 031B     		sub	r3, r0, r4
+ 1183 00c8 5B10     		asr	r3, r3, #1
+ 1184              	.LVL54:
+ 1185 00ca 8446     		mov	ip, r0
+ 1186 00cc C01A     		sub	r0, r0, r3
+ 1187              	.LVL55:
+ 1188 00ce 0190     		str	r0, [sp, #4]
+ 1189              	.LVL56:
+ 1190 00d0 EAE7     		b	.L69
+ 1191              	.LVL57:
+ 1192              	.L58:
+ 198:../src/hardware.c **** 		LPC_CMP->CTRL|=(1u<<8); // entrée positive du comparateur sur ACMP0_I1
+ 1193              		.loc 1 198 0
+ 1194 00d2 5200     		lsl	r2, r2, #1
+ 1195 00d4 0A43     		orr	r2, r1
+ 1196 00d6 1A60     		str	r2, [r3]
+ 1197 00d8 A5E7     		b	.L60
+ 1198              	.L76:
+ 1199 00da C046     		.align	2
+ 1200              	.L75:
+ 1201 00dc 00400240 		.word	1073889280
+ 1202 00e0 FFFCFFFF 		.word	-769
+ 1203 00e4 00400040 		.word	1073758208
+ 1204              		.cfi_endproc
+ 1205              	.LFE43:
+ 1207              		.global	tone_on
+ 1208              		.section	.bss.tone_on,"aw",%nobits
+ 1209              		.align	2
+ 1210              		.set	.LANCHOR0,. + 0
+ 1213              	tone_on:
+ 1214 0000 00000000 		.space	4
+ 1215              		.text
+ 1216              	.Letext0:
+ 1217              		.file 3 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/LP
+ 1218              		.file 4 "c:\\nxp\\lpcxpresso_7.0.2_102\\lpcxpresso\\tools\\redlib\\include\\stdint.h"
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 40
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hardware.c
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:18     .text.assign_pins:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:23     .text.assign_pins:00000000 assign_pins
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:70     .text.assign_pins:00000038 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:77     .text.SPI0_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:82     .text.SPI0_init:00000000 SPI0_init
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:106    .text.SPI0_init:00000014 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:112    .text.PWM_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:117    .text.PWM_init:00000000 PWM_init
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:294    .text.PWM_init:000000e0 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:309    .text.sysclock_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:314    .text.sysclock_init:00000000 sysclock_init
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:392    .text.sysclock_init:00000060 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:402    .text.initialize_hardware:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:407    .text.initialize_hardware:00000000 initialize_hardware
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:516    .text.initialize_hardware:00000078 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:529    .text.delay_ms:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:534    .text.delay_ms:00000000 delay_ms
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:566    .text.delay_ms:00000020 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:573    .text.delay_us:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:578    .text.delay_us:00000000 delay_us
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:610    .text.delay_us:00000020 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:617    .text.tone:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:622    .text.tone:00000000 tone
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:716    .text.tone:00000068 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:729    .text.play_tune:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:734    .text.play_tune:00000000 play_tune
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:899    .text.play_tune:00000084 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:907    .text.MRT_IRQHandler:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:912    .text.MRT_IRQHandler:00000000 MRT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:953    .text.MRT_IRQHandler:00000028 $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:961    .text.read_pot:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:966    .text.read_pot:00000000 read_pot
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:1201   .text.read_pot:000000dc $d
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:1213   .bss.tone_on:00000000 tone_on
+C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:1209   .bss.tone_on:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_uidiv

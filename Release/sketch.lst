@@ -1,0 +1,129 @@
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccNmCoaC.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"sketch.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.etch_a_sketch,"ax",%progbits
+  18              		.align	2
+  19              		.global	etch_a_sketch
+  20              		.code	16
+  21              		.thumb_func
+  23              	etch_a_sketch:
+  24              	.LFB33:
+  25              		.file 1 "../src/sketch.c"
+   1:../src/sketch.c **** /*
+   2:../src/sketch.c ****  * sketch.c
+   3:../src/sketch.c ****  *
+   4:../src/sketch.c ****  *  Created on: 2014-06-21
+   5:../src/sketch.c ****  *      Author: Jacques Deschênes
+   6:../src/sketch.c ****  *      Description: etch a sketch easter egg.
+   7:../src/sketch.c ****  */
+   8:../src/sketch.c **** 
+   9:../src/sketch.c **** #include "sketch.h"
+  10:../src/sketch.c **** #include "ntsc.h"
+  11:../src/sketch.c **** 
+  12:../src/sketch.c **** #define LEFT_MARGIN ((HRES-32)>>1)
+  13:../src/sketch.c **** #define RIGHT_MARGIN (LEFT_MARGIN+31)
+  14:../src/sketch.c **** #define TOP_MARGIN ((VRES-32)>>1)
+  15:../src/sketch.c **** #define BOTTON_MARGIN (TOP_MARGIN+31)
+  16:../src/sketch.c **** 
+  17:../src/sketch.c **** 
+  18:../src/sketch.c **** void etch_a_sketch(){
+  26              		.loc 1 18 0
+  27              		.cfi_startproc
+  28 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  29              		.cfi_def_cfa_offset 20
+  30              		.cfi_offset 4, -20
+  31              		.cfi_offset 5, -16
+  32              		.cfi_offset 6, -12
+  33              		.cfi_offset 7, -8
+  34              		.cfi_offset 14, -4
+  35 0002 83B0     		sub	sp, sp, #12
+  36              		.cfi_def_cfa_offset 32
+  19:../src/sketch.c **** 	int x,y,new_x,new_y;
+  20:../src/sketch.c **** 	x=read_pot(LEFT_POT)+LEFT_MARGIN;
+  37              		.loc 1 20 0
+  38 0004 0020     		mov	r0, #0
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccNmCoaC.s 			page 2
+
+
+  39 0006 FFF7FEFF 		bl	read_pot
+  40              	.LVL0:
+  41 000a 071C     		mov	r7, r0
+  42 000c 1037     		add	r7, r7, #16
+  43              	.LVL1:
+  21:../src/sketch.c **** 	y=read_pot(RIGHT_POT)+TOP_MARGIN;
+  44              		.loc 1 21 0
+  45 000e 0120     		mov	r0, #1
+  46 0010 FFF7FEFF 		bl	read_pot
+  47              	.LVL2:
+  48 0014 061C     		mov	r6, r0
+  49 0016 0B36     		add	r6, r6, #11
+  50              	.LVL3:
+  51              	.L2:
+  22:../src/sketch.c **** 	while(1){
+  23:../src/sketch.c **** 		new_x=read_pot(LEFT_POT)+LEFT_MARGIN;
+  52              		.loc 1 23 0 discriminator 1
+  53 0018 0020     		mov	r0, #0
+  54 001a FFF7FEFF 		bl	read_pot
+  55              	.LVL4:
+  56 001e 051C     		mov	r5, r0
+  57 0020 1035     		add	r5, r5, #16
+  58              	.LVL5:
+  24:../src/sketch.c **** 		new_y=read_pot(RIGHT_POT)+TOP_MARGIN;
+  59              		.loc 1 24 0 discriminator 1
+  60 0022 0120     		mov	r0, #1
+  61 0024 FFF7FEFF 		bl	read_pot
+  62              	.LVL6:
+  63 0028 041C     		mov	r4, r0
+  64 002a 0B34     		add	r4, r4, #11
+  65              	.LVL7:
+  25:../src/sketch.c **** 		line(x,y,new_x,new_y,WHITE);
+  66              		.loc 1 25 0 discriminator 1
+  67 002c 0123     		mov	r3, #1
+  68 002e 0093     		str	r3, [sp]
+  69 0030 381C     		mov	r0, r7
+  70 0032 311C     		mov	r1, r6
+  71 0034 2A1C     		mov	r2, r5
+  72 0036 231C     		mov	r3, r4
+  73 0038 FFF7FEFF 		bl	line
+  74              	.LVL8:
+  26:../src/sketch.c **** 		x=new_x;
+  75              		.loc 1 26 0 discriminator 1
+  76 003c 2F1C     		mov	r7, r5
+  27:../src/sketch.c **** 		y=new_y;
+  77              		.loc 1 27 0 discriminator 1
+  78 003e 261C     		mov	r6, r4
+  79 0040 EAE7     		b	.L2
+  80              		.cfi_endproc
+  81              	.LFE33:
+  83 0042 C046     		.text
+  84              	.Letext0:
+  85              		.file 2 "../src/hardware.h"
+  86              		.file 3 "../src/ntsc.h"
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccNmCoaC.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 sketch.c
+C:\Users\Jacques\AppData\Local\Temp\ccNmCoaC.s:18     .text.etch_a_sketch:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccNmCoaC.s:23     .text.etch_a_sketch:00000000 etch_a_sketch
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+read_pot
+line

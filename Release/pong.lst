@@ -1,0 +1,122 @@
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccRapukm.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"pong.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.startup.main,"ax",%progbits
+  18              		.align	2
+  19              		.global	main
+  20              		.code	16
+  21              		.thumb_func
+  23              	main:
+  24              	.LFB33:
+  25              		.file 1 "../src/pong.c"
+   1:../src/pong.c ****  /*
+   2:../src/pong.c **** * Copyright 2014, Jacques Deschênes
+   3:../src/pong.c **** * This file is part of LPC810-pong.
+   4:../src/pong.c **** *
+   5:../src/pong.c **** *     LPC810-pong is free software: you can redistribute it and/or modify
+   6:../src/pong.c **** *     it under the terms of the GNU General Public License as published by
+   7:../src/pong.c **** *     the Free Software Foundation, either version 3 of the License, or
+   8:../src/pong.c **** *     (at your option) any later version.
+   9:../src/pong.c **** *
+  10:../src/pong.c **** *     VPC-32 is distributed in the hope that it will be useful,
+  11:../src/pong.c **** *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  12:../src/pong.c **** *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  13:../src/pong.c **** *     GNU General Public License for more details.
+  14:../src/pong.c **** *
+  15:../src/pong.c **** *     You should have received a copy of the GNU General Public License
+  16:../src/pong.c **** *     along with LPC810-pong.  If not, see <http://www.gnu.org/licenses/>.
+  17:../src/pong.c **** */
+  18:../src/pong.c **** 
+  19:../src/pong.c **** /*
+  20:../src/pong.c **** ===============================================================================
+  21:../src/pong.c **** Name        : pong.c
+  22:../src/pong.c ****  Author      : $(author)
+  23:../src/pong.c ****  Version     :
+  24:../src/pong.c ****  Copyright   : $(copyright)
+  25:../src/pong.c ****  Description : jeux pong
+  26:../src/pong.c ****                LPC_SCT utilisé pour générer synchro vidéo et sortie audio en PWM
+  27:../src/pong.c ****                LPC_SPI0 utilisé pour sortie les bits vidéo
+  28:../src/pong.c ****                LPC_ACMP0 utilisé pour lire les 2 potentiomètres
+  29:../src/pong.c **** 
+  30:../src/pong.c ****            assignations des broches
+  31:../src/pong.c ****                - sortie synchronisation NTSC sur PIO0_4
+  32:../src/pong.c ****                - sortie bits vidéo sur PIO0_3
+  33:../src/pong.c ****                - sortie PWM audio sur PIO0_2
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccRapukm.s 			page 2
+
+
+  34:../src/pong.c ****                - entrée potentiomètre 1 sur PIO0_0
+  35:../src/pong.c ****                - entrée potentiomètre 2 sur PIO0_1
+  36:../src/pong.c ****                - fonction RESET sur PIO0_5
+  37:../src/pong.c **** ===============================================================================
+  38:../src/pong.c **** */
+  39:../src/pong.c **** 
+  40:../src/pong.c **** #ifdef __USE_CMSIS
+  41:../src/pong.c **** #include "LPC8xx.h"
+  42:../src/pong.c **** #endif
+  43:../src/pong.c **** 
+  44:../src/pong.c **** #include <cr_section_macros.h>
+  45:../src/pong.c **** 
+  46:../src/pong.c **** #include "hardware.h"
+  47:../src/pong.c **** #include "game.h"
+  48:../src/pong.c **** 
+  49:../src/pong.c **** 
+  50:../src/pong.c **** 
+  51:../src/pong.c **** 
+  52:../src/pong.c **** int main(void) {
+  26              		.loc 1 52 0
+  27              		.cfi_startproc
+  28 0000 08B5     		push	{r3, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 3, -8
+  31              		.cfi_offset 14, -4
+  53:../src/pong.c **** 	initialize_hardware();
+  32              		.loc 1 53 0
+  33 0002 FFF7FEFF 		bl	initialize_hardware
+  34              	.LVL0:
+  35              	.L2:
+  54:../src/pong.c **** 	while (1){
+  55:../src/pong.c **** 		initialize_pong_game();
+  36              		.loc 1 55 0 discriminator 1
+  37 0006 FFF7FEFF 		bl	initialize_pong_game
+  38              	.LVL1:
+  56:../src/pong.c **** 		play_pong();
+  39              		.loc 1 56 0 discriminator 1
+  40 000a FFF7FEFF 		bl	play_pong
+  41              	.LVL2:
+  42 000e FAE7     		b	.L2
+  43              		.cfi_endproc
+  44              	.LFE33:
+  46              		.text
+  47              	.Letext0:
+  48              		.file 2 "../src/hardware.h"
+  49              		.file 3 "../src/game.h"
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccRapukm.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 pong.c
+C:\Users\Jacques\AppData\Local\Temp\ccRapukm.s:18     .text.startup.main:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccRapukm.s:23     .text.startup.main:00000000 main
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+initialize_hardware
+initialize_pong_game
+play_pong

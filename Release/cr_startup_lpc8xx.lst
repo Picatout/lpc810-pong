@@ -1,0 +1,826 @@
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"cr_startup_lpc8xx.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.after_vectors,"ax",%progbits
+  18              		.align	2
+  19              		.weak	NMI_Handler
+  20              		.code	16
+  21              		.thumb_func
+  23              	NMI_Handler:
+  24              	.LFB3:
+  25              		.file 1 "../src/cr_startup_lpc8xx.c"
+   1:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+   2:../src/cr_startup_lpc8xx.c **** // LPC8xx Microcontroller Startup code for use with LPCXpresso IDE
+   3:../src/cr_startup_lpc8xx.c **** //
+   4:../src/cr_startup_lpc8xx.c **** // Version : 140109
+   5:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+   6:../src/cr_startup_lpc8xx.c **** //
+   7:../src/cr_startup_lpc8xx.c **** // Copyright(C) NXP Semiconductors, 2013-2014
+   8:../src/cr_startup_lpc8xx.c **** // All rights reserved.
+   9:../src/cr_startup_lpc8xx.c **** //
+  10:../src/cr_startup_lpc8xx.c **** // Software that is described herein is for illustrative purposes only
+  11:../src/cr_startup_lpc8xx.c **** // which provides customers with programming information regarding the
+  12:../src/cr_startup_lpc8xx.c **** // LPC products.  This software is supplied "AS IS" without any warranties of
+  13:../src/cr_startup_lpc8xx.c **** // any kind, and NXP Semiconductors and its licensor disclaim any and
+  14:../src/cr_startup_lpc8xx.c **** // all warranties, express or implied, including all implied warranties of
+  15:../src/cr_startup_lpc8xx.c **** // merchantability, fitness for a particular purpose and non-infringement of
+  16:../src/cr_startup_lpc8xx.c **** // intellectual property rights.  NXP Semiconductors assumes no responsibility
+  17:../src/cr_startup_lpc8xx.c **** // or liability for the use of the software, conveys no license or rights under any
+  18:../src/cr_startup_lpc8xx.c **** // patent, copyright, mask work right, or any other intellectual property rights in
+  19:../src/cr_startup_lpc8xx.c **** // or to any products. NXP Semiconductors reserves the right to make changes
+  20:../src/cr_startup_lpc8xx.c **** // in the software without notification. NXP Semiconductors also makes no
+  21:../src/cr_startup_lpc8xx.c **** // representation or warranty that such application will be suitable for the
+  22:../src/cr_startup_lpc8xx.c **** // specified use without further testing or modification.
+  23:../src/cr_startup_lpc8xx.c **** //
+  24:../src/cr_startup_lpc8xx.c **** // Permission to use, copy, modify, and distribute this software and its
+  25:../src/cr_startup_lpc8xx.c **** // documentation is hereby granted, under NXP Semiconductors' and its
+  26:../src/cr_startup_lpc8xx.c **** // licensor's relevant copyrights in the software, without fee, provided that it
+  27:../src/cr_startup_lpc8xx.c **** // is used in conjunction with NXP Semiconductors microcontrollers.  This
+  28:../src/cr_startup_lpc8xx.c **** // copyright, permission, and disclaimer notice must appear in all copies of
+  29:../src/cr_startup_lpc8xx.c **** // this code.
+  30:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  31:../src/cr_startup_lpc8xx.c **** 
+  32:../src/cr_startup_lpc8xx.c **** #if defined (__cplusplus)
+  33:../src/cr_startup_lpc8xx.c **** #ifdef __REDLIB__
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 2
+
+
+  34:../src/cr_startup_lpc8xx.c **** #error Redlib does not support C++
+  35:../src/cr_startup_lpc8xx.c **** #else
+  36:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  37:../src/cr_startup_lpc8xx.c **** //
+  38:../src/cr_startup_lpc8xx.c **** // The entry point for the C++ library startup
+  39:../src/cr_startup_lpc8xx.c **** //
+  40:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  41:../src/cr_startup_lpc8xx.c **** extern "C" {
+  42:../src/cr_startup_lpc8xx.c ****     extern void __libc_init_array(void);
+  43:../src/cr_startup_lpc8xx.c **** }
+  44:../src/cr_startup_lpc8xx.c **** #endif
+  45:../src/cr_startup_lpc8xx.c **** #endif
+  46:../src/cr_startup_lpc8xx.c **** 
+  47:../src/cr_startup_lpc8xx.c **** #define WEAK __attribute__ ((weak))
+  48:../src/cr_startup_lpc8xx.c **** #define ALIAS(f) __attribute__ ((weak, alias (#f)))
+  49:../src/cr_startup_lpc8xx.c **** 
+  50:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  51:../src/cr_startup_lpc8xx.c **** #if defined (__cplusplus)
+  52:../src/cr_startup_lpc8xx.c **** extern "C" {
+  53:../src/cr_startup_lpc8xx.c **** #endif
+  54:../src/cr_startup_lpc8xx.c **** 
+  55:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  56:../src/cr_startup_lpc8xx.c **** #if defined (__USE_CMSIS) || defined (__USE_LPCOPEN)
+  57:../src/cr_startup_lpc8xx.c **** // Declaration of external SystemInit function
+  58:../src/cr_startup_lpc8xx.c **** extern void SystemInit(void);
+  59:../src/cr_startup_lpc8xx.c **** #endif
+  60:../src/cr_startup_lpc8xx.c **** 
+  61:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  62:../src/cr_startup_lpc8xx.c **** //
+  63:../src/cr_startup_lpc8xx.c **** // Forward declaration of the default handlers. These are aliased.
+  64:../src/cr_startup_lpc8xx.c **** // When the application defines a handler (with the same name), this will
+  65:../src/cr_startup_lpc8xx.c **** // automatically take precedence over these weak definitions
+  66:../src/cr_startup_lpc8xx.c **** //
+  67:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  68:../src/cr_startup_lpc8xx.c ****      void ResetISR(void);
+  69:../src/cr_startup_lpc8xx.c **** WEAK void NMI_Handler(void);
+  70:../src/cr_startup_lpc8xx.c **** WEAK void HardFault_Handler(void);
+  71:../src/cr_startup_lpc8xx.c **** WEAK void SVC_Handler(void);
+  72:../src/cr_startup_lpc8xx.c **** WEAK void PendSV_Handler(void);
+  73:../src/cr_startup_lpc8xx.c **** WEAK void SysTick_Handler(void);
+  74:../src/cr_startup_lpc8xx.c **** WEAK void IntDefaultHandler(void);
+  75:../src/cr_startup_lpc8xx.c **** 
+  76:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  77:../src/cr_startup_lpc8xx.c **** //
+  78:../src/cr_startup_lpc8xx.c **** // Forward declaration of the specific IRQ handlers. These are aliased
+  79:../src/cr_startup_lpc8xx.c **** // to the IntDefaultHandler, which is a 'forever' loop. When the application
+  80:../src/cr_startup_lpc8xx.c **** // defines a handler (with the same name), this will automatically take
+  81:../src/cr_startup_lpc8xx.c **** // precedence over these weak definitions
+  82:../src/cr_startup_lpc8xx.c **** //
+  83:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+  84:../src/cr_startup_lpc8xx.c **** void SPI0_IRQHandler(void) ALIAS(IntDefaultHandler);
+  85:../src/cr_startup_lpc8xx.c **** void SPI1_IRQHandler(void) ALIAS(IntDefaultHandler);
+  86:../src/cr_startup_lpc8xx.c **** void UART0_IRQHandler(void) ALIAS(IntDefaultHandler);
+  87:../src/cr_startup_lpc8xx.c **** void UART1_IRQHandler(void) ALIAS(IntDefaultHandler);
+  88:../src/cr_startup_lpc8xx.c **** void UART2_IRQHandler(void) ALIAS(IntDefaultHandler);
+  89:../src/cr_startup_lpc8xx.c **** void I2C_IRQHandler(void) ALIAS(IntDefaultHandler);
+  90:../src/cr_startup_lpc8xx.c **** void SCT_IRQHandler(void) ALIAS(IntDefaultHandler);
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 3
+
+
+  91:../src/cr_startup_lpc8xx.c **** void MRT_IRQHandler(void) ALIAS(IntDefaultHandler);
+  92:../src/cr_startup_lpc8xx.c **** void CMP_IRQHandler(void) ALIAS(IntDefaultHandler);
+  93:../src/cr_startup_lpc8xx.c **** void WDT_IRQHandler(void) ALIAS(IntDefaultHandler);
+  94:../src/cr_startup_lpc8xx.c **** void BOD_IRQHandler(void) ALIAS(IntDefaultHandler);
+  95:../src/cr_startup_lpc8xx.c **** void WKT_IRQHandler(void) ALIAS(IntDefaultHandler);
+  96:../src/cr_startup_lpc8xx.c **** void PININT0_IRQHandler(void) ALIAS(IntDefaultHandler);
+  97:../src/cr_startup_lpc8xx.c **** void PININT1_IRQHandler(void) ALIAS(IntDefaultHandler);
+  98:../src/cr_startup_lpc8xx.c **** void PININT2_IRQHandler(void) ALIAS(IntDefaultHandler);
+  99:../src/cr_startup_lpc8xx.c **** void PININT3_IRQHandler(void) ALIAS(IntDefaultHandler);
+ 100:../src/cr_startup_lpc8xx.c **** void PININT4_IRQHandler(void) ALIAS(IntDefaultHandler);
+ 101:../src/cr_startup_lpc8xx.c **** void PININT5_IRQHandler(void) ALIAS(IntDefaultHandler);
+ 102:../src/cr_startup_lpc8xx.c **** void PININT6_IRQHandler(void) ALIAS(IntDefaultHandler);
+ 103:../src/cr_startup_lpc8xx.c **** void PININT7_IRQHandler(void) ALIAS(IntDefaultHandler);
+ 104:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 105:../src/cr_startup_lpc8xx.c **** //
+ 106:../src/cr_startup_lpc8xx.c **** // The entry point for the application.
+ 107:../src/cr_startup_lpc8xx.c **** // __main() is the entry point for Redlib based applications
+ 108:../src/cr_startup_lpc8xx.c **** // main() is the entry point for Newlib based applications
+ 109:../src/cr_startup_lpc8xx.c **** //
+ 110:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 111:../src/cr_startup_lpc8xx.c **** #if defined (__REDLIB__)
+ 112:../src/cr_startup_lpc8xx.c **** extern void __main(void);
+ 113:../src/cr_startup_lpc8xx.c **** #else
+ 114:../src/cr_startup_lpc8xx.c **** extern int main(void);
+ 115:../src/cr_startup_lpc8xx.c **** #endif
+ 116:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 117:../src/cr_startup_lpc8xx.c **** //
+ 118:../src/cr_startup_lpc8xx.c **** // External declaration for the pointer to the stack top from the Linker Script
+ 119:../src/cr_startup_lpc8xx.c **** //
+ 120:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 121:../src/cr_startup_lpc8xx.c **** extern void _vStackTop(void);
+ 122:../src/cr_startup_lpc8xx.c **** 
+ 123:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 124:../src/cr_startup_lpc8xx.c **** #if defined (__cplusplus)
+ 125:../src/cr_startup_lpc8xx.c **** } // extern "C"
+ 126:../src/cr_startup_lpc8xx.c **** #endif
+ 127:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 128:../src/cr_startup_lpc8xx.c **** //
+ 129:../src/cr_startup_lpc8xx.c **** // The vector table.
+ 130:../src/cr_startup_lpc8xx.c **** // This relies on the linker script to place at correct location in memory.
+ 131:../src/cr_startup_lpc8xx.c **** //
+ 132:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 133:../src/cr_startup_lpc8xx.c **** extern void (* const g_pfnVectors[])(void);
+ 134:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".isr_vector")))
+ 135:../src/cr_startup_lpc8xx.c **** void (* const g_pfnVectors[])(void) = {
+ 136:../src/cr_startup_lpc8xx.c ****     // Core Level - CM0plus
+ 137:../src/cr_startup_lpc8xx.c ****     &_vStackTop, // The initial stack pointer
+ 138:../src/cr_startup_lpc8xx.c ****     ResetISR,                               // The reset handler
+ 139:../src/cr_startup_lpc8xx.c ****     NMI_Handler,                            // The NMI handler
+ 140:../src/cr_startup_lpc8xx.c ****     HardFault_Handler,                      // The hard fault handler
+ 141:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 142:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 143:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 144:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 145:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 146:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 147:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 4
+
+
+ 148:../src/cr_startup_lpc8xx.c ****     SVC_Handler,                            // SVCall handler
+ 149:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 150:../src/cr_startup_lpc8xx.c ****     0,                                      // Reserved
+ 151:../src/cr_startup_lpc8xx.c ****     PendSV_Handler,                         // The PendSV handler
+ 152:../src/cr_startup_lpc8xx.c ****     SysTick_Handler,                        // The SysTick handler
+ 153:../src/cr_startup_lpc8xx.c **** 
+ 154:../src/cr_startup_lpc8xx.c ****     // Chip Level - LPC8xx
+ 155:../src/cr_startup_lpc8xx.c ****     SPI0_IRQHandler,                         // SPI0 controller
+ 156:../src/cr_startup_lpc8xx.c ****     SPI1_IRQHandler,                         // SPI1 controller
+ 157:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 158:../src/cr_startup_lpc8xx.c ****     UART0_IRQHandler,                        // UART0
+ 159:../src/cr_startup_lpc8xx.c ****     UART1_IRQHandler,                        // UART1
+ 160:../src/cr_startup_lpc8xx.c ****     UART2_IRQHandler,                        // UART2
+ 161:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 162:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 163:../src/cr_startup_lpc8xx.c ****     I2C_IRQHandler,                          // I2C controller
+ 164:../src/cr_startup_lpc8xx.c ****     SCT_IRQHandler,                          // Smart Counter Timer
+ 165:../src/cr_startup_lpc8xx.c ****     MRT_IRQHandler,                          // Multi-Rate Timer
+ 166:../src/cr_startup_lpc8xx.c ****     CMP_IRQHandler,                          // Comparator
+ 167:../src/cr_startup_lpc8xx.c ****     WDT_IRQHandler,                          // Watchdog
+ 168:../src/cr_startup_lpc8xx.c ****     BOD_IRQHandler,                          // Brown Out Detect
+ 169:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 170:../src/cr_startup_lpc8xx.c ****     WKT_IRQHandler,                          // Wakeup timer
+ 171:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 172:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 173:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 174:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 175:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 176:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 177:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 178:../src/cr_startup_lpc8xx.c ****     0,                                       // Reserved
+ 179:../src/cr_startup_lpc8xx.c ****     PININT0_IRQHandler,                      // PIO INT0
+ 180:../src/cr_startup_lpc8xx.c ****     PININT1_IRQHandler,                      // PIO INT1
+ 181:../src/cr_startup_lpc8xx.c ****     PININT2_IRQHandler,                      // PIO INT2
+ 182:../src/cr_startup_lpc8xx.c ****     PININT3_IRQHandler,                      // PIO INT3
+ 183:../src/cr_startup_lpc8xx.c ****     PININT4_IRQHandler,                      // PIO INT4
+ 184:../src/cr_startup_lpc8xx.c ****     PININT5_IRQHandler,                      // PIO INT5
+ 185:../src/cr_startup_lpc8xx.c ****     PININT6_IRQHandler,                      // PIO INT6
+ 186:../src/cr_startup_lpc8xx.c ****     PININT7_IRQHandler,                      // PIO INT7
+ 187:../src/cr_startup_lpc8xx.c **** }; /* End of g_pfnVectors */
+ 188:../src/cr_startup_lpc8xx.c **** 
+ 189:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 190:../src/cr_startup_lpc8xx.c **** // Functions to carry out the initialization of RW and BSS data sections. These
+ 191:../src/cr_startup_lpc8xx.c **** // are written as separate functions rather than being inlined within the
+ 192:../src/cr_startup_lpc8xx.c **** // ResetISR() function in order to cope with MCUs with multiple banks of
+ 193:../src/cr_startup_lpc8xx.c **** // memory.
+ 194:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 195:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 196:../src/cr_startup_lpc8xx.c **** void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+ 197:../src/cr_startup_lpc8xx.c ****     unsigned int *pulDest = (unsigned int*) start;
+ 198:../src/cr_startup_lpc8xx.c ****     unsigned int *pulSrc = (unsigned int*) romstart;
+ 199:../src/cr_startup_lpc8xx.c ****     unsigned int loop;
+ 200:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 201:../src/cr_startup_lpc8xx.c ****         *pulDest++ = *pulSrc++;
+ 202:../src/cr_startup_lpc8xx.c **** }
+ 203:../src/cr_startup_lpc8xx.c **** 
+ 204:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 5
+
+
+ 205:../src/cr_startup_lpc8xx.c **** void bss_init(unsigned int start, unsigned int len) {
+ 206:../src/cr_startup_lpc8xx.c ****     unsigned int *pulDest = (unsigned int*) start;
+ 207:../src/cr_startup_lpc8xx.c ****     unsigned int loop;
+ 208:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 209:../src/cr_startup_lpc8xx.c ****         *pulDest++ = 0;
+ 210:../src/cr_startup_lpc8xx.c **** }
+ 211:../src/cr_startup_lpc8xx.c **** 
+ 212:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 213:../src/cr_startup_lpc8xx.c **** // The following symbols are constructs generated by the linker, indicating
+ 214:../src/cr_startup_lpc8xx.c **** // the location of various points in the "Global Section Table". This table is
+ 215:../src/cr_startup_lpc8xx.c **** // created by the linker via the Code Red managed linker script mechanism. It
+ 216:../src/cr_startup_lpc8xx.c **** // contains the load address, execution address and length of each RW data
+ 217:../src/cr_startup_lpc8xx.c **** // section and the execution and length of each BSS (zero initialized) section.
+ 218:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 219:../src/cr_startup_lpc8xx.c **** extern unsigned int __data_section_table;
+ 220:../src/cr_startup_lpc8xx.c **** extern unsigned int __data_section_table_end;
+ 221:../src/cr_startup_lpc8xx.c **** extern unsigned int __bss_section_table;
+ 222:../src/cr_startup_lpc8xx.c **** extern unsigned int __bss_section_table_end;
+ 223:../src/cr_startup_lpc8xx.c **** 
+ 224:../src/cr_startup_lpc8xx.c **** 
+ 225:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 226:../src/cr_startup_lpc8xx.c **** // Reset entry point for your code.
+ 227:../src/cr_startup_lpc8xx.c **** // Sets up a simple runtime environment and initializes the C/C++
+ 228:../src/cr_startup_lpc8xx.c **** // library.
+ 229:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 230:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 231:../src/cr_startup_lpc8xx.c **** void
+ 232:../src/cr_startup_lpc8xx.c **** ResetISR(void) {
+ 233:../src/cr_startup_lpc8xx.c **** 
+ 234:../src/cr_startup_lpc8xx.c ****     //
+ 235:../src/cr_startup_lpc8xx.c ****     // Copy the data sections from flash to SRAM.
+ 236:../src/cr_startup_lpc8xx.c ****     //
+ 237:../src/cr_startup_lpc8xx.c ****     unsigned int LoadAddr, ExeAddr, SectionLen;
+ 238:../src/cr_startup_lpc8xx.c ****     unsigned int *SectionTableAddr;
+ 239:../src/cr_startup_lpc8xx.c **** 
+ 240:../src/cr_startup_lpc8xx.c ****     // Load base address of Global Section Table
+ 241:../src/cr_startup_lpc8xx.c ****     SectionTableAddr = &__data_section_table;
+ 242:../src/cr_startup_lpc8xx.c **** 
+ 243:../src/cr_startup_lpc8xx.c ****     // Copy the data sections from flash to SRAM.
+ 244:../src/cr_startup_lpc8xx.c ****     while (SectionTableAddr < &__data_section_table_end) {
+ 245:../src/cr_startup_lpc8xx.c ****         LoadAddr = *SectionTableAddr++;
+ 246:../src/cr_startup_lpc8xx.c ****         ExeAddr = *SectionTableAddr++;
+ 247:../src/cr_startup_lpc8xx.c ****         SectionLen = *SectionTableAddr++;
+ 248:../src/cr_startup_lpc8xx.c ****         data_init(LoadAddr, ExeAddr, SectionLen);
+ 249:../src/cr_startup_lpc8xx.c ****     }
+ 250:../src/cr_startup_lpc8xx.c ****     // At this point, SectionTableAddr = &__bss_section_table;
+ 251:../src/cr_startup_lpc8xx.c ****     // Zero fill the bss segment
+ 252:../src/cr_startup_lpc8xx.c ****     while (SectionTableAddr < &__bss_section_table_end) {
+ 253:../src/cr_startup_lpc8xx.c ****         ExeAddr = *SectionTableAddr++;
+ 254:../src/cr_startup_lpc8xx.c ****         SectionLen = *SectionTableAddr++;
+ 255:../src/cr_startup_lpc8xx.c ****         bss_init(ExeAddr, SectionLen);
+ 256:../src/cr_startup_lpc8xx.c ****     }
+ 257:../src/cr_startup_lpc8xx.c **** #if defined (__USE_CMSIS) || defined (__USE_LPCOPEN)
+ 258:../src/cr_startup_lpc8xx.c ****     SystemInit();
+ 259:../src/cr_startup_lpc8xx.c **** #endif
+ 260:../src/cr_startup_lpc8xx.c **** 
+ 261:../src/cr_startup_lpc8xx.c **** #if defined (__cplusplus)
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 6
+
+
+ 262:../src/cr_startup_lpc8xx.c ****     //
+ 263:../src/cr_startup_lpc8xx.c ****     // Call C++ library initialisation
+ 264:../src/cr_startup_lpc8xx.c ****     //
+ 265:../src/cr_startup_lpc8xx.c ****     __libc_init_array();
+ 266:../src/cr_startup_lpc8xx.c **** #endif
+ 267:../src/cr_startup_lpc8xx.c **** 
+ 268:../src/cr_startup_lpc8xx.c **** #if defined (__REDLIB__)
+ 269:../src/cr_startup_lpc8xx.c ****     // Call the Redlib library, which in turn calls main()
+ 270:../src/cr_startup_lpc8xx.c ****     __main() ;
+ 271:../src/cr_startup_lpc8xx.c **** #else
+ 272:../src/cr_startup_lpc8xx.c ****     main();
+ 273:../src/cr_startup_lpc8xx.c **** #endif
+ 274:../src/cr_startup_lpc8xx.c **** 
+ 275:../src/cr_startup_lpc8xx.c ****     //
+ 276:../src/cr_startup_lpc8xx.c ****     // main() shouldn't return, but if it does, we'll just enter an infinite loop
+ 277:../src/cr_startup_lpc8xx.c ****     //
+ 278:../src/cr_startup_lpc8xx.c ****     while (1) {
+ 279:../src/cr_startup_lpc8xx.c ****         ;
+ 280:../src/cr_startup_lpc8xx.c ****     }
+ 281:../src/cr_startup_lpc8xx.c **** }
+ 282:../src/cr_startup_lpc8xx.c **** 
+ 283:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 284:../src/cr_startup_lpc8xx.c **** // Default exception handlers. Override the ones here by defining your own
+ 285:../src/cr_startup_lpc8xx.c **** // handler routines in your application code.
+ 286:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 287:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 288:../src/cr_startup_lpc8xx.c **** void NMI_Handler(void)
+ 289:../src/cr_startup_lpc8xx.c **** {
+  26              		.loc 1 289 0
+  27              		.cfi_startproc
+  28              	.L2:
+  29 0000 FEE7     		b	.L2
+  30              		.cfi_endproc
+  31              	.LFE3:
+  33 0002 C046     		.align	2
+  34              		.weak	HardFault_Handler
+  35              		.code	16
+  36              		.thumb_func
+  38              	HardFault_Handler:
+  39              	.LFB4:
+ 290:../src/cr_startup_lpc8xx.c ****     while(1)
+ 291:../src/cr_startup_lpc8xx.c ****     {
+ 292:../src/cr_startup_lpc8xx.c ****     }
+ 293:../src/cr_startup_lpc8xx.c **** }
+ 294:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 295:../src/cr_startup_lpc8xx.c **** void HardFault_Handler(void)
+ 296:../src/cr_startup_lpc8xx.c **** {
+  40              		.loc 1 296 0
+  41              		.cfi_startproc
+  42              	.L4:
+  43 0004 FEE7     		b	.L4
+  44              		.cfi_endproc
+  45              	.LFE4:
+  47 0006 C046     		.align	2
+  48              		.weak	SVC_Handler
+  49              		.code	16
+  50              		.thumb_func
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 7
+
+
+  52              	SVC_Handler:
+  53              	.LFB5:
+ 297:../src/cr_startup_lpc8xx.c ****     while(1)
+ 298:../src/cr_startup_lpc8xx.c ****     {
+ 299:../src/cr_startup_lpc8xx.c ****     }
+ 300:../src/cr_startup_lpc8xx.c **** }
+ 301:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 302:../src/cr_startup_lpc8xx.c **** void SVC_Handler(void)
+ 303:../src/cr_startup_lpc8xx.c **** {
+  54              		.loc 1 303 0
+  55              		.cfi_startproc
+  56              	.L6:
+  57 0008 FEE7     		b	.L6
+  58              		.cfi_endproc
+  59              	.LFE5:
+  61 000a C046     		.align	2
+  62              		.weak	PendSV_Handler
+  63              		.code	16
+  64              		.thumb_func
+  66              	PendSV_Handler:
+  67              	.LFB6:
+ 304:../src/cr_startup_lpc8xx.c ****     while(1)
+ 305:../src/cr_startup_lpc8xx.c ****     {
+ 306:../src/cr_startup_lpc8xx.c ****     }
+ 307:../src/cr_startup_lpc8xx.c **** }
+ 308:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 309:../src/cr_startup_lpc8xx.c **** void PendSV_Handler(void)
+ 310:../src/cr_startup_lpc8xx.c **** {
+  68              		.loc 1 310 0
+  69              		.cfi_startproc
+  70              	.L8:
+  71 000c FEE7     		b	.L8
+  72              		.cfi_endproc
+  73              	.LFE6:
+  75 000e C046     		.align	2
+  76              		.weak	SysTick_Handler
+  77              		.code	16
+  78              		.thumb_func
+  80              	SysTick_Handler:
+  81              	.LFB7:
+ 311:../src/cr_startup_lpc8xx.c ****     while(1)
+ 312:../src/cr_startup_lpc8xx.c ****     {
+ 313:../src/cr_startup_lpc8xx.c ****     }
+ 314:../src/cr_startup_lpc8xx.c **** }
+ 315:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 316:../src/cr_startup_lpc8xx.c **** void SysTick_Handler(void)
+ 317:../src/cr_startup_lpc8xx.c **** {
+  82              		.loc 1 317 0
+  83              		.cfi_startproc
+  84              	.L10:
+  85 0010 FEE7     		b	.L10
+  86              		.cfi_endproc
+  87              	.LFE7:
+  89 0012 C046     		.align	2
+  90              		.weak	IntDefaultHandler
+  91              		.code	16
+  92              		.thumb_func
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 8
+
+
+  94              	IntDefaultHandler:
+  95              	.LFB8:
+ 318:../src/cr_startup_lpc8xx.c ****     while(1)
+ 319:../src/cr_startup_lpc8xx.c ****     {
+ 320:../src/cr_startup_lpc8xx.c ****     }
+ 321:../src/cr_startup_lpc8xx.c **** }
+ 322:../src/cr_startup_lpc8xx.c **** 
+ 323:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 324:../src/cr_startup_lpc8xx.c **** //
+ 325:../src/cr_startup_lpc8xx.c **** // Processor ends up here if an unexpected interrupt occurs or a specific
+ 326:../src/cr_startup_lpc8xx.c **** // handler is not present in the application code.
+ 327:../src/cr_startup_lpc8xx.c **** //
+ 328:../src/cr_startup_lpc8xx.c **** //*****************************************************************************
+ 329:../src/cr_startup_lpc8xx.c **** __attribute__ ((section(".after_vectors")))
+ 330:../src/cr_startup_lpc8xx.c **** void IntDefaultHandler(void)
+ 331:../src/cr_startup_lpc8xx.c **** {
+  96              		.loc 1 331 0
+  97              		.cfi_startproc
+  98              	.L12:
+  99 0014 FEE7     		b	.L12
+ 100              		.cfi_endproc
+ 101              	.LFE8:
+ 103              		.weak	SPI0_IRQHandler
+ 104              		.thumb_set SPI0_IRQHandler,IntDefaultHandler
+ 105              		.weak	SPI1_IRQHandler
+ 106              		.thumb_set SPI1_IRQHandler,IntDefaultHandler
+ 107              		.weak	UART0_IRQHandler
+ 108              		.thumb_set UART0_IRQHandler,IntDefaultHandler
+ 109              		.weak	UART1_IRQHandler
+ 110              		.thumb_set UART1_IRQHandler,IntDefaultHandler
+ 111              		.weak	UART2_IRQHandler
+ 112              		.thumb_set UART2_IRQHandler,IntDefaultHandler
+ 113              		.weak	I2C_IRQHandler
+ 114              		.thumb_set I2C_IRQHandler,IntDefaultHandler
+ 115              		.weak	SCT_IRQHandler
+ 116              		.thumb_set SCT_IRQHandler,IntDefaultHandler
+ 117              		.weak	MRT_IRQHandler
+ 118              		.thumb_set MRT_IRQHandler,IntDefaultHandler
+ 119              		.weak	CMP_IRQHandler
+ 120              		.thumb_set CMP_IRQHandler,IntDefaultHandler
+ 121              		.weak	WDT_IRQHandler
+ 122              		.thumb_set WDT_IRQHandler,IntDefaultHandler
+ 123              		.weak	BOD_IRQHandler
+ 124              		.thumb_set BOD_IRQHandler,IntDefaultHandler
+ 125              		.weak	WKT_IRQHandler
+ 126              		.thumb_set WKT_IRQHandler,IntDefaultHandler
+ 127              		.weak	PININT0_IRQHandler
+ 128              		.thumb_set PININT0_IRQHandler,IntDefaultHandler
+ 129              		.weak	PININT1_IRQHandler
+ 130              		.thumb_set PININT1_IRQHandler,IntDefaultHandler
+ 131              		.weak	PININT2_IRQHandler
+ 132              		.thumb_set PININT2_IRQHandler,IntDefaultHandler
+ 133              		.weak	PININT3_IRQHandler
+ 134              		.thumb_set PININT3_IRQHandler,IntDefaultHandler
+ 135              		.weak	PININT4_IRQHandler
+ 136              		.thumb_set PININT4_IRQHandler,IntDefaultHandler
+ 137              		.weak	PININT5_IRQHandler
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 9
+
+
+ 138              		.thumb_set PININT5_IRQHandler,IntDefaultHandler
+ 139              		.weak	PININT6_IRQHandler
+ 140              		.thumb_set PININT6_IRQHandler,IntDefaultHandler
+ 141              		.weak	PININT7_IRQHandler
+ 142              		.thumb_set PININT7_IRQHandler,IntDefaultHandler
+ 143 0016 C046     		.align	2
+ 144              		.global	ResetISR
+ 145              		.code	16
+ 146              		.thumb_func
+ 148              	ResetISR:
+ 149              	.LFB2:
+ 232:../src/cr_startup_lpc8xx.c **** ResetISR(void) {
+ 150              		.loc 1 232 0
+ 151              		.cfi_startproc
+ 152              	.LVL0:
+ 232:../src/cr_startup_lpc8xx.c **** ResetISR(void) {
+ 153              		.loc 1 232 0
+ 154 0018 70B5     		push	{r4, r5, r6, lr}
+ 155              		.cfi_def_cfa_offset 16
+ 156              		.cfi_offset 4, -16
+ 157              		.cfi_offset 5, -12
+ 158              		.cfi_offset 6, -8
+ 159              		.cfi_offset 14, -4
+ 244:../src/cr_startup_lpc8xx.c ****     while (SectionTableAddr < &__data_section_table_end) {
+ 160              		.loc 1 244 0
+ 161 001a 174C     		ldr	r4, .L33
+ 162 001c 174D     		ldr	r5, .L33+4
+ 163              	.LVL1:
+ 164              	.L30:
+ 165 001e AC42     		cmp	r4, r5
+ 166 0020 0ED2     		bcs	.L14
+ 167              	.L32:
+ 168              	.LVL2:
+ 245:../src/cr_startup_lpc8xx.c ****         LoadAddr = *SectionTableAddr++;
+ 169              		.loc 1 245 0
+ 170 0022 2068     		ldr	r0, [r4]
+ 171              	.LVL3:
+ 246:../src/cr_startup_lpc8xx.c ****         ExeAddr = *SectionTableAddr++;
+ 172              		.loc 1 246 0
+ 173 0024 6168     		ldr	r1, [r4, #4]
+ 174              	.LVL4:
+ 175 0026 0C34     		add	r4, r4, #12
+ 176              	.LVL5:
+ 177 0028 231F     		sub	r3, r4, #4
+ 247:../src/cr_startup_lpc8xx.c ****         SectionLen = *SectionTableAddr++;
+ 178              		.loc 1 247 0
+ 179 002a 1A68     		ldr	r2, [r3]
+ 180              	.LVL6:
+ 181              	.LBB6:
+ 182              	.LBB7:
+ 200:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 183              		.loc 1 200 0
+ 184 002c 0023     		mov	r3, #0
+ 185 002e 002A     		cmp	r2, #0
+ 186 0030 F5D0     		beq	.L30
+ 187              	.LVL7:
+ 188              	.L28:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 10
+
+
+ 201:../src/cr_startup_lpc8xx.c ****         *pulDest++ = *pulSrc++;
+ 189              		.loc 1 201 0
+ 190 0032 1E58     		ldr	r6, [r3, r0]
+ 191 0034 5E50     		str	r6, [r3, r1]
+ 200:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 192              		.loc 1 200 0
+ 193 0036 0433     		add	r3, r3, #4
+ 194              	.LVL8:
+ 195 0038 9A42     		cmp	r2, r3
+ 196 003a FAD8     		bhi	.L28
+ 197              	.LBE7:
+ 198              	.LBE6:
+ 244:../src/cr_startup_lpc8xx.c ****     while (SectionTableAddr < &__data_section_table_end) {
+ 199              		.loc 1 244 0
+ 200 003c AC42     		cmp	r4, r5
+ 201 003e F0D3     		bcc	.L32
+ 202              	.LVL9:
+ 203              	.L14:
+ 252:../src/cr_startup_lpc8xx.c ****     while (SectionTableAddr < &__bss_section_table_end) {
+ 204              		.loc 1 252 0 discriminator 1
+ 205 0040 0F4A     		ldr	r2, .L33+8
+ 206 0042 9442     		cmp	r4, r2
+ 207 0044 13D2     		bcs	.L22
+ 208 0046 231C     		mov	r3, r4
+ 209 0048 0833     		add	r3, r3, #8
+ 210 004a D51D     		add	r5, r2, #7
+ 211 004c ED1A     		sub	r5, r5, r3
+ 212 004e ED08     		lsr	r5, r5, #3
+ 213 0050 ED00     		lsl	r5, r5, #3
+ 214 0052 5D19     		add	r5, r3, r5
+ 215              	.LBB8:
+ 216              	.LBB9:
+ 208:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 217              		.loc 1 208 0
+ 218 0054 0021     		mov	r1, #0
+ 219              	.LVL10:
+ 220              	.L26:
+ 221              	.LBE9:
+ 222              	.LBE8:
+ 254:../src/cr_startup_lpc8xx.c ****         SectionLen = *SectionTableAddr++;
+ 223              		.loc 1 254 0
+ 224 0056 6268     		ldr	r2, [r4, #4]
+ 253:../src/cr_startup_lpc8xx.c ****         ExeAddr = *SectionTableAddr++;
+ 225              		.loc 1 253 0
+ 226 0058 2068     		ldr	r0, [r4]
+ 227              	.LVL11:
+ 228              	.LBB11:
+ 229              	.LBB10:
+ 208:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 230              		.loc 1 208 0
+ 231 005a 0023     		mov	r3, #0
+ 232 005c 002A     		cmp	r2, #0
+ 233 005e 03D0     		beq	.L23
+ 234              	.LVL12:
+ 235              	.L29:
+ 209:../src/cr_startup_lpc8xx.c ****         *pulDest++ = 0;
+ 236              		.loc 1 209 0
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 11
+
+
+ 237 0060 1950     		str	r1, [r3, r0]
+ 208:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 238              		.loc 1 208 0
+ 239 0062 0433     		add	r3, r3, #4
+ 240              	.LVL13:
+ 241 0064 9A42     		cmp	r2, r3
+ 242 0066 FBD8     		bhi	.L29
+ 243              	.LVL14:
+ 244              	.L23:
+ 245 0068 0834     		add	r4, r4, #8
+ 246              	.LVL15:
+ 247              	.LBE10:
+ 248              	.LBE11:
+ 252:../src/cr_startup_lpc8xx.c ****     while (SectionTableAddr < &__bss_section_table_end) {
+ 249              		.loc 1 252 0
+ 250 006a AC42     		cmp	r4, r5
+ 251 006c F3D1     		bne	.L26
+ 252              	.LVL16:
+ 253              	.L22:
+ 258:../src/cr_startup_lpc8xx.c ****     SystemInit();
+ 254              		.loc 1 258 0
+ 255 006e FFF7FEFF 		bl	SystemInit
+ 256              	.LVL17:
+ 270:../src/cr_startup_lpc8xx.c ****     __main() ;
+ 257              		.loc 1 270 0
+ 258 0072 FFF7FEFF 		bl	__main
+ 259              	.LVL18:
+ 260              	.L25:
+ 261 0076 FEE7     		b	.L25
+ 262              	.L34:
+ 263              		.align	2
+ 264              	.L33:
+ 265 0078 00000000 		.word	__data_section_table
+ 266 007c 00000000 		.word	__data_section_table_end
+ 267 0080 00000000 		.word	__bss_section_table_end
+ 268              		.cfi_endproc
+ 269              	.LFE2:
+ 271              		.align	2
+ 272              		.global	data_init
+ 273              		.code	16
+ 274              		.thumb_func
+ 276              	data_init:
+ 277              	.LFB0:
+ 196:../src/cr_startup_lpc8xx.c **** void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+ 278              		.loc 1 196 0
+ 279              		.cfi_startproc
+ 280              	.LVL19:
+ 281 0084 10B5     		push	{r4, lr}
+ 282              		.cfi_def_cfa_offset 8
+ 283              		.cfi_offset 4, -8
+ 284              		.cfi_offset 14, -4
+ 200:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 285              		.loc 1 200 0
+ 286 0086 0023     		mov	r3, #0
+ 287 0088 002A     		cmp	r2, #0
+ 288 008a 04D0     		beq	.L35
+ 289              	.LVL20:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 12
+
+
+ 290              	.L39:
+ 201:../src/cr_startup_lpc8xx.c ****         *pulDest++ = *pulSrc++;
+ 291              		.loc 1 201 0 discriminator 2
+ 292 008c 1C58     		ldr	r4, [r3, r0]
+ 293 008e 5C50     		str	r4, [r3, r1]
+ 200:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 294              		.loc 1 200 0 discriminator 2
+ 295 0090 0433     		add	r3, r3, #4
+ 296              	.LVL21:
+ 297 0092 9A42     		cmp	r2, r3
+ 298 0094 FAD8     		bhi	.L39
+ 299              	.LVL22:
+ 300              	.L35:
+ 202:../src/cr_startup_lpc8xx.c **** }
+ 301              		.loc 1 202 0
+ 302              		@ sp needed
+ 303 0096 10BD     		pop	{r4, pc}
+ 304              		.cfi_endproc
+ 305              	.LFE0:
+ 307              		.align	2
+ 308              		.global	bss_init
+ 309              		.code	16
+ 310              		.thumb_func
+ 312              	bss_init:
+ 313              	.LFB1:
+ 205:../src/cr_startup_lpc8xx.c **** void bss_init(unsigned int start, unsigned int len) {
+ 314              		.loc 1 205 0
+ 315              		.cfi_startproc
+ 316              	.LVL23:
+ 208:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 317              		.loc 1 208 0
+ 318 0098 0023     		mov	r3, #0
+ 209:../src/cr_startup_lpc8xx.c ****         *pulDest++ = 0;
+ 319              		.loc 1 209 0
+ 320 009a 0022     		mov	r2, #0
+ 208:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 321              		.loc 1 208 0
+ 322 009c 0029     		cmp	r1, #0
+ 323 009e 03D0     		beq	.L40
+ 324              	.LVL24:
+ 325              	.L44:
+ 209:../src/cr_startup_lpc8xx.c ****         *pulDest++ = 0;
+ 326              		.loc 1 209 0 discriminator 2
+ 327 00a0 1A50     		str	r2, [r3, r0]
+ 208:../src/cr_startup_lpc8xx.c ****     for (loop = 0; loop < len; loop = loop + 4)
+ 328              		.loc 1 208 0 discriminator 2
+ 329 00a2 0433     		add	r3, r3, #4
+ 330              	.LVL25:
+ 331 00a4 9942     		cmp	r1, r3
+ 332 00a6 FBD8     		bhi	.L44
+ 333              	.LVL26:
+ 334              	.L40:
+ 210:../src/cr_startup_lpc8xx.c **** }
+ 335              		.loc 1 210 0
+ 336              		@ sp needed
+ 337 00a8 7047     		bx	lr
+ 338              		.cfi_endproc
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 13
+
+
+ 339              	.LFE1:
+ 341              		.global	g_pfnVectors
+ 342 00aa C046     		.section	.isr_vector,"a",%progbits
+ 343              		.align	2
+ 346              	g_pfnVectors:
+ 347 0000 00000000 		.word	_vStackTop
+ 348 0004 00000000 		.word	ResetISR
+ 349 0008 00000000 		.word	NMI_Handler
+ 350 000c 00000000 		.word	HardFault_Handler
+ 351 0010 00000000 		.word	0
+ 352 0014 00000000 		.word	0
+ 353 0018 00000000 		.word	0
+ 354 001c 00000000 		.word	0
+ 355 0020 00000000 		.word	0
+ 356 0024 00000000 		.word	0
+ 357 0028 00000000 		.word	0
+ 358 002c 00000000 		.word	SVC_Handler
+ 359 0030 00000000 		.word	0
+ 360 0034 00000000 		.word	0
+ 361 0038 00000000 		.word	PendSV_Handler
+ 362 003c 00000000 		.word	SysTick_Handler
+ 363 0040 00000000 		.word	SPI0_IRQHandler
+ 364 0044 00000000 		.word	SPI1_IRQHandler
+ 365 0048 00000000 		.word	0
+ 366 004c 00000000 		.word	UART0_IRQHandler
+ 367 0050 00000000 		.word	UART1_IRQHandler
+ 368 0054 00000000 		.word	UART2_IRQHandler
+ 369 0058 00000000 		.word	0
+ 370 005c 00000000 		.word	0
+ 371 0060 00000000 		.word	I2C_IRQHandler
+ 372 0064 00000000 		.word	SCT_IRQHandler
+ 373 0068 00000000 		.word	MRT_IRQHandler
+ 374 006c 00000000 		.word	CMP_IRQHandler
+ 375 0070 00000000 		.word	WDT_IRQHandler
+ 376 0074 00000000 		.word	BOD_IRQHandler
+ 377 0078 00000000 		.word	0
+ 378 007c 00000000 		.word	WKT_IRQHandler
+ 379 0080 00000000 		.word	0
+ 380 0084 00000000 		.word	0
+ 381 0088 00000000 		.word	0
+ 382 008c 00000000 		.word	0
+ 383 0090 00000000 		.word	0
+ 384 0094 00000000 		.word	0
+ 385 0098 00000000 		.word	0
+ 386 009c 00000000 		.word	0
+ 387 00a0 00000000 		.word	PININT0_IRQHandler
+ 388 00a4 00000000 		.word	PININT1_IRQHandler
+ 389 00a8 00000000 		.word	PININT2_IRQHandler
+ 390 00ac 00000000 		.word	PININT3_IRQHandler
+ 391 00b0 00000000 		.word	PININT4_IRQHandler
+ 392 00b4 00000000 		.word	PININT5_IRQHandler
+ 393 00b8 00000000 		.word	PININT6_IRQHandler
+ 394 00bc 00000000 		.word	PININT7_IRQHandler
+ 395              		.text
+ 396              	.Letext0:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 cr_startup_lpc8xx.c
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:18     .after_vectors:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:23     .after_vectors:00000000 NMI_Handler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:38     .after_vectors:00000004 HardFault_Handler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:52     .after_vectors:00000008 SVC_Handler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:66     .after_vectors:0000000c PendSV_Handler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:80     .after_vectors:00000010 SysTick_Handler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 IntDefaultHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 SPI0_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 SPI1_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 UART0_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 UART1_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 UART2_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 I2C_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 SCT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 MRT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 CMP_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 WDT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 BOD_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 WKT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT0_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT1_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT2_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT3_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT4_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT5_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT6_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:94     .after_vectors:00000014 PININT7_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:148    .after_vectors:00000018 ResetISR
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:265    .after_vectors:00000078 $d
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:271    .after_vectors:00000084 $t
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:276    .after_vectors:00000084 data_init
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:312    .after_vectors:00000098 bss_init
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:346    .isr_vector:00000000 g_pfnVectors
+C:\Users\Jacques\AppData\Local\Temp\cc6hoNUv.s:343    .isr_vector:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+SystemInit
+__main
+__data_section_table
+__data_section_table_end
+__bss_section_table_end
+_vStackTop

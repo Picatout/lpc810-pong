@@ -1,0 +1,696 @@
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"ntsc.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.SCT_IRQHandler,"ax",%progbits
+  18              		.align	2
+  19              		.global	SCT_IRQHandler
+  20              		.code	16
+  21              		.thumb_func
+  23              	SCT_IRQHandler:
+  24              	.LFB33:
+  25              		.file 1 "../src/ntsc.c"
+   1:../src/ntsc.c **** /*
+   2:../src/ntsc.c ****  * ntsc.c
+   3:../src/ntsc.c ****  *
+   4:../src/ntsc.c ****  *  Created on: 2014-06-18
+   5:../src/ntsc.c ****  *      Author: Jacques
+   6:../src/ntsc.c ****  */
+   7:../src/ntsc.c **** 
+   8:../src/ntsc.c **** #include <LPC8xx.h>
+   9:../src/ntsc.c **** #include "ntsc.h"
+  10:../src/ntsc.c **** 
+  11:../src/ntsc.c **** 
+  12:../src/ntsc.c **** volatile unsigned char video_buffer[BUFFER_SIZE];
+  13:../src/ntsc.c **** volatile uint16_t ln_cntr=0;
+  14:../src/ntsc.c **** volatile unsigned frame_cntr=0;
+  15:../src/ntsc.c **** 
+  16:../src/ntsc.c **** // céduleur de tâches et génération signal vidéo
+  17:../src/ntsc.c **** void SCT_IRQHandler (void){
+  26              		.loc 1 17 0
+  27              		.cfi_startproc
+  28 0000 30B5     		push	{r4, r5, lr}
+  29              		.cfi_def_cfa_offset 12
+  30              		.cfi_offset 4, -12
+  31              		.cfi_offset 5, -8
+  32              		.cfi_offset 14, -4
+  18:../src/ntsc.c **** 	uint16_t first,i;
+  19:../src/ntsc.c **** 	if (LPC_SCT->EVFLAG & 2){ // event 1
+  33              		.loc 1 19 0
+  34 0002 F423     		mov	r3, #244
+  35 0004 3B4A     		ldr	r2, .L18
+  36 0006 D358     		ldr	r3, [r2, r3]
+  37 0008 9A07     		lsl	r2, r3, #30
+  38 000a 3AD5     		bpl	.L2
+  20:../src/ntsc.c **** 		ln_cntr++;
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 2
+
+
+  39              		.loc 1 20 0
+  40 000c 3A4B     		ldr	r3, .L18+4
+  41 000e 1A88     		ldrh	r2, [r3]
+  42 0010 0132     		add	r2, r2, #1
+  43 0012 92B2     		uxth	r2, r2
+  44 0014 1A80     		strh	r2, [r3]
+  21:../src/ntsc.c **** 		switch (ln_cntr){
+  45              		.loc 1 21 0
+  46 0016 1B88     		ldrh	r3, [r3]
+  47 0018 9BB2     		uxth	r3, r3
+  48 001a 1E2B     		cmp	r3, #30
+  49 001c 10D0     		beq	.L4
+  50 001e 02D8     		bhi	.L5
+  51 0020 032B     		cmp	r3, #3
+  52 0022 07D0     		beq	.L6
+  53 0024 26E0     		b	.L3
+  54              	.L5:
+  55 0026 FA2B     		cmp	r3, #250
+  56 0028 11D0     		beq	.L7
+  57 002a 0622     		mov	r2, #6
+  58 002c FF32     		add	r2, r2, #255
+  59 002e 9342     		cmp	r3, r2
+  60 0030 14D0     		beq	.L8
+  61 0032 1FE0     		b	.L3
+  62              	.L6:
+  22:../src/ntsc.c **** 		case 3:
+  23:../src/ntsc.c **** 			LPC_SCT->MATCHREL[1].L=H_PULSE;
+  63              		.loc 1 23 0
+  64 0034 8B21     		mov	r1, #139
+  65 0036 8123     		mov	r3, #129
+  66 0038 9B00     		lsl	r3, r3, #2
+  67 003a 2E4A     		ldr	r2, .L18
+  68 003c D152     		strh	r1, [r2, r3]
+  24:../src/ntsc.c **** 			break;
+  69              		.loc 1 24 0
+  70 003e 19E0     		b	.L3
+  71              	.L4:
+  25:../src/ntsc.c **** 		case FIRST_VISIBLE:
+  26:../src/ntsc.c **** 			LPC_SCT->EVEN |= 4u; // active interruption sur événement 2
+  72              		.loc 1 26 0
+  73 0040 2C4A     		ldr	r2, .L18
+  74 0042 F023     		mov	r3, #240
+  75 0044 D058     		ldr	r0, [r2, r3]
+  76 0046 0421     		mov	r1, #4
+  77 0048 0143     		orr	r1, r0
+  78 004a D150     		str	r1, [r2, r3]
+  27:../src/ntsc.c **** 			break;
+  79              		.loc 1 27 0
+  80 004c 12E0     		b	.L3
+  81              	.L7:
+  28:../src/ntsc.c **** 		case LAST_VISIBLE+1:
+  29:../src/ntsc.c **** 			LPC_SCT->EVEN &= ~4u; // désactive interruption sur événement 2
+  82              		.loc 1 29 0
+  83 004e 294A     		ldr	r2, .L18
+  84 0050 F023     		mov	r3, #240
+  85 0052 D158     		ldr	r1, [r2, r3]
+  86 0054 0420     		mov	r0, #4
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 3
+
+
+  87 0056 8143     		bic	r1, r0
+  88 0058 D150     		str	r1, [r2, r3]
+  30:../src/ntsc.c **** 		    break;
+  89              		.loc 1 30 0
+  90 005a 0BE0     		b	.L3
+  91              	.L8:
+  31:../src/ntsc.c **** 		case LINES_PER_FRAME-1:
+  32:../src/ntsc.c **** 			ln_cntr=0;
+  92              		.loc 1 32 0
+  93 005c 0022     		mov	r2, #0
+  94 005e 264B     		ldr	r3, .L18+4
+  95 0060 1A80     		strh	r2, [r3]
+  33:../src/ntsc.c **** 			LPC_SCT->MATCHREL[1].L=V_PULSE;
+  96              		.loc 1 33 0
+  97 0062 2649     		ldr	r1, .L18+8
+  98 0064 8123     		mov	r3, #129
+  99 0066 9B00     		lsl	r3, r3, #2
+ 100 0068 224A     		ldr	r2, .L18
+ 101 006a D152     		strh	r1, [r2, r3]
+  34:../src/ntsc.c **** 			frame_cntr++;
+ 102              		.loc 1 34 0
+ 103 006c 244B     		ldr	r3, .L18+12
+ 104 006e 1A68     		ldr	r2, [r3]
+ 105 0070 0132     		add	r2, r2, #1
+ 106 0072 1A60     		str	r2, [r3]
+ 107              	.L3:
+  35:../src/ntsc.c **** 			break;
+  36:../src/ntsc.c **** 		default:
+  37:../src/ntsc.c **** 			break;
+  38:../src/ntsc.c **** 		}//switch
+  39:../src/ntsc.c **** 		LPC_SCT->EVFLAG |= 2u; // remet à zéro l'indicateur énévenement 1
+ 108              		.loc 1 39 0
+ 109 0074 1F4A     		ldr	r2, .L18
+ 110 0076 F423     		mov	r3, #244
+ 111 0078 D058     		ldr	r0, [r2, r3]
+ 112 007a 0221     		mov	r1, #2
+ 113 007c 0143     		orr	r1, r0
+ 114 007e D150     		str	r1, [r2, r3]
+ 115 0080 36E0     		b	.L1
+ 116              	.L2:
+  40:../src/ntsc.c **** 	}else {//événement 2
+  41:../src/ntsc.c **** 		first=((ln_cntr-FIRST_VISIBLE)>>2)*ROW_SIZE;
+ 117              		.loc 1 41 0
+ 118 0082 1D4B     		ldr	r3, .L18+4
+ 119 0084 1B88     		ldrh	r3, [r3]
+ 120 0086 1E3B     		sub	r3, r3, #30
+ 121 0088 9B10     		asr	r3, r3, #2
+ 122 008a DB00     		lsl	r3, r3, #3
+ 123 008c 9BB2     		uxth	r3, r3
+ 124              	.LVL0:
+  42:../src/ntsc.c **** 		LPC_SPI0->CFG|=SPI_ENABLE;
+ 125              		.loc 1 42 0
+ 126 008e 1D4A     		ldr	r2, .L18+16
+ 127 0090 1068     		ldr	r0, [r2]
+ 128 0092 0121     		mov	r1, #1
+ 129 0094 0143     		orr	r1, r0
+ 130 0096 1160     		str	r1, [r2]
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 4
+
+
+  43:../src/ntsc.c **** 		LPC_SPI0->TXDAT=0;
+ 131              		.loc 1 43 0
+ 132 0098 0021     		mov	r1, #0
+ 133 009a D161     		str	r1, [r2, #28]
+  44:../src/ntsc.c **** 		while (!(LPC_SPI0->STAT&SPI_TXRDY));
+ 134              		.loc 1 44 0
+ 135 009c 101C     		mov	r0, r2
+ 136 009e 0221     		mov	r1, #2
+ 137              	.L11:
+ 138              		.loc 1 44 0 is_stmt 0 discriminator 1
+ 139 00a0 8268     		ldr	r2, [r0, #8]
+ 140 00a2 1142     		tst	r1, r2
+ 141 00a4 FCD0     		beq	.L11
+ 142 00a6 1D1C     		mov	r5, r3
+ 143 00a8 0835     		add	r5, r5, #8
+ 144 00aa ADB2     		uxth	r5, r5
+  45:../src/ntsc.c **** 		for (i=ROW_SIZE;i;i--){
+  46:../src/ntsc.c **** 			LPC_SPI0->TXDAT=video_buffer[first++];
+ 145              		.loc 1 46 0 is_stmt 1
+ 146 00ac 164C     		ldr	r4, .L18+20
+ 147 00ae 154A     		ldr	r2, .L18+16
+  47:../src/ntsc.c **** 			while (!(LPC_SPI0->STAT&SPI_TXRDY));
+ 148              		.loc 1 47 0
+ 149 00b0 0221     		mov	r1, #2
+ 150              	.L15:
+ 151              	.LVL1:
+  46:../src/ntsc.c **** 			LPC_SPI0->TXDAT=video_buffer[first++];
+ 152              		.loc 1 46 0
+ 153 00b2 581C     		add	r0, r3, #1
+ 154 00b4 80B2     		uxth	r0, r0
+ 155              	.LVL2:
+ 156 00b6 E35C     		ldrb	r3, [r4, r3]
+ 157 00b8 DBB2     		uxtb	r3, r3
+ 158 00ba D361     		str	r3, [r2, #28]
+ 159              	.L13:
+ 160              		.loc 1 47 0 discriminator 1
+ 161 00bc 9368     		ldr	r3, [r2, #8]
+ 162 00be 1942     		tst	r1, r3
+ 163 00c0 FCD0     		beq	.L13
+ 164              	.LVL3:
+  45:../src/ntsc.c **** 		for (i=ROW_SIZE;i;i--){
+ 165              		.loc 1 45 0
+ 166 00c2 A842     		cmp	r0, r5
+ 167 00c4 01D0     		beq	.L14
+ 168              	.LVL4:
+  46:../src/ntsc.c **** 			LPC_SPI0->TXDAT=video_buffer[first++];
+ 169              		.loc 1 46 0
+ 170 00c6 031C     		mov	r3, r0
+ 171 00c8 F3E7     		b	.L15
+ 172              	.LVL5:
+ 173              	.L14:
+  48:../src/ntsc.c **** 		}
+  49:../src/ntsc.c **** 		LPC_SPI0->TXDAT=0;
+ 174              		.loc 1 49 0
+ 175 00ca 0022     		mov	r2, #0
+ 176 00cc 0D4B     		ldr	r3, .L18+16
+ 177 00ce DA61     		str	r2, [r3, #28]
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 5
+
+
+  50:../src/ntsc.c **** 		while (!(LPC_SPI0->STAT&SPI_TXRDY));
+ 178              		.loc 1 50 0
+ 179 00d0 191C     		mov	r1, r3
+ 180 00d2 0222     		mov	r2, #2
+ 181              	.L17:
+ 182              		.loc 1 50 0 is_stmt 0 discriminator 1
+ 183 00d4 8B68     		ldr	r3, [r1, #8]
+ 184 00d6 1A42     		tst	r2, r3
+ 185 00d8 FCD0     		beq	.L17
+  51:../src/ntsc.c **** 		LPC_SPI0->CFG&=~SPI_ENABLE;
+ 186              		.loc 1 51 0 is_stmt 1
+ 187 00da 0A4B     		ldr	r3, .L18+16
+ 188 00dc 1A68     		ldr	r2, [r3]
+ 189 00de 0121     		mov	r1, #1
+ 190 00e0 8A43     		bic	r2, r1
+ 191 00e2 1A60     		str	r2, [r3]
+  52:../src/ntsc.c **** 		LPC_SCT->EVFLAG |= 4u; // remet à zéro l'indicateur événement 2
+ 192              		.loc 1 52 0
+ 193 00e4 034A     		ldr	r2, .L18
+ 194 00e6 F423     		mov	r3, #244
+ 195 00e8 D058     		ldr	r0, [r2, r3]
+ 196              	.LVL6:
+ 197 00ea 0421     		mov	r1, #4
+ 198 00ec 0143     		orr	r1, r0
+ 199 00ee D150     		str	r1, [r2, r3]
+ 200              	.L1:
+  53:../src/ntsc.c **** 	}//if
+  54:../src/ntsc.c **** }//SCT_IRQHandler()
+ 201              		.loc 1 54 0
+ 202              		@ sp needed
+ 203 00f0 30BD     		pop	{r4, r5, pc}
+ 204              	.L19:
+ 205 00f2 C046     		.align	2
+ 206              	.L18:
+ 207 00f4 00400050 		.word	1342193664
+ 208 00f8 00000000 		.word	.LANCHOR0
+ 209 00fc DA060000 		.word	1754
+ 210 0100 00000000 		.word	.LANCHOR1
+ 211 0104 00800540 		.word	1074102272
+ 212 0108 00000000 		.word	video_buffer
+ 213              		.cfi_endproc
+ 214              	.LFE33:
+ 216              		.section	.text.frame_delay,"ax",%progbits
+ 217              		.align	2
+ 218              		.global	frame_delay
+ 219              		.code	16
+ 220              		.thumb_func
+ 222              	frame_delay:
+ 223              	.LFB34:
+  55:../src/ntsc.c **** 
+  56:../src/ntsc.c **** void frame_delay(int n){
+ 224              		.loc 1 56 0
+ 225              		.cfi_startproc
+ 226              	.LVL7:
+ 227 0000 10B5     		push	{r4, lr}
+ 228              		.cfi_def_cfa_offset 8
+ 229              		.cfi_offset 4, -8
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 6
+
+
+ 230              		.cfi_offset 14, -4
+  57:../src/ntsc.c **** 	int t0,l;
+  58:../src/ntsc.c **** 	l=ln_cntr;
+ 231              		.loc 1 58 0
+ 232 0002 084B     		ldr	r3, .L23
+ 233 0004 1C88     		ldrh	r4, [r3]
+ 234 0006 A4B2     		uxth	r4, r4
+ 235              	.LVL8:
+  59:../src/ntsc.c **** 	t0=frame_cntr+n;
+ 236              		.loc 1 59 0
+ 237 0008 074B     		ldr	r3, .L23+4
+ 238 000a 1B68     		ldr	r3, [r3]
+ 239 000c C018     		add	r0, r0, r3
+ 240              	.LVL9:
+  60:../src/ntsc.c **** 	while ((frame_cntr<t0)||(l!=ln_cntr));
+ 241              		.loc 1 60 0
+ 242 000e 064A     		ldr	r2, .L23+4
+ 243 0010 0449     		ldr	r1, .L23
+ 244              	.L21:
+ 245              		.loc 1 60 0 is_stmt 0 discriminator 1
+ 246 0012 1368     		ldr	r3, [r2]
+ 247 0014 9842     		cmp	r0, r3
+ 248 0016 FCD8     		bhi	.L21
+ 249              		.loc 1 60 0 discriminator 2
+ 250 0018 0B88     		ldrh	r3, [r1]
+ 251 001a 9BB2     		uxth	r3, r3
+ 252 001c 9C42     		cmp	r4, r3
+ 253 001e F8D1     		bne	.L21
+  61:../src/ntsc.c **** }//f()
+ 254              		.loc 1 61 0 is_stmt 1
+ 255              		@ sp needed
+ 256              	.LVL10:
+ 257 0020 10BD     		pop	{r4, pc}
+ 258              	.L24:
+ 259 0022 C046     		.align	2
+ 260              	.L23:
+ 261 0024 00000000 		.word	.LANCHOR0
+ 262 0028 00000000 		.word	.LANCHOR1
+ 263              		.cfi_endproc
+ 264              	.LFE34:
+ 266              		.section	.text.frame_sync,"ax",%progbits
+ 267              		.align	2
+ 268              		.global	frame_sync
+ 269              		.code	16
+ 270              		.thumb_func
+ 272              	frame_sync:
+ 273              	.LFB35:
+  62:../src/ntsc.c **** 
+  63:../src/ntsc.c **** void frame_sync(){// attend le prochain frame
+ 274              		.loc 1 63 0
+ 275              		.cfi_startproc
+  64:../src/ntsc.c **** 	int i;
+  65:../src/ntsc.c **** 	i=frame_cntr;
+ 276              		.loc 1 65 0
+ 277 0000 034B     		ldr	r3, .L28
+ 278 0002 1968     		ldr	r1, [r3]
+ 279              	.LVL11:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 7
+
+
+  66:../src/ntsc.c **** 	while (frame_cntr==i);
+ 280              		.loc 1 66 0
+ 281 0004 1A1C     		mov	r2, r3
+ 282              	.L27:
+ 283              		.loc 1 66 0 is_stmt 0 discriminator 1
+ 284 0006 1368     		ldr	r3, [r2]
+ 285 0008 9942     		cmp	r1, r3
+ 286 000a FCD0     		beq	.L27
+  67:../src/ntsc.c **** }//f()
+ 287              		.loc 1 67 0 is_stmt 1
+ 288              		@ sp needed
+ 289 000c 7047     		bx	lr
+ 290              	.L29:
+ 291 000e C046     		.align	2
+ 292              	.L28:
+ 293 0010 00000000 		.word	.LANCHOR1
+ 294              		.cfi_endproc
+ 295              	.LFE35:
+ 297              		.section	.text.plot,"ax",%progbits
+ 298              		.align	2
+ 299              		.global	plot
+ 300              		.code	16
+ 301              		.thumb_func
+ 303              	plot:
+ 304              	.LFB36:
+  68:../src/ntsc.c **** 
+  69:../src/ntsc.c **** 
+  70:../src/ntsc.c **** /*
+  71:../src/ntsc.c ****  * void plot(int x, int y, int operation
+  72:../src/ntsc.c ****  * description: dessine un pixel
+  73:../src/ntsc.c ****  * paramètres:
+  74:../src/ntsc.c ****  * 		x: coordonnée X
+  75:../src/ntsc.c ****  * 		y: coordonnée Y
+  76:../src/ntsc.c ****  * 		color: BLACK, WHITE et INVERT
+  77:../src/ntsc.c ****  */
+  78:../src/ntsc.c **** void plot(int x, int y, int color){
+ 305              		.loc 1 78 0
+ 306              		.cfi_startproc
+ 307              	.LVL12:
+ 308 0000 30B5     		push	{r4, r5, lr}
+ 309              		.cfi_def_cfa_offset 12
+ 310              		.cfi_offset 4, -12
+ 311              		.cfi_offset 5, -8
+ 312              		.cfi_offset 14, -4
+  79:../src/ntsc.c **** 	int byte, bit;
+  80:../src/ntsc.c **** 	byte = x/8;
+ 313              		.loc 1 80 0
+ 314 0002 C317     		asr	r3, r0, #31
+ 315 0004 5B0F     		lsr	r3, r3, #29
+ 316 0006 1818     		add	r0, r3, r0
+ 317              	.LVL13:
+ 318 0008 C510     		asr	r5, r0, #3
+ 319              	.LVL14:
+  81:../src/ntsc.c **** 	bit= 1<<(7-(x%8));
+ 320              		.loc 1 81 0
+ 321 000a 0724     		mov	r4, #7
+ 322 000c 8443     		bic	r4, r0
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 8
+
+
+ 323 000e E318     		add	r3, r4, r3
+ 324 0010 0120     		mov	r0, #1
+ 325 0012 9840     		lsl	r0, r0, r3
+ 326 0014 031C     		mov	r3, r0
+ 327              	.LVL15:
+  82:../src/ntsc.c **** 	switch(color){
+ 328              		.loc 1 82 0
+ 329 0016 012A     		cmp	r2, #1
+ 330 0018 0AD0     		beq	.L32
+ 331 001a 022A     		cmp	r2, #2
+ 332 001c 10D0     		beq	.L33
+ 333 001e 002A     		cmp	r2, #0
+ 334 0020 15D1     		bne	.L30
+  83:../src/ntsc.c **** 	case BLACK:
+  84:../src/ntsc.c **** 		video_buffer[y*ROW_SIZE+byte]&=~bit;
+ 335              		.loc 1 84 0
+ 336 0022 C900     		lsl	r1, r1, #3
+ 337              	.LVL16:
+ 338 0024 6D18     		add	r5, r5, r1
+ 339              	.LVL17:
+ 340 0026 0A4A     		ldr	r2, .L35
+ 341              	.LVL18:
+ 342 0028 515D     		ldrb	r1, [r2, r5]
+ 343 002a 8143     		bic	r1, r0
+ 344 002c 5155     		strb	r1, [r2, r5]
+  85:../src/ntsc.c **** 		break;
+ 345              		.loc 1 85 0
+ 346 002e 0EE0     		b	.L30
+ 347              	.LVL19:
+ 348              	.L32:
+  86:../src/ntsc.c **** 	case WHITE:
+  87:../src/ntsc.c **** 		video_buffer[y*ROW_SIZE+byte]|=bit;
+ 349              		.loc 1 87 0
+ 350 0030 C900     		lsl	r1, r1, #3
+ 351              	.LVL20:
+ 352 0032 6D18     		add	r5, r5, r1
+ 353              	.LVL21:
+ 354 0034 064A     		ldr	r2, .L35
+ 355              	.LVL22:
+ 356 0036 505D     		ldrb	r0, [r2, r5]
+ 357              	.LVL23:
+ 358 0038 0343     		orr	r3, r0
+ 359              	.LVL24:
+ 360 003a DBB2     		uxtb	r3, r3
+ 361 003c 5355     		strb	r3, [r2, r5]
+  88:../src/ntsc.c **** 		break;
+ 362              		.loc 1 88 0
+ 363 003e 06E0     		b	.L30
+ 364              	.LVL25:
+ 365              	.L33:
+  89:../src/ntsc.c **** 	case INVERT:
+  90:../src/ntsc.c **** 		video_buffer[y*ROW_SIZE+byte]^=bit;
+ 366              		.loc 1 90 0
+ 367 0040 C900     		lsl	r1, r1, #3
+ 368              	.LVL26:
+ 369 0042 6D18     		add	r5, r5, r1
+ 370              	.LVL27:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 9
+
+
+ 371 0044 024A     		ldr	r2, .L35
+ 372              	.LVL28:
+ 373 0046 505D     		ldrb	r0, [r2, r5]
+ 374              	.LVL29:
+ 375 0048 4340     		eor	r3, r0
+ 376              	.LVL30:
+ 377 004a DBB2     		uxtb	r3, r3
+ 378 004c 5355     		strb	r3, [r2, r5]
+ 379              	.L30:
+  91:../src/ntsc.c **** 		break;
+  92:../src/ntsc.c **** 	}//switch
+  93:../src/ntsc.c **** }//f()
+ 380              		.loc 1 93 0
+ 381              		@ sp needed
+ 382              	.LVL31:
+ 383 004e 30BD     		pop	{r4, r5, pc}
+ 384              	.L36:
+ 385              		.align	2
+ 386              	.L35:
+ 387 0050 00000000 		.word	video_buffer
+ 388              		.cfi_endproc
+ 389              	.LFE36:
+ 391              		.global	__aeabi_idiv
+ 392              		.section	.text.line,"ax",%progbits
+ 393              		.align	2
+ 394              		.global	line
+ 395              		.code	16
+ 396              		.thumb_func
+ 398              	line:
+ 399              	.LFB37:
+  94:../src/ntsc.c **** 
+  95:../src/ntsc.c **** 
+  96:../src/ntsc.c **** /*
+  97:../src/ntsc.c **** int absolute(int x){
+  98:../src/ntsc.c **** 	return x<0 ? -x : x;
+  99:../src/ntsc.c **** }//f()
+ 100:../src/ntsc.c **** */
+ 101:../src/ntsc.c **** 
+ 102:../src/ntsc.c **** void line(int x0, int y0, int x1, int y1,int color){
+ 400              		.loc 1 102 0
+ 401              		.cfi_startproc
+ 402              	.LVL32:
+ 403 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 404              		.cfi_def_cfa_offset 20
+ 405              		.cfi_offset 4, -20
+ 406              		.cfi_offset 5, -16
+ 407              		.cfi_offset 6, -12
+ 408              		.cfi_offset 7, -8
+ 409              		.cfi_offset 14, -4
+ 410 0002 5746     		mov	r7, r10
+ 411 0004 4E46     		mov	r6, r9
+ 412 0006 4546     		mov	r5, r8
+ 413 0008 E0B4     		push	{r5, r6, r7}
+ 414              		.cfi_def_cfa_offset 32
+ 415              		.cfi_offset 8, -32
+ 416              		.cfi_offset 9, -28
+ 417              		.cfi_offset 10, -24
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 10
+
+
+ 418 000a 041C     		mov	r4, r0
+ 419 000c 0F1C     		mov	r7, r1
+ 420 000e 161C     		mov	r6, r2
+ 421 0010 089A     		ldr	r2, [sp, #32]
+ 422              	.LVL33:
+ 423 0012 9146     		mov	r9, r2
+ 103:../src/ntsc.c **** 	int x,y,dx,dy;
+ 104:../src/ntsc.c **** 	dx = x1 - x0;
+ 424              		.loc 1 104 0
+ 425 0014 321A     		sub	r2, r6, r0
+ 426 0016 9046     		mov	r8, r2
+ 427              	.LVL34:
+ 105:../src/ntsc.c **** 	dy = y1 - y0;
+ 428              		.loc 1 105 0
+ 429 0018 5B1A     		sub	r3, r3, r1
+ 430              	.LVL35:
+ 106:../src/ntsc.c **** 	for (x=x0;x<=x1;x++){
+ 431              		.loc 1 106 0
+ 432 001a 8642     		cmp	r6, r0
+ 433 001c 0EDB     		blt	.L37
+ 434 001e 9A46     		mov	r10, r3
+ 435 0020 0025     		mov	r5, #0
+ 436              	.LVL36:
+ 437              	.L39:
+ 107:../src/ntsc.c **** 		y = y0 + dy * (x - x0) / dx;
+ 438              		.loc 1 107 0 discriminator 2
+ 439 0022 281C     		mov	r0, r5
+ 440 0024 4146     		mov	r1, r8
+ 441 0026 FFF7FEFF 		bl	__aeabi_idiv
+ 442              	.LVL37:
+ 443 002a C119     		add	r1, r0, r7
+ 108:../src/ntsc.c **** 		plot(x, y,color);
+ 444              		.loc 1 108 0 discriminator 2
+ 445 002c 201C     		mov	r0, r4
+ 446 002e 4A46     		mov	r2, r9
+ 447 0030 FFF7FEFF 		bl	plot
+ 448              	.LVL38:
+ 106:../src/ntsc.c **** 	for (x=x0;x<=x1;x++){
+ 449              		.loc 1 106 0 discriminator 2
+ 450 0034 0134     		add	r4, r4, #1
+ 451              	.LVL39:
+ 452 0036 5544     		add	r5, r5, r10
+ 453              	.LVL40:
+ 454 0038 A642     		cmp	r6, r4
+ 455 003a F2DA     		bge	.L39
+ 456              	.LVL41:
+ 457              	.L37:
+ 109:../src/ntsc.c **** 	}
+ 110:../src/ntsc.c **** }//f()
+ 458              		.loc 1 110 0
+ 459              		@ sp needed
+ 460              	.LVL42:
+ 461              	.LVL43:
+ 462              	.LVL44:
+ 463              	.LVL45:
+ 464 003c 1CBC     		pop	{r2, r3, r4}
+ 465 003e 9046     		mov	r8, r2
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 11
+
+
+ 466 0040 9946     		mov	r9, r3
+ 467 0042 A246     		mov	r10, r4
+ 468 0044 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 469              		.cfi_endproc
+ 470              	.LFE37:
+ 472 0046 C046     		.section	.text.clear_screen,"ax",%progbits
+ 473              		.align	2
+ 474              		.global	clear_screen
+ 475              		.code	16
+ 476              		.thumb_func
+ 478              	clear_screen:
+ 479              	.LFB38:
+ 111:../src/ntsc.c **** 
+ 112:../src/ntsc.c **** void clear_screen(){
+ 480              		.loc 1 112 0
+ 481              		.cfi_startproc
+ 482              	.LVL46:
+ 113:../src/ntsc.c **** 	int i;
+ 114:../src/ntsc.c **** 	for (i=BUFFER_SIZE;i;i--) video_buffer[i]=0;
+ 483              		.loc 1 114 0
+ 484 0000 DC23     		mov	r3, #220
+ 485 0002 5B00     		lsl	r3, r3, #1
+ 486 0004 0349     		ldr	r1, .L43
+ 487 0006 0022     		mov	r2, #0
+ 488              	.LVL47:
+ 489              	.L42:
+ 490              		.loc 1 114 0 is_stmt 0 discriminator 2
+ 491 0008 CA54     		strb	r2, [r1, r3]
+ 492 000a 013B     		sub	r3, r3, #1
+ 493              	.LVL48:
+ 494 000c 002B     		cmp	r3, #0
+ 495 000e FBD1     		bne	.L42
+ 115:../src/ntsc.c **** }//f()
+ 496              		.loc 1 115 0 is_stmt 1
+ 497              		@ sp needed
+ 498 0010 7047     		bx	lr
+ 499              	.L44:
+ 500 0012 C046     		.align	2
+ 501              	.L43:
+ 502 0014 00000000 		.word	video_buffer
+ 503              		.cfi_endproc
+ 504              	.LFE38:
+ 506              		.global	frame_cntr
+ 507              		.global	ln_cntr
+ 508              		.comm	video_buffer,440,4
+ 509              		.section	.bss.frame_cntr,"aw",%nobits
+ 510              		.align	2
+ 511              		.set	.LANCHOR1,. + 0
+ 514              	frame_cntr:
+ 515 0000 00000000 		.space	4
+ 516              		.section	.bss.ln_cntr,"aw",%nobits
+ 517              		.align	1
+ 518              		.set	.LANCHOR0,. + 0
+ 521              	ln_cntr:
+ 522 0000 0000     		.space	2
+ 523              		.text
+ 524              	.Letext0:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 12
+
+
+ 525              		.file 2 "c:\\nxp\\lpcxpresso_7.0.2_102\\lpcxpresso\\tools\\redlib\\include\\stdint.h"
+ 526              		.file 3 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/LP
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 ntsc.c
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:18     .text.SCT_IRQHandler:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:23     .text.SCT_IRQHandler:00000000 SCT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:207    .text.SCT_IRQHandler:000000f4 $d
+                            *COM*:000001b8 video_buffer
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:217    .text.frame_delay:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:222    .text.frame_delay:00000000 frame_delay
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:261    .text.frame_delay:00000024 $d
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:267    .text.frame_sync:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:272    .text.frame_sync:00000000 frame_sync
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:293    .text.frame_sync:00000010 $d
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:298    .text.plot:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:303    .text.plot:00000000 plot
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:387    .text.plot:00000050 $d
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:393    .text.line:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:398    .text.line:00000000 line
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:473    .text.clear_screen:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:478    .text.clear_screen:00000000 clear_screen
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:502    .text.clear_screen:00000014 $d
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:514    .bss.frame_cntr:00000000 frame_cntr
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:521    .bss.ln_cntr:00000000 ln_cntr
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:510    .bss.frame_cntr:00000000 $d
+C:\Users\Jacques\AppData\Local\Temp\ccpn2ELI.s:517    .bss.ln_cntr:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_idiv
