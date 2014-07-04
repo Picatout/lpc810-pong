@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
   31:../src/hardware.c **** inline void assign_pins(){ // selectionne les périphériques sur les broches
   26              		.loc 1 31 0
   27              		.cfi_startproc
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 2
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 2
 
 
   32:../src/hardware.c **** 	// on désactive tous les périphériques et fonctions inutilisés pour avoir accès aux GPIO
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
   67              	.L3:
   68              		.align	2
   69              	.L2:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 3
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 3
 
 
   70 0038 00C00040 		.word	1073790976
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  119              		.loc 1 49 0
  120              		.cfi_startproc
   50:../src/hardware.c **** 	LPC_SCT->CONFIG=3u<<17; //2 compteurs 16 bits, clocké par BUS_CLOCK et autolimit
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 4
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 4
 
 
  121              		.loc 1 50 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  164 0032 B222     		mov	r2, #178
  165 0034 6400     		lsl	r4, r4, #1
  166 0036 1A53     		strh	r2, [r3, r4]
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 5
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 5
 
 
   59:../src/hardware.c **** 	LPC_SCT->MATCHREL[2].L=VIDEO_DELAY;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  208 0074 AD00     		lsl	r5, r5, #2
  209 0076 5A51     		str	r2, [r3, r5]
   71:../src/hardware.c **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 6
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 6
 
 
   72:../src/hardware.c **** 	// inialistaion SCT pour sortie audio, compteur H
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  253 00ba 9950     		str	r1, [r3, r2]
   83:../src/hardware.c **** 	LPC_SCT->OUT[1].SET=(1u<<4);  // événement 4 met CTOUT_1 à 1
  254              		.loc 1 83 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 7
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 7
 
 
  255 00bc A122     		mov	r2, #161
@@ -376,8 +376,8 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  264 00ca F022     		mov	r2, #240
  265 00cc 9C50     		str	r4, [r3, r2]
  266              	.LVL0:
- 267              	.LBB18:
- 268              	.LBB19:
+ 267              	.LBB14:
+ 268              	.LBB15:
  269              		.file 2 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/co
    1:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /**************************************************************************//**
    2:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  * @file     core_cm0plus.h
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
   37:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
   38:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if defined ( __ICCARM__ )
   39:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  #pragma system_include  /* treat file as system include file for MISRA check */
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 8
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 8
 
 
   40:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
   94:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __TASKING__ )
   95:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __ASM            __asm                                      /*!< asm keyword for TASKING 
   96:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __INLINE         inline                                     /*!< inline keyword for TASKI
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 9
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 9
 
 
   97:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __STATIC_INLINE  static inline
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  151:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "__VTOR_PRESENT not defined in device header file; using default!"
  152:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
  153:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 10
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 10
 
 
  154:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #ifndef __NVIC_PRIO_BITS
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  208:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   struct
  209:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   {
  210:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__CORTEX_M != 0x04)
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 11
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 11
 
 
  211:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:27;              /*!< bit:  0..26  Reserved                           */
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  265:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  266:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Union type to access the Control Registers (CONTROL).
  267:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 12
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 12
 
 
  268:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef union
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  322:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #else
  323:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED0;
  324:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 13
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 13
 
 
  325:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t AIRCR;                   /*!< Offset: 0x00C (R/W)  Application Interrupt and Reset 
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  379:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_VTOR_TBLOFF_Pos                 8                                             /*!< SCB 
  380:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_VTOR_TBLOFF_Msk                (0xFFFFFFUL << SCB_VTOR_TBLOFF_Pos)            /*!< SCB 
  381:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 14
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 14
 
 
  382:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  436:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __I  uint32_t CALIB;                   /*!< Offset: 0x00C (R/ )  SysTick Calibration Register    
  437:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } SysTick_Type;
  438:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 15
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 15
 
 
  439:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SysTick Control / Status Register Definitions */
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  493:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  494:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_DREGION_Pos                8                                             /*!< MPU 
  495:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_DREGION_Msk               (0xFFUL << MPU_TYPE_DREGION_Pos)               /*!< MPU 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 16
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 16
 
 
  496:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  550:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_SIZE_Msk                  (0x1FUL << MPU_RASR_SIZE_Pos)                  /*!< MPU 
  551:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  552:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ENABLE_Pos                 0                                             /*!< MPU 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 17
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 17
 
 
  553:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ENABLE_Msk                (1UL << MPU_RASR_ENABLE_Pos)                   /*!< MPU 
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  607:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup  CMSIS_Core_FunctionInterface
  608:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_Core_NVICFunctions NVIC Functions
  609:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Functions that manage interrupts and exceptions via the NVIC.
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 18
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 18
 
 
  610:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     @{
@@ -1042,8 +1042,8 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
  270              		.loc 2 628 0
  271 00ce 0D4A     		ldr	r2, .L8+36
- 272              	.LBE19:
- 273              	.LBE18:
+ 272              	.LBE15:
+ 273              	.LBE14:
   87:../src/hardware.c **** 	NVIC_EnableIRQ(SCT_IRQn); // active l'interruption SCT (9)
   88:../src/hardware.c **** 
   89:../src/hardware.c **** 	LPC_SCT->CTRL_L = (LPC_SCT->CTRL_L & ~(3u << 1))|(1u<<3); // remet compteur à zéro et démarre l
@@ -1051,12 +1051,12 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
   91:../src/hardware.c **** }//f()
  274              		.loc 1 91 0
  275              		@ sp needed
- 276              	.LBB21:
- 277              	.LBB20:
+ 276              	.LBB17:
+ 277              	.LBB16:
  278              		.loc 2 628 0
  279 00d0 1060     		str	r0, [r2]
- 280              	.LBE20:
- 281              	.LBE21:
+ 280              	.LBE16:
+ 281              	.LBE17:
   89:../src/hardware.c **** 	LPC_SCT->CTRL_L = (LPC_SCT->CTRL_L & ~(3u << 1))|(1u<<3); // remet compteur à zéro et démarre l
  282              		.loc 1 89 0
  283 00d2 5968     		ldr	r1, [r3, #4]
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  299 00f4 1FE0FFFF 		.word	-8161
  300 00f8 70100000 		.word	4208
  301 00fc 71100000 		.word	4209
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 19
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 19
 
 
  302 0100 0C050000 		.word	1292
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  345              		.loc 1 99 0 discriminator 1
  346 0020 E368     		ldr	r3, [r4, #12]
  347 0022 0F4A     		ldr	r2, .L14
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 20
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 20
 
 
  348 0024 0121     		mov	r1, #1
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  389              	.L15:
  390 005e C046     		.align	2
  391              	.L14:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 21
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 21
 
 
  392 0060 00800440 		.word	1074036736
@@ -1234,8 +1234,8 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  419 0006 1C4B     		ldr	r3, .L17
  420 0008 0222     		mov	r2, #2
  421 000a 9A60     		str	r2, [r3, #8]
- 422              	.LBB34:
- 423              	.LBB35:
+ 422              	.LBB30:
+ 423              	.LBB31:
   33:../src/hardware.c **** 	 m_disable_pin(DIS_SWCLK|DIS_SWDIO|DIS_CLKIN);
  424              		.loc 1 33 0
  425 000c 1B4B     		ldr	r3, .L17+4
@@ -1256,9 +1256,9 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  438 0022 1749     		ldr	r1, .L17+8
  439 0024 8022     		mov	r2, #128
  440 0026 8858     		ldr	r0, [r1, r2]
- 441              	.LBE35:
- 442              	.LBE34:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 22
+ 441              	.LBE31:
+ 442              	.LBE30:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 22
 
 
  114:../src/hardware.c **** 	 assign_pins(); // assignation des périphériques aux broches
@@ -1270,8 +1270,8 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  120:../src/hardware.c **** }//f()
  443              		.loc 1 120 0
  444              		@ sp needed
- 445              	.LBB37:
- 446              	.LBB36:
+ 445              	.LBB33:
+ 446              	.LBB32:
   36:../src/hardware.c **** 	LPC_SYSCON->SYSAHBCLKCTRL |= CLK_SWM; // activation signal clock sur SWM
  447              		.loc 1 36 0
  448 0028 1043     		orr	r0, r2
@@ -1296,10 +1296,10 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  463 003e 9343     		bic	r3, r2
  464 0040 8B50     		str	r3, [r1, r2]
  465              	.LVL2:
- 466              	.LBE36:
- 467              	.LBE37:
- 468              	.LBB38:
- 469              	.LBB39:
+ 466              	.LBE32:
+ 467              	.LBE33:
+ 468              	.LBB34:
+ 469              	.LBB35:
  629:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** }
  630:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  631:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  644:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Get Pending Interrupt
  645:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  646:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function reads the pending register in the NVIC and returns the pending bit
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 23
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 23
 
 
  647:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     for the specified interrupt.
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  471 0042 114A     		ldr	r2, .L17+16
  472 0044 C223     		mov	r3, #194
  473 0046 9B00     		lsl	r3, r3, #2
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 24
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 24
 
 
  474 0048 D058     		ldr	r0, [r2, r3]
@@ -1386,10 +1386,10 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  476 004c 0140     		and	r1, r0
  477 004e D150     		str	r1, [r2, r3]
  478              	.LVL3:
- 479              	.LBE39:
- 480              	.LBE38:
- 481              	.LBB40:
- 482              	.LBB41:
+ 479              	.LBE35:
+ 480              	.LBE34:
+ 481              	.LBB36:
+ 482              	.LBB37:
  483 0050 D058     		ldr	r0, [r2, r3]
  484 0052 0F49     		ldr	r1, .L17+24
  485 0054 0140     		and	r1, r0
@@ -1397,14 +1397,14 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  487 0058 0004     		lsl	r0, r0, #16
  488 005a 0143     		orr	r1, r0
  489 005c D150     		str	r1, [r2, r3]
- 490              	.LBE41:
- 491              	.LBE40:
+ 490              	.LBE37:
+ 491              	.LBE36:
  118:../src/hardware.c **** 	 PWM_init();
  492              		.loc 1 118 0
  493 005e FFF7FEFF 		bl	PWM_init
  494              	.LVL4:
- 495              	.LBB42:
- 496              	.LBB43:
+ 495              	.LBB38:
+ 496              	.LBB39:
   44:../src/hardware.c **** 	LPC_SPI0->DIV=PIXCLK_DIV; // pixel clock
  497              		.loc 1 44 0
  498 0062 0C4B     		ldr	r3, .L17+28
@@ -1420,8 +1420,8 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  506              		.loc 1 46 0
  507 0070 094A     		ldr	r2, .L17+32
  508 0072 1A62     		str	r2, [r3, #32]
- 509              	.LBE43:
- 510              	.LBE42:
+ 509              	.LBE39:
+ 510              	.LBE38:
  511              		.loc 1 120 0
  512 0074 08BD     		pop	{r3, pc}
  513              	.L18:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  524 0098 00004107 		.word	121700352
  525              		.cfi_endproc
  526              	.LFE37:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 25
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 25
 
 
  528              		.section	.text.delay_ms,"ax",%progbits
@@ -1490,876 +1490,764 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
  568 0028 F0FFFF7F 		.word	2147483632
  569              		.cfi_endproc
  570              	.LFE38:
- 572              		.section	.text.delay_us,"ax",%progbits
- 573              		.align	2
- 574              		.global	delay_us
- 575              		.code	16
- 576              		.thumb_func
- 578              	delay_us:
- 579              	.LFB39:
+ 572              		.global	__aeabi_uidiv
+ 573              		.section	.text.tone,"ax",%progbits
+ 574              		.align	2
+ 575              		.global	tone
+ 576              		.code	16
+ 577              		.thumb_func
+ 579              	tone:
+ 580              	.LFB39:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 26
+
+
  127:../src/hardware.c **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 26
-
-
- 128:../src/hardware.c **** inline void delay_us(uint32_t n){
- 580              		.loc 1 128 0
- 581              		.cfi_startproc
- 582              	.LVL7:
- 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 583              		.loc 1 129 0
- 584 0000 0749     		ldr	r1, .L27
- 585 0002 0123     		mov	r3, #1
- 586 0004 CA68     		ldr	r2, [r1, #12]
- 587 0006 1343     		orr	r3, r2
- 588 0008 CB60     		str	r3, [r1, #12]
- 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
- 589              		.loc 1 130 0
- 590 000a 0301     		lsl	r3, r0, #4
- 591 000c 181A     		sub	r0, r3, r0
- 592              	.LVL8:
- 593 000e 054B     		ldr	r3, .L27+4
- 594 0010 4000     		lsl	r0, r0, #1
- 595 0012 1840     		and	r0, r3
- 596 0014 0860     		str	r0, [r1]
- 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
- 597              		.loc 1 131 0
- 598 0016 0122     		mov	r2, #1
- 599              	.L26:
- 600              		.loc 1 131 0 is_stmt 0 discriminator 1
- 601 0018 CB68     		ldr	r3, [r1, #12]
- 602 001a 1A42     		tst	r2, r3
- 603 001c FCD0     		beq	.L26
- 132:../src/hardware.c **** }//f()
- 604              		.loc 1 132 0 is_stmt 1
- 605              		@ sp needed
- 606 001e 7047     		bx	lr
- 607              	.L28:
- 608              		.align	2
- 609              	.L27:
- 610 0020 00400040 		.word	1073758208
- 611 0024 FEFFFF7F 		.word	2147483646
- 612              		.cfi_endproc
- 613              	.LFE39:
- 615              		.global	__aeabi_uidiv
- 616              		.section	.text.tone,"ax",%progbits
- 617              		.align	2
- 618              		.global	tone
- 619              		.code	16
- 620              		.thumb_func
- 622              	tone:
- 623              	.LFB40:
+ 128:../src/hardware.c **** 
+ 129:../src/hardware.c **** 
+ 130:../src/hardware.c **** volatile unsigned tone_on=0;
+ 131:../src/hardware.c **** 
+ 132:../src/hardware.c **** #define AUDIO_CLOCK (SYS_CLOCK/30)
  133:../src/hardware.c **** 
- 134:../src/hardware.c **** 
- 135:../src/hardware.c **** volatile unsigned tone_on=0;
- 136:../src/hardware.c **** 
- 137:../src/hardware.c **** #define AUDIO_CLOCK (SYS_CLOCK/30)
- 138:../src/hardware.c **** 
- 139:../src/hardware.c **** void tone(uint32_t freq, uint32_t msec){
+ 134:../src/hardware.c **** void tone(uint32_t freq, uint32_t msec){
+ 581              		.loc 1 134 0
+ 582              		.cfi_startproc
+ 583              	.LVL7:
+ 584 0000 70B5     		push	{r4, r5, r6, lr}
+ 585              		.cfi_def_cfa_offset 16
+ 586              		.cfi_offset 4, -16
+ 587              		.cfi_offset 5, -12
+ 588              		.cfi_offset 6, -8
+ 589              		.cfi_offset 14, -4
+ 590 0002 194C     		ldr	r4, .L27
+ 591              		.loc 1 134 0
+ 592 0004 021C     		mov	r2, r0
+ 593              	.L26:
+ 135:../src/hardware.c **** 	while (tone_on); // attend la fin de la note précédente
+ 594              		.loc 1 135 0 discriminator 1
+ 595 0006 2368     		ldr	r3, [r4]
+ 596 0008 002B     		cmp	r3, #0
+ 597 000a FCD1     		bne	.L26
+ 136:../src/hardware.c **** 	LPC_MRT->Channel[1].STAT|=1;
+ 598              		.loc 1 136 0
+ 599 000c 174B     		ldr	r3, .L27+4
+ 600 000e 0125     		mov	r5, #1
+ 601 0010 D869     		ldr	r0, [r3, #28]
+ 602              	.LVL8:
+ 603              	.LBB40:
+ 604              	.LBB41:
+ 628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 605              		.loc 2 628 0
+ 606 0012 8026     		mov	r6, #128
+ 607              	.LBE41:
+ 608              	.LBE40:
+ 609              		.loc 1 136 0
+ 610 0014 2843     		orr	r0, r5
+ 611 0016 D861     		str	r0, [r3, #28]
+ 612              	.LVL9:
+ 613              	.LBB43:
+ 614              	.LBB42:
+ 628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 615              		.loc 2 628 0
+ 616 0018 1548     		ldr	r0, .L27+8
+ 617 001a F600     		lsl	r6, r6, #3
+ 618 001c 0660     		str	r6, [r0]
+ 619              	.LBE42:
+ 620              	.LBE43:
+ 137:../src/hardware.c **** 	NVIC_EnableIRQ(MRT_IRQn);
+ 138:../src/hardware.c **** 	LPC_MRT->Channel[1].CTRL=3u; //single shot interrupt mode
+ 621              		.loc 1 138 0
+ 622 001e 0320     		mov	r0, #3
+ 623 0020 9861     		str	r0, [r3, #24]
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 27
+
+
+ 139:../src/hardware.c **** 	LPC_MRT->Channel[1].INTVAL=(msec*MSEC)&0x7fffffff;
  624              		.loc 1 139 0
- 625              		.cfi_startproc
- 626              	.LVL9:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 27
+ 625 0022 1448     		ldr	r0, .L27+12
+ 140:../src/hardware.c **** 	LPC_SCT->MATCH[0].H=((AUDIO_CLOCK/freq))-1;   // période
+ 141:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].H=((AUDIO_CLOCK/freq))-1;
+ 142:../src/hardware.c **** 	LPC_SCT->MATCH[1].H=((AUDIO_CLOCK/freq)>>1)-1;   // rapport cyclique 50%
+ 143:../src/hardware.c **** 	LPC_SCT->MATCHREL[1].H=((AUDIO_CLOCK/freq)>>1)-1;
+ 144:../src/hardware.c **** 	LPC_SCT->CTRL_H = (LPC_SCT->CTRL_H & ~(3u << 1))|(1u<<3); //démarre le PWM
+ 145:../src/hardware.c **** 	tone_on=1;
+ 146:../src/hardware.c **** }//f()
+ 626              		.loc 1 146 0
+ 627              		@ sp needed
+ 139:../src/hardware.c **** 	LPC_MRT->Channel[1].INTVAL=(msec*MSEC)&0x7fffffff;
+ 628              		.loc 1 139 0
+ 629 0024 4143     		mul	r1, r0
+ 630              	.LVL10:
+ 631 0026 1448     		ldr	r0, .L27+16
+ 632 0028 0140     		and	r1, r0
+ 633 002a 1961     		str	r1, [r3, #16]
+ 140:../src/hardware.c **** 	LPC_SCT->MATCH[0].H=((AUDIO_CLOCK/freq))-1;   // période
+ 634              		.loc 1 140 0
+ 635 002c 1348     		ldr	r0, .L27+20
+ 636 002e 111C     		mov	r1, r2
+ 637 0030 FFF7FEFF 		bl	__aeabi_uidiv
+ 638              	.LVL11:
+ 639 0034 124B     		ldr	r3, .L27+24
+ 640 0036 421E     		sub	r2, r0, #1
+ 641 0038 8121     		mov	r1, #129
+ 642 003a 92B2     		uxth	r2, r2
+ 643 003c 4900     		lsl	r1, r1, #1
+ 644 003e 5A52     		strh	r2, [r3, r1]
+ 141:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].H=((AUDIO_CLOCK/freq))-1;
+ 645              		.loc 1 141 0
+ 646 0040 1049     		ldr	r1, .L27+28
+ 647 0042 5A52     		strh	r2, [r3, r1]
+ 142:../src/hardware.c **** 	LPC_SCT->MATCH[1].H=((AUDIO_CLOCK/freq)>>1)-1;   // rapport cyclique 50%
+ 648              		.loc 1 142 0
+ 649 0044 4208     		lsr	r2, r0, #1
+ 650 0046 013A     		sub	r2, r2, #1
+ 651 0048 8321     		mov	r1, #131
+ 652 004a 92B2     		uxth	r2, r2
+ 653 004c 4900     		lsl	r1, r1, #1
+ 654 004e 5A52     		strh	r2, [r3, r1]
+ 143:../src/hardware.c **** 	LPC_SCT->MATCHREL[1].H=((AUDIO_CLOCK/freq)>>1)-1;
+ 655              		.loc 1 143 0
+ 656 0050 0D49     		ldr	r1, .L27+32
+ 657 0052 5A52     		strh	r2, [r3, r1]
+ 144:../src/hardware.c **** 	LPC_SCT->CTRL_H = (LPC_SCT->CTRL_H & ~(3u << 1))|(1u<<3); //démarre le PWM
+ 658              		.loc 1 144 0
+ 659 0054 5A68     		ldr	r2, [r3, #4]
+ 660 0056 0E21     		mov	r1, #14
+ 661 0058 120C     		lsr	r2, r2, #16
+ 662 005a 8A43     		bic	r2, r1
+ 663 005c 0821     		mov	r1, #8
+ 664 005e 0A43     		orr	r2, r1
+ 665 0060 DA80     		strh	r2, [r3, #6]
+ 145:../src/hardware.c **** 	tone_on=1;
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 28
 
 
- 627 0000 70B5     		push	{r4, r5, r6, lr}
- 628              		.cfi_def_cfa_offset 16
- 629              		.cfi_offset 4, -16
- 630              		.cfi_offset 5, -12
- 631              		.cfi_offset 6, -8
- 632              		.cfi_offset 14, -4
- 633 0002 194C     		ldr	r4, .L32
- 634              		.loc 1 139 0
- 635 0004 021C     		mov	r2, r0
- 636              	.L31:
- 140:../src/hardware.c **** 	while (tone_on); // attend la fin de la note précédente
- 637              		.loc 1 140 0 discriminator 1
- 638 0006 2368     		ldr	r3, [r4]
- 639 0008 002B     		cmp	r3, #0
- 640 000a FCD1     		bne	.L31
- 141:../src/hardware.c **** 	LPC_MRT->Channel[1].STAT|=1;
- 641              		.loc 1 141 0
- 642 000c 174B     		ldr	r3, .L32+4
- 643 000e 0125     		mov	r5, #1
- 644 0010 D869     		ldr	r0, [r3, #28]
- 645              	.LVL10:
- 646              	.LBB44:
- 647              	.LBB45:
- 628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
- 648              		.loc 2 628 0
- 649 0012 8026     		mov	r6, #128
- 650              	.LBE45:
- 651              	.LBE44:
- 652              		.loc 1 141 0
- 653 0014 2843     		orr	r0, r5
- 654 0016 D861     		str	r0, [r3, #28]
- 655              	.LVL11:
- 656              	.LBB47:
- 657              	.LBB46:
- 628:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
- 658              		.loc 2 628 0
- 659 0018 1548     		ldr	r0, .L32+8
- 660 001a F600     		lsl	r6, r6, #3
- 661 001c 0660     		str	r6, [r0]
- 662              	.LBE46:
- 663              	.LBE47:
- 142:../src/hardware.c **** 	NVIC_EnableIRQ(MRT_IRQn);
- 143:../src/hardware.c **** 	LPC_MRT->Channel[1].CTRL=3u; //single shot interrupt mode
- 664              		.loc 1 143 0
- 665 001e 0320     		mov	r0, #3
- 666 0020 9861     		str	r0, [r3, #24]
- 144:../src/hardware.c **** 	LPC_MRT->Channel[1].INTVAL=(msec*MSEC)&0x7fffffff;
- 667              		.loc 1 144 0
- 668 0022 1448     		ldr	r0, .L32+12
- 145:../src/hardware.c **** 	LPC_SCT->MATCH[0].H=((AUDIO_CLOCK/freq))-1;   // période
- 146:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].H=((AUDIO_CLOCK/freq))-1;
- 147:../src/hardware.c **** 	LPC_SCT->MATCH[1].H=((AUDIO_CLOCK/freq)>>1)-1;   // rapport cyclique 50%
- 148:../src/hardware.c **** 	LPC_SCT->MATCHREL[1].H=((AUDIO_CLOCK/freq)>>1)-1;
- 149:../src/hardware.c **** 	LPC_SCT->CTRL_H = (LPC_SCT->CTRL_H & ~(3u << 1))|(1u<<3); //démarre le PWM
- 150:../src/hardware.c **** 	tone_on=1;
- 151:../src/hardware.c **** }//f()
- 669              		.loc 1 151 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 28
+ 666              		.loc 1 145 0
+ 667 0062 2560     		str	r5, [r4]
+ 668              		.loc 1 146 0
+ 669 0064 70BD     		pop	{r4, r5, r6, pc}
+ 670              	.L28:
+ 671 0066 C046     		.align	2
+ 672              	.L27:
+ 673 0068 00000000 		.word	.LANCHOR0
+ 674 006c 00400040 		.word	1073758208
+ 675 0070 00E100E0 		.word	-536813312
+ 676 0074 30750000 		.word	30000
+ 677 0078 F0FFFF7F 		.word	2147483632
+ 678 007c 40420F00 		.word	1000000
+ 679 0080 00400050 		.word	1342193664
+ 680 0084 02020000 		.word	514
+ 681 0088 06020000 		.word	518
+ 682              		.cfi_endproc
+ 683              	.LFE39:
+ 685              		.section	.text.play_tune,"ax",%progbits
+ 686              		.align	2
+ 687              		.global	play_tune
+ 688              		.code	16
+ 689              		.thumb_func
+ 691              	play_tune:
+ 692              	.LFB40:
+ 147:../src/hardware.c **** 
+ 148:../src/hardware.c **** void play_tune(const int *tune, int pause){
+ 693              		.loc 1 148 0
+ 694              		.cfi_startproc
+ 695              	.LVL12:
+ 696 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 697              		.cfi_def_cfa_offset 24
+ 698              		.cfi_offset 3, -24
+ 699              		.cfi_offset 4, -20
+ 700              		.cfi_offset 5, -16
+ 701              		.cfi_offset 6, -12
+ 702              		.cfi_offset 7, -8
+ 703              		.cfi_offset 14, -4
+ 704 0002 031C     		mov	r3, r0
+ 705 0004 4646     		mov	r6, r8
+ 706 0006 4F46     		mov	r7, r9
+ 707 0008 8846     		mov	r8, r1
+ 149:../src/hardware.c **** 	int freq, duration;
+ 150:../src/hardware.c **** 	freq=*tune++;
+ 151:../src/hardware.c **** 	duration=*tune++;
+ 708              		.loc 1 151 0
+ 709 000a 5968     		ldr	r1, [r3, #4]
+ 710              	.LVL13:
+ 148:../src/hardware.c **** void play_tune(const int *tune, int pause){
+ 711              		.loc 1 148 0
+ 712 000c C0B4     		push	{r6, r7}
+ 713              		.cfi_def_cfa_offset 32
+ 714              		.cfi_offset 8, -32
+ 715              		.cfi_offset 9, -28
+ 716              		.loc 1 151 0
+ 717 000e 1E1C     		mov	r6, r3
+ 150:../src/hardware.c **** 	freq=*tune++;
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 29
 
 
- 670              		@ sp needed
- 144:../src/hardware.c **** 	LPC_MRT->Channel[1].INTVAL=(msec*MSEC)&0x7fffffff;
- 671              		.loc 1 144 0
- 672 0024 4143     		mul	r1, r0
- 673              	.LVL12:
- 674 0026 1448     		ldr	r0, .L32+16
- 675 0028 0140     		and	r1, r0
- 676 002a 1961     		str	r1, [r3, #16]
- 145:../src/hardware.c **** 	LPC_SCT->MATCH[0].H=((AUDIO_CLOCK/freq))-1;   // période
- 677              		.loc 1 145 0
- 678 002c 1348     		ldr	r0, .L32+20
- 679 002e 111C     		mov	r1, r2
- 680 0030 FFF7FEFF 		bl	__aeabi_uidiv
- 681              	.LVL13:
- 682 0034 124B     		ldr	r3, .L32+24
- 683 0036 421E     		sub	r2, r0, #1
- 684 0038 8121     		mov	r1, #129
- 685 003a 92B2     		uxth	r2, r2
- 686 003c 4900     		lsl	r1, r1, #1
- 687 003e 5A52     		strh	r2, [r3, r1]
- 146:../src/hardware.c **** 	LPC_SCT->MATCHREL[0].H=((AUDIO_CLOCK/freq))-1;
- 688              		.loc 1 146 0
- 689 0040 1049     		ldr	r1, .L32+28
- 690 0042 5A52     		strh	r2, [r3, r1]
- 147:../src/hardware.c **** 	LPC_SCT->MATCH[1].H=((AUDIO_CLOCK/freq)>>1)-1;   // rapport cyclique 50%
- 691              		.loc 1 147 0
- 692 0044 4208     		lsr	r2, r0, #1
- 693 0046 013A     		sub	r2, r2, #1
- 694 0048 8321     		mov	r1, #131
- 695 004a 92B2     		uxth	r2, r2
- 696 004c 4900     		lsl	r1, r1, #1
- 697 004e 5A52     		strh	r2, [r3, r1]
- 148:../src/hardware.c **** 	LPC_SCT->MATCHREL[1].H=((AUDIO_CLOCK/freq)>>1)-1;
- 698              		.loc 1 148 0
- 699 0050 0D49     		ldr	r1, .L32+32
- 700 0052 5A52     		strh	r2, [r3, r1]
- 149:../src/hardware.c **** 	LPC_SCT->CTRL_H = (LPC_SCT->CTRL_H & ~(3u << 1))|(1u<<3); //démarre le PWM
- 701              		.loc 1 149 0
- 702 0054 5A68     		ldr	r2, [r3, #4]
- 703 0056 0E21     		mov	r1, #14
- 704 0058 120C     		lsr	r2, r2, #16
- 705 005a 8A43     		bic	r2, r1
- 706 005c 0821     		mov	r1, #8
- 707 005e 0A43     		orr	r2, r1
- 708 0060 DA80     		strh	r2, [r3, #6]
- 150:../src/hardware.c **** 	tone_on=1;
- 709              		.loc 1 150 0
- 710 0062 2560     		str	r5, [r4]
- 711              		.loc 1 151 0
- 712 0064 70BD     		pop	{r4, r5, r6, pc}
- 713              	.L33:
- 714 0066 C046     		.align	2
- 715              	.L32:
- 716 0068 00000000 		.word	.LANCHOR0
- 717 006c 00400040 		.word	1073758208
- 718 0070 00E100E0 		.word	-536813312
- 719 0074 30750000 		.word	30000
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 29
-
-
- 720 0078 F0FFFF7F 		.word	2147483632
- 721 007c 40420F00 		.word	1000000
- 722 0080 00400050 		.word	1342193664
- 723 0084 02020000 		.word	514
- 724 0088 06020000 		.word	518
- 725              		.cfi_endproc
- 726              	.LFE40:
- 728              		.section	.text.play_tune,"ax",%progbits
- 729              		.align	2
- 730              		.global	play_tune
- 731              		.code	16
- 732              		.thumb_func
- 734              	play_tune:
- 735              	.LFB41:
- 152:../src/hardware.c **** 
- 153:../src/hardware.c **** void play_tune(const int *tune, int pause){
- 736              		.loc 1 153 0
- 737              		.cfi_startproc
- 738              	.LVL14:
- 739 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
- 740              		.cfi_def_cfa_offset 24
- 741              		.cfi_offset 3, -24
- 742              		.cfi_offset 4, -20
- 743              		.cfi_offset 5, -16
- 744              		.cfi_offset 6, -12
- 745              		.cfi_offset 7, -8
- 746              		.cfi_offset 14, -4
- 747 0002 031C     		mov	r3, r0
- 748 0004 4646     		mov	r6, r8
- 749 0006 4F46     		mov	r7, r9
- 750 0008 8846     		mov	r8, r1
- 154:../src/hardware.c **** 	int freq, duration;
- 155:../src/hardware.c **** 	freq=*tune++;
- 156:../src/hardware.c **** 	duration=*tune++;
- 751              		.loc 1 156 0
- 752 000a 5968     		ldr	r1, [r3, #4]
- 753              	.LVL15:
- 153:../src/hardware.c **** void play_tune(const int *tune, int pause){
- 754              		.loc 1 153 0
- 755 000c C0B4     		push	{r6, r7}
- 756              		.cfi_def_cfa_offset 32
- 757              		.cfi_offset 8, -32
- 758              		.cfi_offset 9, -28
- 759              		.loc 1 156 0
- 760 000e 1E1C     		mov	r6, r3
- 155:../src/hardware.c **** 	freq=*tune++;
- 761              		.loc 1 155 0
- 762 0010 0068     		ldr	r0, [r0]
- 763              	.LVL16:
- 764              		.loc 1 156 0
- 765 0012 0836     		add	r6, r6, #8
- 766              	.LVL17:
- 157:../src/hardware.c **** 	while (duration){
- 767              		.loc 1 157 0
- 768 0014 0029     		cmp	r1, #0
- 769 0016 1CD0     		beq	.L34
- 770              	.LBB48:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 30
-
-
- 771              	.LBB49:
+ 718              		.loc 1 150 0
+ 719 0010 0068     		ldr	r0, [r0]
+ 720              	.LVL14:
+ 721              		.loc 1 151 0
+ 722 0012 0836     		add	r6, r6, #8
+ 723              	.LVL15:
+ 152:../src/hardware.c **** 	while (duration){
+ 724              		.loc 1 152 0
+ 725 0014 0029     		cmp	r1, #0
+ 726 0016 1CD0     		beq	.L29
+ 727              	.LBB44:
+ 728              	.LBB45:
  124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
- 772              		.loc 1 124 0
- 773 0018 1A4A     		ldr	r2, .L48
- 774 001a 4346     		mov	r3, r8
- 775 001c 5A43     		mul	r2, r3
- 776 001e 1A4B     		ldr	r3, .L48+4
- 777              	.LBE49:
- 778              	.LBE48:
- 779              	.LBB52:
- 780              	.LBB53:
+ 729              		.loc 1 124 0
+ 730 0018 1A4A     		ldr	r2, .L43
+ 731 001a 4346     		mov	r3, r8
+ 732 001c 5A43     		mul	r2, r3
+ 733 001e 1A4B     		ldr	r3, .L43+4
+ 734              	.LBE45:
+ 735              	.LBE44:
+ 736              	.LBB48:
+ 737              	.LBB49:
  123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 781              		.loc 1 123 0
- 782 0020 1A4C     		ldr	r4, .L48+8
- 783              	.LBE53:
- 784              	.LBE52:
- 785              	.LBB57:
- 786              	.LBB50:
+ 738              		.loc 1 123 0
+ 739 0020 1A4C     		ldr	r4, .L43+8
+ 740              	.LBE49:
+ 741              	.LBE48:
+ 742              	.LBB53:
+ 743              	.LBB46:
  124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
- 787              		.loc 1 124 0
- 788 0022 1A40     		and	r2, r3
- 789 0024 1A4F     		ldr	r7, .L48+12
- 790 0026 9146     		mov	r9, r2
- 791              	.LBE50:
- 792              	.LBE57:
- 793              	.LBB58:
- 794              	.LBB54:
+ 744              		.loc 1 124 0
+ 745 0022 1A40     		and	r2, r3
+ 746 0024 1A4F     		ldr	r7, .L43+12
+ 747 0026 9146     		mov	r9, r2
+ 748              	.LBE46:
+ 749              	.LBE53:
+ 750              	.LBB54:
+ 751              	.LBB50:
  123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 795              		.loc 1 123 0
- 796 0028 0125     		mov	r5, #1
- 797              	.LVL18:
- 798              	.L45:
- 799              	.LBE54:
- 800              	.LBE58:
- 158:../src/hardware.c **** 		if (freq){
- 801              		.loc 1 158 0
- 802 002a 0028     		cmp	r0, #0
- 803 002c 15D1     		bne	.L47
- 804              	.LVL19:
- 805              	.LBB59:
- 806              	.LBB55:
+ 752              		.loc 1 123 0
+ 753 0028 0125     		mov	r5, #1
+ 754              	.LVL16:
+ 755              	.L40:
+ 756              	.LBE50:
+ 757              	.LBE54:
+ 153:../src/hardware.c **** 		if (freq){
+ 758              		.loc 1 153 0
+ 759 002a 0028     		cmp	r0, #0
+ 760 002c 15D1     		bne	.L42
+ 761              	.LVL17:
+ 762              	.LBB55:
+ 763              	.LBB51:
  123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 807              		.loc 1 123 0
- 808 002e E368     		ldr	r3, [r4, #12]
- 809              	.LBE55:
- 810              	.LBE59:
- 159:../src/hardware.c **** 			tone(freq,duration);
- 160:../src/hardware.c **** 			while (tone_on);
- 161:../src/hardware.c **** 			delay_ms(pause);
- 162:../src/hardware.c **** 		}else{
- 163:../src/hardware.c **** 			delay_ms(duration+pause);
- 811              		.loc 1 163 0
- 812 0030 4144     		add	r1, r1, r8
- 813              	.LVL20:
- 814              	.LBB60:
- 815              	.LBB56:
- 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 31
+ 764              		.loc 1 123 0
+ 765 002e E368     		ldr	r3, [r4, #12]
+ 766              	.LBE51:
+ 767              	.LBE55:
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 30
 
 
- 816              		.loc 1 123 0
- 817 0032 2B43     		orr	r3, r5
- 818 0034 E360     		str	r3, [r4, #12]
+ 154:../src/hardware.c **** 			tone(freq,duration);
+ 155:../src/hardware.c **** 			while (tone_on);
+ 156:../src/hardware.c **** 			delay_ms(pause);
+ 157:../src/hardware.c **** 		}else{
+ 158:../src/hardware.c **** 			delay_ms(duration+pause);
+ 768              		.loc 1 158 0
+ 769 0030 4144     		add	r1, r1, r8
+ 770              	.LVL18:
+ 771              	.LBB56:
+ 772              	.LBB52:
+ 123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
+ 773              		.loc 1 123 0
+ 774 0032 2B43     		orr	r3, r5
+ 775 0034 E360     		str	r3, [r4, #12]
  124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
- 819              		.loc 1 124 0
- 820 0036 134B     		ldr	r3, .L48
- 821 0038 5943     		mul	r1, r3
- 822              	.LVL21:
- 823 003a 134B     		ldr	r3, .L48+4
- 824 003c 1940     		and	r1, r3
- 825 003e 2160     		str	r1, [r4]
- 826              	.L44:
+ 776              		.loc 1 124 0
+ 777 0036 134B     		ldr	r3, .L43
+ 778 0038 5943     		mul	r1, r3
+ 779              	.LVL19:
+ 780 003a 134B     		ldr	r3, .L43+4
+ 781 003c 1940     		and	r1, r3
+ 782 003e 2160     		str	r1, [r4]
+ 783              	.L39:
  125:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
- 827              		.loc 1 125 0
- 828 0040 E368     		ldr	r3, [r4, #12]
- 829 0042 1D42     		tst	r5, r3
- 830 0044 FCD0     		beq	.L44
- 831              	.LVL22:
- 832              	.LBE56:
- 833              	.LBE60:
- 164:../src/hardware.c **** 		}
- 165:../src/hardware.c **** 		freq=*tune++;
- 834              		.loc 1 165 0
- 835 0046 3068     		ldr	r0, [r6]
- 836              	.LVL23:
- 837 0048 0836     		add	r6, r6, #8
- 838              	.LVL24:
- 839 004a 331F     		sub	r3, r6, #4
- 166:../src/hardware.c **** 		duration=*tune++;
- 840              		.loc 1 166 0
- 841 004c 1968     		ldr	r1, [r3]
- 842              	.LVL25:
- 157:../src/hardware.c **** 	while (duration){
- 843              		.loc 1 157 0
- 844 004e 0029     		cmp	r1, #0
- 845 0050 EBD1     		bne	.L45
- 846              	.LVL26:
- 847              	.L34:
- 167:../src/hardware.c **** 	}
- 168:../src/hardware.c **** }//f()
- 848              		.loc 1 168 0
- 849              		@ sp needed
- 850              	.LVL27:
- 851 0052 0CBC     		pop	{r2, r3}
- 852 0054 9046     		mov	r8, r2
- 853 0056 9946     		mov	r9, r3
- 854 0058 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
- 855              	.LVL28:
- 856              	.L47:
- 159:../src/hardware.c **** 			tone(freq,duration);
- 857              		.loc 1 159 0
- 858 005a FFF7FEFF 		bl	tone
- 859              	.LVL29:
- 860              	.L38:
- 160:../src/hardware.c **** 			while (tone_on);
- 861              		.loc 1 160 0 discriminator 1
- 862 005e 3B68     		ldr	r3, [r7]
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 32
+ 784              		.loc 1 125 0
+ 785 0040 E368     		ldr	r3, [r4, #12]
+ 786 0042 1D42     		tst	r5, r3
+ 787 0044 FCD0     		beq	.L39
+ 788              	.LVL20:
+ 789              	.LBE52:
+ 790              	.LBE56:
+ 159:../src/hardware.c **** 		}
+ 160:../src/hardware.c **** 		freq=*tune++;
+ 791              		.loc 1 160 0
+ 792 0046 3068     		ldr	r0, [r6]
+ 793              	.LVL21:
+ 794 0048 0836     		add	r6, r6, #8
+ 795              	.LVL22:
+ 796 004a 331F     		sub	r3, r6, #4
+ 161:../src/hardware.c **** 		duration=*tune++;
+ 797              		.loc 1 161 0
+ 798 004c 1968     		ldr	r1, [r3]
+ 799              	.LVL23:
+ 152:../src/hardware.c **** 	while (duration){
+ 800              		.loc 1 152 0
+ 801 004e 0029     		cmp	r1, #0
+ 802 0050 EBD1     		bne	.L40
+ 803              	.LVL24:
+ 804              	.L29:
+ 162:../src/hardware.c **** 	}
+ 163:../src/hardware.c **** }//f()
+ 805              		.loc 1 163 0
+ 806              		@ sp needed
+ 807              	.LVL25:
+ 808 0052 0CBC     		pop	{r2, r3}
+ 809 0054 9046     		mov	r8, r2
+ 810 0056 9946     		mov	r9, r3
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 31
 
 
- 863 0060 002B     		cmp	r3, #0
- 864 0062 FCD1     		bne	.L38
- 865              	.LVL30:
- 866              	.LBB61:
- 867              	.LBB51:
+ 811 0058 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 812              	.LVL26:
+ 813              	.L42:
+ 154:../src/hardware.c **** 			tone(freq,duration);
+ 814              		.loc 1 154 0
+ 815 005a FFF7FEFF 		bl	tone
+ 816              	.LVL27:
+ 817              	.L33:
+ 155:../src/hardware.c **** 			while (tone_on);
+ 818              		.loc 1 155 0 discriminator 1
+ 819 005e 3B68     		ldr	r3, [r7]
+ 820 0060 002B     		cmp	r3, #0
+ 821 0062 FCD1     		bne	.L33
+ 822              	.LVL28:
+ 823              	.LBB57:
+ 824              	.LBB47:
  123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 868              		.loc 1 123 0
- 869 0064 E368     		ldr	r3, [r4, #12]
- 870 0066 2B43     		orr	r3, r5
- 871 0068 E360     		str	r3, [r4, #12]
+ 825              		.loc 1 123 0
+ 826 0064 E368     		ldr	r3, [r4, #12]
+ 827 0066 2B43     		orr	r3, r5
+ 828 0068 E360     		str	r3, [r4, #12]
  124:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*MSEC)&0x7fffffff;
- 872              		.loc 1 124 0
- 873 006a 4B46     		mov	r3, r9
- 874 006c 2360     		str	r3, [r4]
- 875              	.L42:
+ 829              		.loc 1 124 0
+ 830 006a 4B46     		mov	r3, r9
+ 831 006c 2360     		str	r3, [r4]
+ 832              	.L37:
  125:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
- 876              		.loc 1 125 0
- 877 006e E368     		ldr	r3, [r4, #12]
- 878 0070 1D42     		tst	r5, r3
- 879 0072 FCD0     		beq	.L42
- 880              	.LVL31:
- 881              	.LBE51:
- 882              	.LBE61:
- 165:../src/hardware.c **** 		freq=*tune++;
- 883              		.loc 1 165 0
- 884 0074 3068     		ldr	r0, [r6]
- 885              	.LVL32:
- 886 0076 0836     		add	r6, r6, #8
- 887              	.LVL33:
- 888 0078 331F     		sub	r3, r6, #4
- 166:../src/hardware.c **** 		duration=*tune++;
- 889              		.loc 1 166 0
- 890 007a 1968     		ldr	r1, [r3]
- 891              	.LVL34:
- 157:../src/hardware.c **** 	while (duration){
- 892              		.loc 1 157 0
- 893 007c 0029     		cmp	r1, #0
- 894 007e D4D1     		bne	.L45
- 895 0080 E7E7     		b	.L34
- 896              	.L49:
- 897 0082 C046     		.align	2
- 898              	.L48:
- 899 0084 30750000 		.word	30000
- 900 0088 F0FFFF7F 		.word	2147483632
- 901 008c 00400040 		.word	1073758208
- 902 0090 00000000 		.word	.LANCHOR0
- 903              		.cfi_endproc
- 904              	.LFE41:
- 906              		.section	.text.MRT_IRQHandler,"ax",%progbits
- 907              		.align	2
- 908              		.global	MRT_IRQHandler
- 909              		.code	16
- 910              		.thumb_func
- 912              	MRT_IRQHandler:
- 913              	.LFB42:
- 169:../src/hardware.c **** 
- 170:../src/hardware.c **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 33
+ 833              		.loc 1 125 0
+ 834 006e E368     		ldr	r3, [r4, #12]
+ 835 0070 1D42     		tst	r5, r3
+ 836 0072 FCD0     		beq	.L37
+ 837              	.LVL29:
+ 838              	.LBE47:
+ 839              	.LBE57:
+ 160:../src/hardware.c **** 		freq=*tune++;
+ 840              		.loc 1 160 0
+ 841 0074 3068     		ldr	r0, [r6]
+ 842              	.LVL30:
+ 843 0076 0836     		add	r6, r6, #8
+ 844              	.LVL31:
+ 845 0078 331F     		sub	r3, r6, #4
+ 161:../src/hardware.c **** 		duration=*tune++;
+ 846              		.loc 1 161 0
+ 847 007a 1968     		ldr	r1, [r3]
+ 848              	.LVL32:
+ 152:../src/hardware.c **** 	while (duration){
+ 849              		.loc 1 152 0
+ 850 007c 0029     		cmp	r1, #0
+ 851 007e D4D1     		bne	.L40
+ 852 0080 E7E7     		b	.L29
+ 853              	.L44:
+ 854 0082 C046     		.align	2
+ 855              	.L43:
+ 856 0084 30750000 		.word	30000
+ 857 0088 F0FFFF7F 		.word	2147483632
+ 858 008c 00400040 		.word	1073758208
+ 859 0090 00000000 		.word	.LANCHOR0
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 32
 
 
- 171:../src/hardware.c **** 
- 172:../src/hardware.c **** 
- 173:../src/hardware.c **** void MRT_IRQHandler(void){
- 914              		.loc 1 173 0
- 915              		.cfi_startproc
- 174:../src/hardware.c **** 	if (LPC_MRT->Channel[1].STAT&1){
- 916              		.loc 1 174 0
- 917 0000 094B     		ldr	r3, .L55
- 918 0002 0122     		mov	r2, #1
- 919 0004 D969     		ldr	r1, [r3, #28]
- 920 0006 0A42     		tst	r2, r1
- 921 0008 0DD0     		beq	.L50
- 175:../src/hardware.c **** 		tone_on=0;
- 922              		.loc 1 175 0
- 923 000a 0849     		ldr	r1, .L55+4
- 924 000c 0020     		mov	r0, #0
- 925 000e 0860     		str	r0, [r1]
- 176:../src/hardware.c **** 		LPC_SCT->CTRL_H=(1u<<2);// arrêt du PWM
- 926              		.loc 1 176 0
- 927 0010 0749     		ldr	r1, .L55+8
- 928 0012 0420     		mov	r0, #4
- 929 0014 C880     		strh	r0, [r1, #6]
- 177:../src/hardware.c **** 		LPC_MRT->Channel[1].STAT|=1;
- 930              		.loc 1 177 0
- 931 0016 D969     		ldr	r1, [r3, #28]
- 932 0018 0A43     		orr	r2, r1
- 933 001a DA61     		str	r2, [r3, #28]
- 934              	.LVL35:
- 935              	.LBB62:
- 936              	.LBB63:
+ 860              		.cfi_endproc
+ 861              	.LFE40:
+ 863              		.section	.text.MRT_IRQHandler,"ax",%progbits
+ 864              		.align	2
+ 865              		.global	MRT_IRQHandler
+ 866              		.code	16
+ 867              		.thumb_func
+ 869              	MRT_IRQHandler:
+ 870              	.LFB41:
+ 164:../src/hardware.c **** 
+ 165:../src/hardware.c **** 
+ 166:../src/hardware.c **** 
+ 167:../src/hardware.c **** 
+ 168:../src/hardware.c **** void MRT_IRQHandler(void){
+ 871              		.loc 1 168 0
+ 872              		.cfi_startproc
+ 169:../src/hardware.c **** 	if (LPC_MRT->Channel[1].STAT&1){
+ 873              		.loc 1 169 0
+ 874 0000 094B     		ldr	r3, .L50
+ 875 0002 0122     		mov	r2, #1
+ 876 0004 D969     		ldr	r1, [r3, #28]
+ 877 0006 0A42     		tst	r2, r1
+ 878 0008 0DD0     		beq	.L45
+ 170:../src/hardware.c **** 		tone_on=0;
+ 879              		.loc 1 170 0
+ 880 000a 0849     		ldr	r1, .L50+4
+ 881 000c 0020     		mov	r0, #0
+ 882 000e 0860     		str	r0, [r1]
+ 171:../src/hardware.c **** 		LPC_SCT->CTRL_H=(1u<<2);// arrêt du PWM
+ 883              		.loc 1 171 0
+ 884 0010 0749     		ldr	r1, .L50+8
+ 885 0012 0420     		mov	r0, #4
+ 886 0014 C880     		strh	r0, [r1, #6]
+ 172:../src/hardware.c **** 		LPC_MRT->Channel[1].STAT|=1;
+ 887              		.loc 1 172 0
+ 888 0016 D969     		ldr	r1, [r3, #28]
+ 889 0018 0A43     		orr	r2, r1
+ 890 001a DA61     		str	r2, [r3, #28]
+ 891              	.LVL33:
+ 892              	.LBB58:
+ 893              	.LBB59:
  640:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   NVIC->ICER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
- 937              		.loc 2 640 0
- 938 001c 8021     		mov	r1, #128
- 939 001e 054A     		ldr	r2, .L55+12
- 940 0020 C900     		lsl	r1, r1, #3
- 941 0022 8023     		mov	r3, #128
- 942 0024 D150     		str	r1, [r2, r3]
- 943              	.LVL36:
- 944              	.L50:
- 945              	.LBE63:
- 946              	.LBE62:
- 178:../src/hardware.c **** 		NVIC_DisableIRQ(MRT_IRQn);
- 179:../src/hardware.c **** 	}
- 180:../src/hardware.c **** }//f()
- 947              		.loc 1 180 0
- 948              		@ sp needed
- 949 0026 7047     		bx	lr
- 950              	.L56:
- 951              		.align	2
- 952              	.L55:
- 953 0028 00400040 		.word	1073758208
- 954 002c 00000000 		.word	.LANCHOR0
- 955 0030 00400050 		.word	1342193664
- 956 0034 00E100E0 		.word	-536813312
- 957              		.cfi_endproc
- 958              	.LFE42:
- 960              		.section	.text.read_pot,"ax",%progbits
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 34
+ 894              		.loc 2 640 0
+ 895 001c 8021     		mov	r1, #128
+ 896 001e 054A     		ldr	r2, .L50+12
+ 897 0020 C900     		lsl	r1, r1, #3
+ 898 0022 8023     		mov	r3, #128
+ 899 0024 D150     		str	r1, [r2, r3]
+ 900              	.LVL34:
+ 901              	.L45:
+ 902              	.LBE59:
+ 903              	.LBE58:
+ 173:../src/hardware.c **** 		NVIC_DisableIRQ(MRT_IRQn);
+ 174:../src/hardware.c **** 	}
+ 175:../src/hardware.c **** }//f()
+ 904              		.loc 1 175 0
+ 905              		@ sp needed
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 33
 
 
- 961              		.align	2
- 962              		.global	read_pot
- 963              		.code	16
- 964              		.thumb_func
- 966              	read_pot:
- 967              	.LFB43:
- 181:../src/hardware.c **** 
- 182:../src/hardware.c **** 
- 183:../src/hardware.c **** /*
- 184:../src/hardware.c ****  *  utilisation du comparateur analogique avec la référence de
- 185:../src/hardware.c ****  *  voltage à 32 niveaux pour créer un convertisseur A/N à 5 bits
- 186:../src/hardware.c ****  *  la lecture se fait par approximation successive en divisant
- 187:../src/hardware.c ****  *  l'intervalle en 2 à chaque test.
- 188:../src/hardware.c ****  */
- 189:../src/hardware.c **** int read_pot(int pot){
- 968              		.loc 1 189 0
- 969              		.cfi_startproc
- 970              	.LVL37:
- 971 0000 F0B5     		push	{r4, r5, r6, r7, lr}
- 972              		.cfi_def_cfa_offset 20
- 973              		.cfi_offset 4, -20
- 974              		.cfi_offset 5, -16
- 975              		.cfi_offset 6, -12
- 976              		.cfi_offset 7, -8
- 977              		.cfi_offset 14, -4
- 190:../src/hardware.c **** 	int min,max,test,count,last,current;
- 191:../src/hardware.c **** 	min=0;
- 192:../src/hardware.c **** 	max=31;
- 193:../src/hardware.c **** 	test=15;
- 194:../src/hardware.c **** 	LPC_CMP->CTRL &= ~(3u<<8);
- 978              		.loc 1 194 0
- 979 0002 364B     		ldr	r3, .L75
- 189:../src/hardware.c **** int read_pot(int pot){
- 980              		.loc 1 189 0
- 981 0004 5F46     		mov	r7, fp
- 982 0006 5646     		mov	r6, r10
- 983 0008 4D46     		mov	r5, r9
- 984 000a 4446     		mov	r4, r8
- 985 000c F0B4     		push	{r4, r5, r6, r7}
- 986              		.cfi_def_cfa_offset 36
- 987              		.cfi_offset 8, -36
- 988              		.cfi_offset 9, -32
- 989              		.cfi_offset 10, -28
- 990              		.cfi_offset 11, -24
- 991              		.loc 1 194 0
- 992 000e 1968     		ldr	r1, [r3]
- 993 0010 334A     		ldr	r2, .L75+4
- 189:../src/hardware.c **** int read_pot(int pot){
- 994              		.loc 1 189 0
- 995 0012 83B0     		sub	sp, sp, #12
- 996              		.cfi_def_cfa_offset 48
- 997              		.loc 1 194 0
- 998 0014 0A40     		and	r2, r1
- 999 0016 1A60     		str	r2, [r3]
- 195:../src/hardware.c **** 	if (pot==LEFT_POT){
- 196:../src/hardware.c **** 		LPC_CMP->CTRL|=(2u<<8); // entrée positive du comparateur sur ACMP0_I2
- 1000              		.loc 1 196 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 35
+ 906 0026 7047     		bx	lr
+ 907              	.L51:
+ 908              		.align	2
+ 909              	.L50:
+ 910 0028 00400040 		.word	1073758208
+ 911 002c 00000000 		.word	.LANCHOR0
+ 912 0030 00400050 		.word	1342193664
+ 913 0034 00E100E0 		.word	-536813312
+ 914              		.cfi_endproc
+ 915              	.LFE41:
+ 917              		.section	.text.read_pot,"ax",%progbits
+ 918              		.align	2
+ 919              		.global	read_pot
+ 920              		.code	16
+ 921              		.thumb_func
+ 923              	read_pot:
+ 924              	.LFB42:
+ 176:../src/hardware.c **** 
+ 177:../src/hardware.c **** 
+ 178:../src/hardware.c **** /*
+ 179:../src/hardware.c ****  *  utilisation du comparateur analogique avec la référence de
+ 180:../src/hardware.c ****  *  voltage à 32 niveaux pour créer un convertisseur A/N à 5 bits
+ 181:../src/hardware.c ****  *  la lecture se fait par approximation successive en divisant
+ 182:../src/hardware.c ****  *  l'intervalle en 2 à chaque test.
+ 183:../src/hardware.c ****  */
+ 184:../src/hardware.c **** int read_pot(int pot){
+ 925              		.loc 1 184 0
+ 926              		.cfi_startproc
+ 927              	.LVL35:
+ 928 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 929              		.cfi_def_cfa_offset 20
+ 930              		.cfi_offset 4, -20
+ 931              		.cfi_offset 5, -16
+ 932              		.cfi_offset 6, -12
+ 933              		.cfi_offset 7, -8
+ 934              		.cfi_offset 14, -4
+ 185:../src/hardware.c **** 	int min,max,test,count,last,current;
+ 186:../src/hardware.c **** 	min=0;
+ 187:../src/hardware.c **** 	max=31;
+ 188:../src/hardware.c **** 	test=15;
+ 189:../src/hardware.c **** 	LPC_CMP->CTRL &= ~(3u<<8);
+ 935              		.loc 1 189 0
+ 936 0002 2A4B     		ldr	r3, .L70
+ 937 0004 2A4A     		ldr	r2, .L70+4
+ 938 0006 1968     		ldr	r1, [r3]
+ 184:../src/hardware.c **** int read_pot(int pot){
+ 939              		.loc 1 184 0
+ 940 0008 4746     		mov	r7, r8
+ 941              		.loc 1 189 0
+ 942 000a 0A40     		and	r2, r1
+ 184:../src/hardware.c **** int read_pot(int pot){
+ 943              		.loc 1 184 0
+ 944 000c 80B4     		push	{r7}
+ 945              		.cfi_def_cfa_offset 24
+ 946              		.cfi_offset 8, -24
+ 947              		.loc 1 189 0
+ 948 000e 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 34
 
 
- 1001 0018 1968     		ldr	r1, [r3]
- 1002 001a 8022     		mov	r2, #128
- 195:../src/hardware.c **** 	if (pot==LEFT_POT){
- 1003              		.loc 1 195 0
- 1004 001c 0028     		cmp	r0, #0
- 1005 001e 58D1     		bne	.L58
- 1006              		.loc 1 196 0
- 1007 0020 9200     		lsl	r2, r2, #2
- 1008 0022 0A43     		orr	r2, r1
- 1009 0024 1A60     		str	r2, [r3]
- 1010              	.L60:
- 189:../src/hardware.c **** int read_pot(int pot){
- 1011              		.loc 1 189 0 discriminator 1
- 1012 0026 1F23     		mov	r3, #31
- 1013 0028 0020     		mov	r0, #0
- 1014              	.LVL38:
- 1015 002a 9C46     		mov	ip, r3
- 1016              	.LBB64:
- 1017              	.LBB65:
- 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
- 1018              		.loc 1 130 0 discriminator 1
- 1019 002c 9623     		mov	r3, #150
- 1020              	.LBE65:
- 1021              	.LBE64:
- 189:../src/hardware.c **** int read_pot(int pot){
- 1022              		.loc 1 189 0 discriminator 1
- 1023 002e 8046     		mov	r8, r0
- 1024 0030 0F24     		mov	r4, #15
- 197:../src/hardware.c **** 	}else{
- 198:../src/hardware.c **** 		LPC_CMP->CTRL|=(1u<<8); // entrée positive du comparateur sur ACMP0_I1
- 199:../src/hardware.c **** 	}
- 200:../src/hardware.c **** 	while ((test<max) && (test>min)){
- 201:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
- 1025              		.loc 1 201 0 discriminator 1
- 1026 0032 3F20     		mov	r0, #63
- 1027              	.LBB71:
- 1028              	.LBB66:
- 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
- 1029              		.loc 1 130 0 discriminator 1
- 1030 0034 5B00     		lsl	r3, r3, #1
- 1031              	.LBE66:
- 1032              	.LBE71:
- 1033              		.loc 1 201 0 discriminator 1
- 1034 0036 294E     		ldr	r6, .L75
- 1035              	.LBB72:
- 1036              	.LBB67:
- 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 1037              		.loc 1 129 0 discriminator 1
- 1038 0038 2A4A     		ldr	r2, .L75+8
- 1039              	.LBE67:
- 1040              	.LBE72:
- 189:../src/hardware.c **** int read_pot(int pot){
- 1041              		.loc 1 189 0 discriminator 1
- 1042 003a 0194     		str	r4, [sp, #4]
- 1043              		.loc 1 201 0 discriminator 1
- 1044 003c 8246     		mov	r10, r0
- 202:../src/hardware.c **** 		LPC_CMP->LAD|=1|(test<<1u);
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 36
+ 190:../src/hardware.c **** 	if (pot==LEFT_POT){
+ 191:../src/hardware.c **** 		LPC_CMP->CTRL|=(2u<<8); // entrée positive du comparateur sur ACMP0_I2
+ 949              		.loc 1 191 0
+ 950 0010 1968     		ldr	r1, [r3]
+ 951 0012 8022     		mov	r2, #128
+ 190:../src/hardware.c **** 	if (pot==LEFT_POT){
+ 952              		.loc 1 190 0
+ 953 0014 0028     		cmp	r0, #0
+ 954 0016 44D1     		bne	.L53
+ 955              		.loc 1 191 0
+ 956 0018 9200     		lsl	r2, r2, #2
+ 957 001a 0A43     		orr	r2, r1
+ 958 001c 1A60     		str	r2, [r3]
+ 959              	.L55:
+ 192:../src/hardware.c **** 	}else{
+ 193:../src/hardware.c **** 		LPC_CMP->CTRL|=(1u<<8); // entrée positive du comparateur sur ACMP0_I1
+ 194:../src/hardware.c **** 	}
+ 195:../src/hardware.c **** 	while ((test<max) && (test>min)){
+ 196:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
+ 960              		.loc 1 196 0 discriminator 1
+ 961 001e 3F22     		mov	r2, #63
+ 197:../src/hardware.c **** 		LPC_CMP->LAD|=1|(test<<1u);
+ 962              		.loc 1 197 0 discriminator 1
+ 963 0020 0123     		mov	r3, #1
+ 198:../src/hardware.c **** 		delay_us(10);
+ 199:../src/hardware.c **** 		count=0;
+ 200:../src/hardware.c **** 		last=1;
+ 201:../src/hardware.c **** 		while (count<5){
+ 202:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
+ 964              		.loc 1 202 0 discriminator 1
+ 965 0022 8025     		mov	r5, #128
+ 196:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
+ 966              		.loc 1 196 0 discriminator 1
+ 967 0024 214C     		ldr	r4, .L70
+ 184:../src/hardware.c **** int read_pot(int pot){
+ 968              		.loc 1 184 0 discriminator 1
+ 969 0026 0F20     		mov	r0, #15
+ 970              	.LVL36:
+ 971 0028 0027     		mov	r7, #0
+ 972 002a 1F26     		mov	r6, #31
+ 196:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
+ 973              		.loc 1 196 0 discriminator 1
+ 974 002c 9046     		mov	r8, r2
+ 197:../src/hardware.c **** 		LPC_CMP->LAD|=1|(test<<1u);
+ 975              		.loc 1 197 0 discriminator 1
+ 976 002e 9C46     		mov	ip, r3
+ 977              		.loc 1 202 0 discriminator 1
+ 978 0030 AD03     		lsl	r5, r5, #14
+ 979              	.LVL37:
+ 980              	.L54:
+ 196:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
+ 981              		.loc 1 196 0
+ 982 0032 6368     		ldr	r3, [r4, #4]
+ 983 0034 4246     		mov	r2, r8
+ 984 0036 9343     		bic	r3, r2
+ 985 0038 6360     		str	r3, [r4, #4]
+ 197:../src/hardware.c **** 		LPC_CMP->LAD|=1|(test<<1u);
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 35
 
 
- 1045              		.loc 1 202 0 discriminator 1
- 1046 003e 0121     		mov	r1, #1
- 1047              	.LBB73:
- 1048              	.LBB68:
- 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
- 1049              		.loc 1 130 0 discriminator 1
- 1050 0040 9946     		mov	r9, r3
- 1051              	.LBE68:
- 1052              	.LBE73:
- 1053              	.LBB74:
- 1054              	.LBB75:
- 1055 0042 1E27     		mov	r7, #30
- 1056              	.LVL39:
- 1057              	.L59:
- 1058              	.LBE75:
- 1059              	.LBE74:
- 201:../src/hardware.c **** 		LPC_CMP->LAD&=~(1|(31<<1u));
- 1060              		.loc 1 201 0
- 1061 0044 7368     		ldr	r3, [r6, #4]
- 1062 0046 5446     		mov	r4, r10
- 1063 0048 A343     		bic	r3, r4
- 1064 004a 7360     		str	r3, [r6, #4]
- 1065              		.loc 1 202 0
- 1066 004c 7368     		ldr	r3, [r6, #4]
- 1067 004e 0198     		ldr	r0, [sp, #4]
- 1068 0050 0B43     		orr	r3, r1
- 1069 0052 4400     		lsl	r4, r0, #1
- 1070 0054 2343     		orr	r3, r4
- 1071 0056 7360     		str	r3, [r6, #4]
- 1072              	.LVL40:
- 1073              	.LBB77:
- 1074              	.LBB69:
- 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 1075              		.loc 1 129 0
- 1076 0058 D368     		ldr	r3, [r2, #12]
- 1077 005a 0B43     		orr	r3, r1
- 1078 005c D360     		str	r3, [r2, #12]
- 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
- 1079              		.loc 1 130 0
- 1080 005e 4B46     		mov	r3, r9
- 1081 0060 1360     		str	r3, [r2]
- 1082              	.L62:
- 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
- 1083              		.loc 1 131 0
- 1084 0062 D368     		ldr	r3, [r2, #12]
- 1085 0064 1942     		tst	r1, r3
- 1086 0066 FCD0     		beq	.L62
- 1087              	.LBE69:
- 1088              	.LBE77:
- 203:../src/hardware.c **** 		delay_us(10);
- 204:../src/hardware.c **** 		count=0;
- 205:../src/hardware.c **** 		last=1;
- 206:../src/hardware.c **** 		while (count<5){
- 207:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
- 1089              		.loc 1 207 0
- 1090 0068 8024     		mov	r4, #128
- 1091 006a A403     		lsl	r4, r4, #14
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 37
+ 986              		.loc 1 197 0
+ 987 003a 6368     		ldr	r3, [r4, #4]
+ 988 003c 6246     		mov	r2, ip
+ 989 003e 1343     		orr	r3, r2
+ 990 0040 4200     		lsl	r2, r0, #1
+ 991 0042 1343     		orr	r3, r2
+ 992 0044 6360     		str	r3, [r4, #4]
+ 993              	.LVL38:
+ 994 0046 2523     		mov	r3, #37
+ 995              	.LVL39:
+ 996              	.L57:
+ 997              	.LBB60:
+ 198:../src/hardware.c **** 		delay_us(10);
+ 998              		.loc 1 198 0 discriminator 2
+ 999              	@ 198 "../src/hardware.c" 1
+ 1000 0048 C046     		nop
+ 1001 004a C046     	 nop
+ 1002 004c C046     	 nop
+ 1003 004e C046     	 nop
+ 1004              	@ 0 "" 2
+ 1005              	.LVL40:
+ 1006              		.code	16
+ 1007 0050 013B     		sub	r3, r3, #1
+ 1008              	.LVL41:
+ 1009 0052 002B     		cmp	r3, #0
+ 1010 0054 F8D1     		bne	.L57
+ 198:../src/hardware.c **** 		delay_us(10);
+ 1011              		.loc 1 198 0 is_stmt 0
+ 1012 0056 0123     		mov	r3, #1
+ 1013              	.LVL42:
+ 1014 0058 0021     		mov	r1, #0
+ 1015              	.L62:
+ 1016              	.LVL43:
+ 1017              	.LBE60:
+ 1018              		.loc 1 202 0 is_stmt 1
+ 1019 005a 2268     		ldr	r2, [r4]
+ 203:../src/hardware.c **** 			if (current==last){
+ 204:../src/hardware.c **** 				count++;
+ 1020              		.loc 1 204 0
+ 1021 005c 0131     		add	r1, r1, #1
+ 1022              	.LVL44:
+ 202:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
+ 1023              		.loc 1 202 0
+ 1024 005e 2A40     		and	r2, r5
+ 1025              	.LVL45:
+ 203:../src/hardware.c **** 			if (current==last){
+ 1026              		.loc 1 203 0
+ 1027 0060 9A42     		cmp	r2, r3
+ 1028 0062 00D0     		beq	.L58
+ 205:../src/hardware.c **** 			}else{
+ 206:../src/hardware.c **** 				last=current;
+ 207:../src/hardware.c **** 				count=0;
+ 1029              		.loc 1 207 0
+ 1030 0064 0021     		mov	r1, #0
+ 1031              	.LVL46:
+ 1032              	.L58:
+ 1033 0066 0323     		mov	r3, #3
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 36
 
 
- 1092              	.LBB78:
- 1093              	.LBB70:
- 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
- 1094              		.loc 1 131 0
- 1095 006c 0123     		mov	r3, #1
- 1096 006e 0025     		mov	r5, #0
- 1097              	.LBE70:
- 1098              	.LBE78:
- 1099              		.loc 1 207 0
- 1100 0070 A346     		mov	fp, r4
- 1101              	.L67:
- 1102              	.LVL41:
- 1103 0072 3468     		ldr	r4, [r6]
- 1104 0074 5846     		mov	r0, fp
- 1105 0076 0440     		and	r4, r0
- 1106              	.LVL42:
- 208:../src/hardware.c **** 			if (current==last){
- 209:../src/hardware.c **** 				count++;
- 1107              		.loc 1 209 0
- 1108 0078 0135     		add	r5, r5, #1
- 1109              	.LVL43:
- 208:../src/hardware.c **** 			if (current==last){
- 1110              		.loc 1 208 0
- 1111 007a 9C42     		cmp	r4, r3
- 1112 007c 00D0     		beq	.L63
- 210:../src/hardware.c **** 			}else{
- 211:../src/hardware.c **** 				last=current;
- 212:../src/hardware.c **** 				count=0;
- 1113              		.loc 1 212 0
- 1114 007e 0025     		mov	r5, #0
- 1115              	.LVL44:
- 1116              	.L63:
- 1117              	.LBB79:
- 1118              	.LBB76:
- 129:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
- 1119              		.loc 1 129 0
- 1120 0080 D368     		ldr	r3, [r2, #12]
- 1121 0082 0B43     		orr	r3, r1
- 1122 0084 D360     		str	r3, [r2, #12]
- 130:../src/hardware.c **** 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
- 1123              		.loc 1 130 0
- 1124 0086 1760     		str	r7, [r2]
- 1125              	.L65:
- 131:../src/hardware.c **** 	while (!(LPC_MRT->Channel[0].STAT&1u));
- 1126              		.loc 1 131 0
- 1127 0088 D368     		ldr	r3, [r2, #12]
- 1128 008a 1942     		tst	r1, r3
- 1129 008c FCD0     		beq	.L65
- 1130              	.LBE76:
- 1131              	.LBE79:
- 206:../src/hardware.c **** 		while (count<5){
- 1132              		.loc 1 206 0 discriminator 1
- 1133 008e 042D     		cmp	r5, #4
- 1134 0090 01DC     		bgt	.L66
- 207:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
- 1135              		.loc 1 207 0
- 1136 0092 231C     		mov	r3, r4
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 38
+ 1034              	.LVL47:
+ 1035              	.L60:
+ 1036              	.LBB61:
+ 208:../src/hardware.c **** 			}
+ 209:../src/hardware.c **** 			delay_us(1);
+ 1037              		.loc 1 209 0 discriminator 2
+ 1038              	@ 209 "../src/hardware.c" 1
+ 1039 0068 C046     		nop
+ 1040 006a C046     	 nop
+ 1041 006c C046     	 nop
+ 1042 006e C046     	 nop
+ 1043              	@ 0 "" 2
+ 1044              	.LVL48:
+ 1045              		.code	16
+ 1046 0070 013B     		sub	r3, r3, #1
+ 1047              	.LVL49:
+ 1048 0072 002B     		cmp	r3, #0
+ 1049 0074 F8D1     		bne	.L60
+ 1050              	.LBE61:
+ 201:../src/hardware.c **** 		while (count<5){
+ 1051              		.loc 1 201 0 discriminator 1
+ 1052 0076 0429     		cmp	r1, #4
+ 1053 0078 01DC     		bgt	.L61
+ 202:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
+ 1054              		.loc 1 202 0
+ 1055 007a 131C     		mov	r3, r2
+ 1056              	.LVL50:
+ 1057 007c EDE7     		b	.L62
+ 1058              	.LVL51:
+ 1059              	.L61:
+ 210:../src/hardware.c **** 		}
+ 211:../src/hardware.c **** 		if (last){
+ 1060              		.loc 1 211 0
+ 1061 007e 002A     		cmp	r2, #0
+ 1062 0080 0AD0     		beq	.L63
+ 1063              	.LVL52:
+ 212:../src/hardware.c **** 			min=test;
+ 213:../src/hardware.c **** 			test=test+((max-test)>>1);
+ 1064              		.loc 1 213 0
+ 1065 0082 331A     		sub	r3, r6, r0
+ 1066              	.LVL53:
+ 1067 0084 5B10     		asr	r3, r3, #1
+ 1068              	.LVL54:
+ 1069 0086 071C     		mov	r7, r0
+ 1070 0088 1818     		add	r0, r3, r0
+ 1071              	.LVL55:
+ 1072              	.L64:
+ 195:../src/hardware.c **** 	while ((test<max) && (test>min)){
+ 1073              		.loc 1 195 0 discriminator 1
+ 1074 008a 8642     		cmp	r6, r0
+ 1075 008c 01DD     		ble	.L69
+ 195:../src/hardware.c **** 	while ((test<max) && (test>min)){
+ 1076              		.loc 1 195 0 is_stmt 0 discriminator 2
+ 1077 008e 8742     		cmp	r7, r0
+ 1078 0090 CFDB     		blt	.L54
+ 1079              	.L69:
+ 214:../src/hardware.c **** 		}else{
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 37
 
 
- 1137 0094 EDE7     		b	.L67
- 1138              	.L66:
- 213:../src/hardware.c **** 			}
- 214:../src/hardware.c **** 			delay_us(1);
- 215:../src/hardware.c **** 		}
- 216:../src/hardware.c **** 		if (last){
- 1139              		.loc 1 216 0
- 1140 0096 002C     		cmp	r4, #0
- 1141 0098 13D0     		beq	.L68
- 1142              	.LVL45:
- 217:../src/hardware.c **** 			min=test;
- 218:../src/hardware.c **** 			test=test+((max-test)>>1);
- 1143              		.loc 1 218 0
- 1144 009a 0198     		ldr	r0, [sp, #4]
- 1145 009c 6446     		mov	r4, ip
- 1146              	.LVL46:
- 1147 009e 231A     		sub	r3, r4, r0
- 1148 00a0 5B10     		asr	r3, r3, #1
- 1149              	.LVL47:
- 1150 00a2 8046     		mov	r8, r0
- 1151 00a4 1818     		add	r0, r3, r0
- 1152              	.LVL48:
- 1153 00a6 0190     		str	r0, [sp, #4]
- 1154              	.LVL49:
- 1155              	.L69:
- 200:../src/hardware.c **** 	while ((test<max) && (test>min)){
- 1156              		.loc 1 200 0 discriminator 1
- 1157 00a8 019B     		ldr	r3, [sp, #4]
- 1158 00aa 9C45     		cmp	ip, r3
- 1159 00ac 01DD     		ble	.L74
- 200:../src/hardware.c **** 	while ((test<max) && (test>min)){
- 1160              		.loc 1 200 0 is_stmt 0 discriminator 2
- 1161 00ae 4345     		cmp	r3, r8
- 1162 00b0 C8DC     		bgt	.L59
- 1163              	.L74:
- 219:../src/hardware.c **** 		}else{
- 220:../src/hardware.c **** 			max=test;
- 221:../src/hardware.c **** 			test=test-((test-min)>>1);
- 222:../src/hardware.c **** 		}
- 223:../src/hardware.c **** 	}
- 224:../src/hardware.c **** 	return	test;
- 225:../src/hardware.c **** }//f()
- 1164              		.loc 1 225 0 is_stmt 1
- 1165 00b2 0198     		ldr	r0, [sp, #4]
- 1166 00b4 03B0     		add	sp, sp, #12
- 1167              		@ sp needed
- 1168              	.LVL50:
- 1169              	.LVL51:
- 1170 00b6 3CBC     		pop	{r2, r3, r4, r5}
- 1171 00b8 9046     		mov	r8, r2
- 1172 00ba 9946     		mov	r9, r3
- 1173 00bc A246     		mov	r10, r4
- 1174 00be AB46     		mov	fp, r5
- 1175 00c0 F0BD     		pop	{r4, r5, r6, r7, pc}
- 1176              	.LVL52:
- 1177              	.L68:
- 221:../src/hardware.c **** 			test=test-((test-min)>>1);
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 39
-
-
- 1178              		.loc 1 221 0
- 1179 00c2 0198     		ldr	r0, [sp, #4]
- 1180 00c4 4446     		mov	r4, r8
- 1181              	.LVL53:
- 1182 00c6 031B     		sub	r3, r0, r4
- 1183 00c8 5B10     		asr	r3, r3, #1
- 1184              	.LVL54:
- 1185 00ca 8446     		mov	ip, r0
- 1186 00cc C01A     		sub	r0, r0, r3
- 1187              	.LVL55:
- 1188 00ce 0190     		str	r0, [sp, #4]
- 1189              	.LVL56:
- 1190 00d0 EAE7     		b	.L69
- 1191              	.LVL57:
- 1192              	.L58:
- 198:../src/hardware.c **** 		LPC_CMP->CTRL|=(1u<<8); // entrée positive du comparateur sur ACMP0_I1
- 1193              		.loc 1 198 0
- 1194 00d2 5200     		lsl	r2, r2, #1
- 1195 00d4 0A43     		orr	r2, r1
- 1196 00d6 1A60     		str	r2, [r3]
- 1197 00d8 A5E7     		b	.L60
- 1198              	.L76:
- 1199 00da C046     		.align	2
- 1200              	.L75:
- 1201 00dc 00400240 		.word	1073889280
- 1202 00e0 FFFCFFFF 		.word	-769
- 1203 00e4 00400040 		.word	1073758208
- 1204              		.cfi_endproc
- 1205              	.LFE43:
- 1207              		.global	tone_on
- 1208              		.section	.bss.tone_on,"aw",%nobits
- 1209              		.align	2
- 1210              		.set	.LANCHOR0,. + 0
- 1213              	tone_on:
- 1214 0000 00000000 		.space	4
- 1215              		.text
- 1216              	.Letext0:
- 1217              		.file 3 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/LP
- 1218              		.file 4 "c:\\nxp\\lpcxpresso_7.0.2_102\\lpcxpresso\\tools\\redlib\\include\\stdint.h"
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 40
+ 215:../src/hardware.c **** 			max=test;
+ 216:../src/hardware.c **** 			test=test-((test-min)>>1);
+ 217:../src/hardware.c **** 		}
+ 218:../src/hardware.c **** 	}
+ 219:../src/hardware.c **** 	return	test;
+ 220:../src/hardware.c **** }//f()
+ 1080              		.loc 1 220 0 is_stmt 1
+ 1081              		@ sp needed
+ 1082              	.LVL56:
+ 1083              	.LVL57:
+ 1084 0092 04BC     		pop	{r2}
+ 1085 0094 9046     		mov	r8, r2
+ 1086 0096 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 1087              	.LVL58:
+ 1088              	.L63:
+ 216:../src/hardware.c **** 			test=test-((test-min)>>1);
+ 1089              		.loc 1 216 0
+ 1090 0098 C31B     		sub	r3, r0, r7
+ 1091              	.LVL59:
+ 1092 009a 5B10     		asr	r3, r3, #1
+ 1093              	.LVL60:
+ 1094 009c 061C     		mov	r6, r0
+ 1095 009e C01A     		sub	r0, r0, r3
+ 1096              	.LVL61:
+ 1097 00a0 F3E7     		b	.L64
+ 1098              	.LVL62:
+ 1099              	.L53:
+ 193:../src/hardware.c **** 		LPC_CMP->CTRL|=(1u<<8); // entrée positive du comparateur sur ACMP0_I1
+ 1100              		.loc 1 193 0
+ 1101 00a2 5200     		lsl	r2, r2, #1
+ 1102 00a4 0A43     		orr	r2, r1
+ 1103 00a6 1A60     		str	r2, [r3]
+ 1104 00a8 B9E7     		b	.L55
+ 1105              	.L71:
+ 1106 00aa C046     		.align	2
+ 1107              	.L70:
+ 1108 00ac 00400240 		.word	1073889280
+ 1109 00b0 FFFCFFFF 		.word	-769
+ 1110              		.cfi_endproc
+ 1111              	.LFE42:
+ 1113              		.global	tone_on
+ 1114              		.section	.bss.tone_on,"aw",%nobits
+ 1115              		.align	2
+ 1116              		.set	.LANCHOR0,. + 0
+ 1119              	tone_on:
+ 1120 0000 00000000 		.space	4
+ 1121              		.text
+ 1122              	.Letext0:
+ 1123              		.file 3 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/LP
+ 1124              		.file 4 "c:\\nxp\\lpcxpresso_7.0.2_102\\lpcxpresso\\tools\\redlib\\include\\stdint.h"
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s 			page 38
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 hardware.c
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:18     .text.assign_pins:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:23     .text.assign_pins:00000000 assign_pins
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:70     .text.assign_pins:00000038 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:77     .text.SPI0_init:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:82     .text.SPI0_init:00000000 SPI0_init
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:106    .text.SPI0_init:00000014 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:112    .text.PWM_init:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:117    .text.PWM_init:00000000 PWM_init
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:294    .text.PWM_init:000000e0 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:309    .text.sysclock_init:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:314    .text.sysclock_init:00000000 sysclock_init
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:392    .text.sysclock_init:00000060 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:402    .text.initialize_hardware:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:407    .text.initialize_hardware:00000000 initialize_hardware
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:516    .text.initialize_hardware:00000078 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:529    .text.delay_ms:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:534    .text.delay_ms:00000000 delay_ms
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:566    .text.delay_ms:00000020 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:573    .text.delay_us:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:578    .text.delay_us:00000000 delay_us
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:610    .text.delay_us:00000020 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:617    .text.tone:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:622    .text.tone:00000000 tone
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:716    .text.tone:00000068 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:729    .text.play_tune:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:734    .text.play_tune:00000000 play_tune
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:899    .text.play_tune:00000084 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:907    .text.MRT_IRQHandler:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:912    .text.MRT_IRQHandler:00000000 MRT_IRQHandler
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:953    .text.MRT_IRQHandler:00000028 $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:961    .text.read_pot:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:966    .text.read_pot:00000000 read_pot
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:1201   .text.read_pot:000000dc $d
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:1213   .bss.tone_on:00000000 tone_on
-C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:1209   .bss.tone_on:00000000 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:18     .text.assign_pins:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:23     .text.assign_pins:00000000 assign_pins
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:70     .text.assign_pins:00000038 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:77     .text.SPI0_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:82     .text.SPI0_init:00000000 SPI0_init
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:106    .text.SPI0_init:00000014 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:112    .text.PWM_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:117    .text.PWM_init:00000000 PWM_init
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:294    .text.PWM_init:000000e0 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:309    .text.sysclock_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:314    .text.sysclock_init:00000000 sysclock_init
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:392    .text.sysclock_init:00000060 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:402    .text.initialize_hardware:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:407    .text.initialize_hardware:00000000 initialize_hardware
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:516    .text.initialize_hardware:00000078 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:529    .text.delay_ms:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:534    .text.delay_ms:00000000 delay_ms
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:566    .text.delay_ms:00000020 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:574    .text.tone:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:579    .text.tone:00000000 tone
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:673    .text.tone:00000068 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:686    .text.play_tune:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:691    .text.play_tune:00000000 play_tune
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:856    .text.play_tune:00000084 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:864    .text.MRT_IRQHandler:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:869    .text.MRT_IRQHandler:00000000 MRT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:910    .text.MRT_IRQHandler:00000028 $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:918    .text.read_pot:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:923    .text.read_pot:00000000 read_pot
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:1108   .text.read_pot:000000ac $d
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:1119   .bss.tone_on:00000000 tone_on
+C:\Users\Jacques\AppData\Local\Temp\cc9ExsQS.s:1115   .bss.tone_on:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

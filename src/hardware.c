@@ -125,11 +125,6 @@ void delay_ms(uint32_t n){
 	while (!(LPC_MRT->Channel[0].STAT&1u));
 }//f()
 
-inline void delay_us(uint32_t n){
-	LPC_MRT->Channel[0].STAT|=1;
-	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
-	while (!(LPC_MRT->Channel[0].STAT&1u));
-}//f()
 
 
 volatile unsigned tone_on=0;

@@ -125,10 +125,11 @@
 #define SCT_IRQ_EVENT_1 (1)
 
 
+#define delay_us(n) {int i; for(i=(n*USEC)>>3;i;i--)asm("nop\n nop\n nop\n nop");}
+
 void initialize_hardware();
 
 void delay_ms(uint32_t n);
-void delay_us(uint32_t n);
 void tone(uint32_t freq, uint32_t msec);
 void play_tune(const int *tune, int pause);
 int read_pot(int pot);
