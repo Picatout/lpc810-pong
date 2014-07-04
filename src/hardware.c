@@ -110,7 +110,7 @@ void sysclock_init(){
 
 void initialize_hardware(){
 	 sysclock_init();
-	 LPC_MRT->Channel[0].CTRL=2;  //multi-rate timer canal 0 en mode 'one-shot bus stall'
+	 LPC_MRT->Channel[0].CTRL=(1u<<1);  //multi-rate timer canal 0 en mode 'one-shot interrupt'
 	 assign_pins(); // assignation des périphériques aux broches
 	 //LPC_SYSCON->IRQLATENCY=40;
 	 NVIC_SetPriority(SCT_IRQn,0); // plus haute priorité d'interruption
@@ -125,7 +125,7 @@ void delay_ms(uint32_t n){
 	while (!(LPC_MRT->Channel[0].STAT&1u));
 }//f()
 
-void delay_us(uint32_t n){
+inline void delay_us(uint32_t n){
 	LPC_MRT->Channel[0].STAT|=1;
 	LPC_MRT->Channel[0].INTVAL=(n*USEC)&0x7fffffff;
 	while (!(LPC_MRT->Channel[0].STAT&1u));
@@ -137,7 +137,7 @@ volatile unsigned tone_on=0;
 #define AUDIO_CLOCK (SYS_CLOCK/30)
 
 void tone(uint32_t freq, uint32_t msec){
-	while (tone_on);
+	while (tone_on); // attend la fin de la note précédente
 	LPC_MRT->Channel[1].STAT|=1;
 	NVIC_EnableIRQ(MRT_IRQn);
 	LPC_MRT->Channel[1].CTRL=3u; //single shot interrupt mode

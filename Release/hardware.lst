@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
   31:../src/hardware.c **** inline void assign_pins(){ // selectionne les périphériques sur les broches
   26              		.loc 1 31 0
   27              		.cfi_startproc
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 2
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 2
 
 
   32:../src/hardware.c **** 	// on désactive tous les périphériques et fonctions inutilisés pour avoir accès aux GPIO
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
   67              	.L3:
   68              		.align	2
   69              	.L2:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 3
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 3
 
 
   70 0038 00C00040 		.word	1073790976
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  119              		.loc 1 49 0
  120              		.cfi_startproc
   50:../src/hardware.c **** 	LPC_SCT->CONFIG=3u<<17; //2 compteurs 16 bits, clocké par BUS_CLOCK et autolimit
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 4
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 4
 
 
  121              		.loc 1 50 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  164 0032 B222     		mov	r2, #178
  165 0034 6400     		lsl	r4, r4, #1
  166 0036 1A53     		strh	r2, [r3, r4]
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 5
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 5
 
 
   59:../src/hardware.c **** 	LPC_SCT->MATCHREL[2].L=VIDEO_DELAY;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  208 0074 AD00     		lsl	r5, r5, #2
  209 0076 5A51     		str	r2, [r3, r5]
   71:../src/hardware.c **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 6
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 6
 
 
   72:../src/hardware.c **** 	// inialistaion SCT pour sortie audio, compteur H
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  253 00ba 9950     		str	r1, [r3, r2]
   83:../src/hardware.c **** 	LPC_SCT->OUT[1].SET=(1u<<4);  // événement 4 met CTOUT_1 à 1
  254              		.loc 1 83 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 7
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 7
 
 
  255 00bc A122     		mov	r2, #161
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
   37:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
   38:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if defined ( __ICCARM__ )
   39:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  #pragma system_include  /* treat file as system include file for MISRA check */
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 8
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 8
 
 
   40:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
   94:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #elif defined ( __TASKING__ )
   95:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __ASM            __asm                                      /*!< asm keyword for TASKING 
   96:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __INLINE         inline                                     /*!< inline keyword for TASKI
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 9
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 9
 
 
   97:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #define __STATIC_INLINE  static inline
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  151:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     #warning "__VTOR_PRESENT not defined in device header file; using default!"
  152:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #endif
  153:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 10
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 10
 
 
  154:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   #ifndef __NVIC_PRIO_BITS
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  208:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   struct
  209:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   {
  210:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #if (__CORTEX_M != 0x04)
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 11
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 11
 
 
  211:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     uint32_t _reserved0:27;              /*!< bit:  0..26  Reserved                           */
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  265:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  266:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Union type to access the Control Registers (CONTROL).
  267:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****  */
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 12
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 12
 
 
  268:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** typedef union
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  322:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #else
  323:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****        uint32_t RESERVED0;
  324:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 13
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 13
 
 
  325:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __IO uint32_t AIRCR;                   /*!< Offset: 0x00C (R/W)  Application Interrupt and Reset 
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  379:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_VTOR_TBLOFF_Pos                 8                                             /*!< SCB 
  380:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define SCB_VTOR_TBLOFF_Msk                (0xFFFFFFUL << SCB_VTOR_TBLOFF_Pos)            /*!< SCB 
  381:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #endif
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 14
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 14
 
 
  382:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  436:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****   __I  uint32_t CALIB;                   /*!< Offset: 0x00C (R/ )  SysTick Calibration Register    
  437:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** } SysTick_Type;
  438:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 15
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 15
 
 
  439:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /* SysTick Control / Status Register Definitions */
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  493:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  494:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_DREGION_Pos                8                                             /*!< MPU 
  495:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_TYPE_DREGION_Msk               (0xFFUL << MPU_TYPE_DREGION_Pos)               /*!< MPU 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 16
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 16
 
 
  496:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  550:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_SIZE_Msk                  (0x1FUL << MPU_RASR_SIZE_Pos)                  /*!< MPU 
  551:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  552:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ENABLE_Pos                 0                                             /*!< MPU 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 17
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 17
 
 
  553:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** #define MPU_RASR_ENABLE_Msk                (1UL << MPU_RASR_ENABLE_Pos)                   /*!< MPU 
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  607:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \ingroup  CMSIS_Core_FunctionInterface
  608:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \defgroup CMSIS_Core_NVICFunctions NVIC Functions
  609:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     \brief      Functions that manage interrupts and exceptions via the NVIC.
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 18
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 18
 
 
  610:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     @{
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  299 00f4 1FE0FFFF 		.word	-8161
  300 00f8 70100000 		.word	4208
  301 00fc 71100000 		.word	4209
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 19
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 19
 
 
  302 0100 0C050000 		.word	1292
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  345              		.loc 1 99 0 discriminator 1
  346 0020 E368     		ldr	r3, [r4, #12]
  347 0022 0F4A     		ldr	r2, .L14
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 20
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 20
 
 
  348 0024 0121     		mov	r1, #1
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  389              	.L15:
  390 005e C046     		.align	2
  391              	.L14:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 21
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 21
 
 
  392 0060 00800440 		.word	1074036736
@@ -1229,7 +1229,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  415              		.loc 1 112 0
  416 0002 FFF7FEFF 		bl	sysclock_init
  417              	.LVL1:
- 113:../src/hardware.c **** 	 LPC_MRT->Channel[0].CTRL=2;  //multi-rate timer canal 0 en mode 'one-shot bus stall'
+ 113:../src/hardware.c **** 	 LPC_MRT->Channel[0].CTRL=(1u<<1);  //multi-rate timer canal 0 en mode 'one-shot interrupt'
  418              		.loc 1 113 0
  419 0006 1C4B     		ldr	r3, .L17
  420 0008 0222     		mov	r2, #2
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  440 0026 8858     		ldr	r0, [r1, r2]
  441              	.LBE35:
  442              	.LBE34:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 22
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 22
 
 
  114:../src/hardware.c **** 	 assign_pins(); // assignation des périphériques aux broches
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  644:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** /** \brief  Get Pending Interrupt
  645:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h **** 
  646:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     The function reads the pending register in the NVIC and returns the pending bit
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 23
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 23
 
 
  647:C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\inc\core_cm0plus.h ****     for the specified interrupt.
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  471 0042 114A     		ldr	r2, .L17+16
  472 0044 C223     		mov	r3, #194
  473 0046 9B00     		lsl	r3, r3, #2
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 24
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 24
 
 
  474 0048 D058     		ldr	r0, [r2, r3]
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  524 0098 00004107 		.word	121700352
  525              		.cfi_endproc
  526              	.LFE37:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 25
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 25
 
 
  528              		.section	.text.delay_ms,"ax",%progbits
@@ -1498,10 +1498,10 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  578              	delay_us:
  579              	.LFB39:
  127:../src/hardware.c **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 26
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 26
 
 
- 128:../src/hardware.c **** void delay_us(uint32_t n){
+ 128:../src/hardware.c **** inline void delay_us(uint32_t n){
  580              		.loc 1 128 0
  581              		.cfi_startproc
  582              	.LVL7:
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  624              		.loc 1 139 0
  625              		.cfi_startproc
  626              	.LVL9:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 27
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 27
 
 
  627 0000 70B5     		push	{r4, r5, r6, lr}
@@ -1571,7 +1571,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  634              		.loc 1 139 0
  635 0004 021C     		mov	r2, r0
  636              	.L31:
- 140:../src/hardware.c **** 	while (tone_on);
+ 140:../src/hardware.c **** 	while (tone_on); // attend la fin de la note précédente
  637              		.loc 1 140 0 discriminator 1
  638 0006 2368     		ldr	r3, [r4]
  639 0008 002B     		cmp	r3, #0
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  150:../src/hardware.c **** 	tone_on=1;
  151:../src/hardware.c **** }//f()
  669              		.loc 1 151 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 28
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 28
 
 
  670              		@ sp needed
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  717 006c 00400040 		.word	1073758208
  718 0070 00E100E0 		.word	-536813312
  719 0074 30750000 		.word	30000
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 29
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 29
 
 
  720 0078 F0FFFF7F 		.word	2147483632
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  768 0014 0029     		cmp	r1, #0
  769 0016 1CD0     		beq	.L34
  770              	.LBB48:
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 30
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 30
 
 
  771              	.LBB49:
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  814              	.LBB60:
  815              	.LBB56:
  123:../src/hardware.c **** 	LPC_MRT->Channel[0].STAT|=1;
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 31
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 31
 
 
  816              		.loc 1 123 0
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  160:../src/hardware.c **** 			while (tone_on);
  861              		.loc 1 160 0 discriminator 1
  862 005e 3B68     		ldr	r3, [r7]
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 32
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 32
 
 
  863 0060 002B     		cmp	r3, #0
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  913              	.LFB42:
  169:../src/hardware.c **** 
  170:../src/hardware.c **** 
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 33
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 33
 
 
  171:../src/hardware.c **** 
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  957              		.cfi_endproc
  958              	.LFE42:
  960              		.section	.text.read_pot,"ax",%progbits
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 34
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 34
 
 
  961              		.align	2
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  195:../src/hardware.c **** 	if (pot==LEFT_POT){
  196:../src/hardware.c **** 		LPC_CMP->CTRL|=(2u<<8); // entrée positive du comparateur sur ACMP0_I2
  1000              		.loc 1 196 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 35
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 35
 
 
  1001 0018 1968     		ldr	r1, [r3]
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  1043              		.loc 1 201 0 discriminator 1
  1044 003c 8246     		mov	r10, r0
  202:../src/hardware.c **** 		LPC_CMP->LAD|=1|(test<<1u);
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 36
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 36
 
 
  1045              		.loc 1 202 0 discriminator 1
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  1089              		.loc 1 207 0
  1090 0068 8024     		mov	r4, #128
  1091 006a A403     		lsl	r4, r4, #14
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 37
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 37
 
 
  1092              	.LBB78:
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  207:../src/hardware.c **** 			current=LPC_CMP->CTRL&(1u<<21u);
  1135              		.loc 1 207 0
  1136 0092 231C     		mov	r3, r4
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 38
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 38
 
 
  1137 0094 EDE7     		b	.L67
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  1176              	.LVL52:
  1177              	.L68:
  221:../src/hardware.c **** 			test=test-((test-min)>>1);
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 39
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 39
 
 
  1178              		.loc 1 221 0
@@ -2320,46 +2320,46 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 1
  1216              	.Letext0:
  1217              		.file 3 "C:\\Users\\Jacques\\Documents\\LPCXpresso_7.0.2_102\\workspace\\CMSIS_CORE_LPC8xx\\inc/LP
  1218              		.file 4 "c:\\nxp\\lpcxpresso_7.0.2_102\\lpcxpresso\\tools\\redlib\\include\\stdint.h"
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s 			page 40
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s 			page 40
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 hardware.c
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:18     .text.assign_pins:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:23     .text.assign_pins:00000000 assign_pins
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:70     .text.assign_pins:00000038 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:77     .text.SPI0_init:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:82     .text.SPI0_init:00000000 SPI0_init
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:106    .text.SPI0_init:00000014 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:112    .text.PWM_init:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:117    .text.PWM_init:00000000 PWM_init
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:294    .text.PWM_init:000000e0 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:309    .text.sysclock_init:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:314    .text.sysclock_init:00000000 sysclock_init
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:392    .text.sysclock_init:00000060 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:402    .text.initialize_hardware:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:407    .text.initialize_hardware:00000000 initialize_hardware
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:516    .text.initialize_hardware:00000078 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:529    .text.delay_ms:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:534    .text.delay_ms:00000000 delay_ms
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:566    .text.delay_ms:00000020 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:573    .text.delay_us:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:578    .text.delay_us:00000000 delay_us
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:610    .text.delay_us:00000020 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:617    .text.tone:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:622    .text.tone:00000000 tone
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:716    .text.tone:00000068 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:729    .text.play_tune:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:734    .text.play_tune:00000000 play_tune
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:899    .text.play_tune:00000084 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:907    .text.MRT_IRQHandler:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:912    .text.MRT_IRQHandler:00000000 MRT_IRQHandler
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:953    .text.MRT_IRQHandler:00000028 $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:961    .text.read_pot:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:966    .text.read_pot:00000000 read_pot
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:1201   .text.read_pot:000000dc $d
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:1213   .bss.tone_on:00000000 tone_on
-C:\Users\Jacques\AppData\Local\Temp\ccooYM6L.s:1209   .bss.tone_on:00000000 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:18     .text.assign_pins:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:23     .text.assign_pins:00000000 assign_pins
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:70     .text.assign_pins:00000038 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:77     .text.SPI0_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:82     .text.SPI0_init:00000000 SPI0_init
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:106    .text.SPI0_init:00000014 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:112    .text.PWM_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:117    .text.PWM_init:00000000 PWM_init
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:294    .text.PWM_init:000000e0 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:309    .text.sysclock_init:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:314    .text.sysclock_init:00000000 sysclock_init
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:392    .text.sysclock_init:00000060 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:402    .text.initialize_hardware:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:407    .text.initialize_hardware:00000000 initialize_hardware
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:516    .text.initialize_hardware:00000078 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:529    .text.delay_ms:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:534    .text.delay_ms:00000000 delay_ms
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:566    .text.delay_ms:00000020 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:573    .text.delay_us:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:578    .text.delay_us:00000000 delay_us
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:610    .text.delay_us:00000020 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:617    .text.tone:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:622    .text.tone:00000000 tone
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:716    .text.tone:00000068 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:729    .text.play_tune:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:734    .text.play_tune:00000000 play_tune
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:899    .text.play_tune:00000084 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:907    .text.MRT_IRQHandler:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:912    .text.MRT_IRQHandler:00000000 MRT_IRQHandler
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:953    .text.MRT_IRQHandler:00000028 $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:961    .text.read_pot:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:966    .text.read_pot:00000000 read_pot
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:1201   .text.read_pot:000000dc $d
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:1213   .bss.tone_on:00000000 tone_on
+C:\Users\Jacques\AppData\Local\Temp\ccI9ggpw.s:1209   .bss.tone_on:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS

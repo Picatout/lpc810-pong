@@ -700,15 +700,15 @@ OUTPUT(lpc810-pong.axf elf32-littlearm)
 .debug_str      0x00000000      0xd9e
  .debug_str     0x00000000      0x23d ./src/cr_startup_lpc8xx.o
                                 0x250 (size before relaxing)
- .debug_str     0x0000023d       0xb3 ./src/display.o
-                                0x1dc (size before relaxing)
- .debug_str     0x000002f0      0x134 ./src/game.o
-                                0x2fe (size before relaxing)
- .debug_str     0x00000424      0x7ad ./src/hardware.o
-                                0x965 (size before relaxing)
- .debug_str     0x00000bd1        0xe ./src/pong.o
+ .debug_str     0x0000023d      0x101 ./src/display.o
+                                0x1e3 (size before relaxing)
+ .debug_str     0x0000033e      0x134 ./src/game.o
+                                0x305 (size before relaxing)
+ .debug_str     0x00000472      0x7ad ./src/hardware.o
+                                0x96c (size before relaxing)
+ .debug_str     0x00000c1f        0xe ./src/pong.o
                                 0x1bb (size before relaxing)
- .debug_str     0x00000bdf       0x7a ./src/tvout.o
+ .debug_str     0x00000c2d       0x2c ./src/tvout.o
                                 0x3ee (size before relaxing)
  .debug_str     0x00000c59      0x145 C:\Users\Jacques\Documents\LPCXpresso_7.0.2_102\workspace\CMSIS_CORE_LPC8xx\Release\libCMSIS_CORE_LPC8xx.a(system_LPC8xx.o)
                                 0x3ee (size before relaxing)

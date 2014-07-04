@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
   29:../src/display.c **** 
   30:../src/display.c **** // police 3x5 pixels, chiffres 0-9
   31:../src/display.c **** const char  digits[10][5]={
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 2
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 2
 
 
   32:../src/display.c **** 		{14,10,10,10,14},//0
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
   62 001e FFB2     		uxtb	r7, r7
   63 0020 114C     		ldr	r4, .L7+4
   64 0022 4044     		add	r0, r0, r8
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 3
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 3
 
 
   65              		.loc 1 50 0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
  105 0050 2843     		orr	r0, r5
  106 0052 A054     		strb	r0, [r4, r2]
  107 0054 0832     		add	r2, r2, #8
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 4
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 4
 
 
   60:../src/display.c **** 	for (j=0;j<5;j++){
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
  147              		.cfi_offset 14, -4
   77:../src/display.c **** 	bit= 1<<(7-(x%8));
  148              		.loc 1 77 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 5
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 5
 
 
  149 0008 0724     		mov	r4, #7
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
  188              	.L12:
   86:../src/display.c **** 		video_buffer[y*ROW_SIZE+byte]^=bit;
  189              		.loc 1 86 0
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 6
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 6
 
 
  190 0032 084A     		ldr	r2, .L15
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
  238              	.LVL33:
   95:../src/display.c **** 	int i;
   96:../src/display.c **** 	for (i=BUFFER_SIZE;i;i--) video_buffer[i]=0;
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 7
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 7
 
 
  239              		.loc 1 96 0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
  295 001a 08       		.byte	8
  296 001b 0E       		.byte	14
  297 001c 02       		.byte	2
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 8
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 8
 
 
  298 001d 0E       		.byte	14
@@ -445,22 +445,22 @@ ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 1
  319 0032 0000     		.text
  320              	.Letext0:
  321              		.file 2 "../src/tvout.h"
-ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s 			page 9
+ARM GAS  C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 display.c
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:20     .text.write_score:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:25     .text.write_score:00000000 write_score
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:121    .text.write_score:00000064 $d
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:127    .text.plot:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:132    .text.plot:00000000 plot
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:224    .text.plot:00000054 $d
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:229    .text.clear_screen:00000000 $t
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:234    .text.clear_screen:00000000 clear_screen
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:258    .text.clear_screen:00000014 $d
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:268    .rodata.digits:00000000 digits
-C:\Users\Jacques\AppData\Local\Temp\cc0jBguR.s:264    .rodata.digits:00000000 $d
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:20     .text.write_score:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:25     .text.write_score:00000000 write_score
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:121    .text.write_score:00000064 $d
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:127    .text.plot:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:132    .text.plot:00000000 plot
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:224    .text.plot:00000054 $d
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:229    .text.clear_screen:00000000 $t
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:234    .text.clear_screen:00000000 clear_screen
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:258    .text.clear_screen:00000014 $d
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:268    .rodata.digits:00000000 digits
+C:\Users\Jacques\AppData\Local\Temp\cc3CUpoL.s:264    .rodata.digits:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
